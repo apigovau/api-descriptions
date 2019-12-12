@@ -89,6 +89,13 @@ If you require further information or assistance regarding IP Australia’s APIs
 - Phone: 1300 65 10 10
 - International Phone: +61 2 6283 2999
 
+### Contact Us
+
+If you require further information or assistance regarding IP Australia’s APIs, please contact us via:
+- Email: MDB-TDS@ipaustralia.gov.au
+- Website: [https://www.ipaustralia.gov.au/api-transaction-channel](https://www.ipaustralia.gov.au/api-transaction-channel)
+- Phone: 1300 65 10 10
+- International Phone: +61 2 6283 2999
 
 # Authentication
 
