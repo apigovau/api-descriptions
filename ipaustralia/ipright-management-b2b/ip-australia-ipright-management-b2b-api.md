@@ -40,7 +40,13 @@ The base URL for the Production instance Australian Design Search API is:
 
  For full details about the requests IPRight Management B2B API supports, including example request and response payloads, please view the IPRight Management B2B API on the [IP Australia Developer Portal.](https://anypoint.mulesoft.com/exchange/portals/ip-australia-3/)
 
+### Contact Us
 
+If you require further information or assistance regarding IP Australia’s APIs, please contact us via:
+- Email: MDB-TDS@ipaustralia.gov.au
+- Website: [https://www.ipaustralia.gov.au/api-transaction-channel](https://www.ipaustralia.gov.au/api-transaction-channel)
+- Phone: 1300 65 10 10
+- International Phone: +61 2 6283 2999
 
 # Authentication
 
