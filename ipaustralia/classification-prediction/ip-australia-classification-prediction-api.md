@@ -1,7 +1,7 @@
 ---
 name : "Classification Prediction API"
-description : "The Classification Prediction API exposes IP Australia's machine learning classification tools."
-logo : "https://api.gov.au/img/ip_australia_crest_logo.svg"
+description : "The Classification Prediction API is a collection of services supporting the patent examination process."
+logo : "https://api.gov.au/img/ip_australia_patent_logo.svg"
 tags:
  - "Security:oAuth2"
  - "Technology:Rest/JSON"
@@ -13,7 +13,7 @@ tags:
 
 # Getting Started
 
-The Goods and Services (GnS) Prediction Service leverages Machine Learning techniques to assist users in searching the NICE Classification. The service enables a user to search for goods and services that are textually or semantically similar to a search term.
+The Classification Prediction API is a collection of services supporting the patent examination process. Cooperative Patent Classification (CPC) prediction service aims to predict the top CPC symbol (subgroup level). This service utilises state-of-the-art Machine Learning technologies and Natural Language Processing to predict latest CPC symbols corresponding to a full-text patent specification.
 
 For more details, and to request access to the API please visit the [IP Australia Developer Portal.](https://anypoint.mulesoft.com/exchange/portals/ip-australia-3/)
 
