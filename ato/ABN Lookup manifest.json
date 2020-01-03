@@ -1,0 +1,56 @@
+{
+   "assets":[
+      {
+         "misc":[
+
+         ],
+         "type":"api_description",
+         "engine":{
+            "steps":[
+               {
+                  "name":"SingleMarkdownToServiceDesign",
+                  "input":[
+                     "md1"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"api_description"
+               }
+            ],
+            "resources":[
+               {
+                  "id":"md1",
+                  "uri":"F9B106FDB0D0DEC6499F3D513B89CA3B",
+                  "mechanism":"file"
+               }
+            ]
+         }
+      }
+   ],
+   "metadata":{
+      "id":"5b639f0f63f18432cd0e1a66",
+      "logo":"https://annualreport.ato.gov.au/sites/g/files/net1861/f/styles/fullsize/public/homeApp-8bit.png",
+      "misc":[
+
+      ],
+      "name":"ABN Lookup",
+      "tags":[
+         "ABN",
+		 "Business",
+		 "OpenAPISpec:WSDL"
+      ],
+      "topics":[
+
+      ],
+      "features":{
+         "space":"abr",
+         "status":"published",
+         "security":"Open",
+         "agencyAcr":"ATO",
+         "technology":"Rest/JSON XML/SOAP"
+      },
+      "description":"The ABN Lookup web services allow you to incorporate ABN information and search capabilities into your own applicaitons."
+   },
+   "assetIdx$ingestor":0
+}

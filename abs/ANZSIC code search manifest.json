@@ -1,0 +1,55 @@
+{
+   "assets":[
+      {
+         "misc":[
+
+         ],
+         "type":"api_description",
+         "engine":{
+            "steps":[
+               {
+                  "name":"SingleMarkdownToServiceDesign",
+                  "input":[
+                     "md1"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"api_description"
+               }
+            ],
+            "resources":[
+               {
+                  "id":"md1",
+                  "uri":"F9B106FDB0D0DEC6499F3D513B89CA3B",
+                  "mechanism":"file"
+               }
+            ]
+         }
+      }
+   ],
+   "metadata":{
+      "id":"5b3eb47b7d0e99000457ffa6",
+      "logo":"https://upload.wikimedia.org/wikipedia/en/thumb/5/5e/Australian_Bureau_of_Statistics_logo.svg/300px-Australian_Bureau_of_Statistics_logo.svg.png",
+      "misc":[
+
+      ],
+      "name":"ANZSIC code search",
+      "tags":[
+         "ANZIC",
+		 "Business"
+      ],
+      "topics":[
+
+      ],
+      "features":{
+         "space":"abs.gov.au",
+         "status":"published",
+         "security":"Open",
+         "agencyAcr":"ABS",
+         "technology":"Rest"
+      },
+      "description":"Search for ANZSIC codes by business activities like 'banking', 'fishing', 'housepainting', etc."
+   },
+   "assetIdx$ingestor":0
+}

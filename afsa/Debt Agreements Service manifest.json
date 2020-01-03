@@ -1,0 +1,54 @@
+{
+   "assets":[
+      {
+         "misc":[
+
+         ],
+         "type":"api_description",
+         "engine":{
+            "steps":[
+               {
+                  "name":"SingleMarkdownToServiceDesign",
+                  "input":[
+                     "md1"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"api_description"
+               }
+            ],
+            "resources":[
+               {
+                  "id":"md1",
+                  "uri":"F9B106FDB0D0DEC6499F3D513B89CA3B",
+                  "mechanism":"file"
+               }
+            ]
+         }
+      }
+   ],
+   "metadata":{
+      "id":"5b3eb4917d0e99000457ffa8",
+      "logo":"https://api-gov-au-crest-branding.apps.y.cld.gov.au/stacked.png?agency=Australian%20Financial%0ASecurity%20Authority&height=250&square=true",
+      "misc":[
+
+      ],
+      "name":"Debt Agreements Service",
+      "tags":[
+		"Debt"
+      ],
+      "topics":[
+
+      ],
+      "features":{
+         "space":"afsa",
+         "status":"published",
+         "security":"Open ($)",
+         "agencyAcr":"AFSA",
+         "technology":"SOAP/XML"
+      },
+      "description":"A service that allows practitioners to propose a debt agreement, and any subsequent variations and/or terminations to the agreement. Creditors can submit claim and votes on these proposals"
+   },
+   "assetIdx$ingestor":0
+}
