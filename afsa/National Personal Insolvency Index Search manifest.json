@@ -1,0 +1,54 @@
+{
+   "assets":[
+      {
+         "misc":[
+
+         ],
+         "type":"api_description",
+         "engine":{
+            "steps":[
+               {
+                  "name":"SingleMarkdownToServiceDesign",
+                  "input":[
+                     "md1"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"api_description"
+               }
+            ],
+            "resources":[
+               {
+                  "id":"md1",
+                  "uri":"F9B106FDB0D0DEC6499F3D513B89CA3B",
+                  "mechanism":"file"
+               }
+            ]
+         }
+      }
+   ],
+   "metadata":{
+      "id":"5b3eb49c7d0e99000457ffa9",
+      "logo":"https://api-gov-au-crest-branding.apps.y.cld.gov.au/stacked.png?agency=Australian%20Financial%0ASecurity%20Authority&height=250&square=true",
+      "misc":[
+
+      ],
+      "name":"National Personal Insolvency Index Search",
+      "tags":[
+		"NPII"
+      ],
+      "topics":[
+
+      ],
+      "features":{
+         "space":"afsa",
+         "status":"published",
+         "security":"Open ($)",
+         "agencyAcr":"AFSA",
+         "technology":"SOAP/XML"
+      },
+      "description":"Search the National Personal Insolvency Index to see if a debtor is currently, or has been, subject to the Bankruptcy ACT 1966"
+   },
+   "assetIdx$ingestor":0
+}

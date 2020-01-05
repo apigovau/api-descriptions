@@ -1,0 +1,56 @@
+{
+   "assets":[
+      {
+         "misc":[
+
+         ],
+         "type":"api_description",
+         "engine":{
+            "steps":[
+               {
+                  "name":"SingleMarkdownToServiceDesign",
+                  "input":[
+                     "md1"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"api_description"
+               }
+            ],
+            "resources":[
+               {
+                  "id":"md1",
+                  "uri":"F9B106FDB0D0DEC6499F3D513B89CA3B",
+                  "mechanism":"file"
+               }
+            ]
+         }
+      }
+   ],
+   "metadata":{
+      "id":"5b3eb4a47d0e99000457ffaa",
+      "logo":"https://annualreport.ato.gov.au/sites/g/files/net1861/f/styles/fullsize/public/homeApp-8bit.png",
+      "misc":[
+
+      ],
+      "name":"Superannuation Dashboard",
+      "tags":[
+         "Super",
+		 "Dashboard",
+		 "OpenAPISpec:Swagger"
+      ],
+      "topics":[
+
+      ],
+      "features":{
+         "space":"super",
+         "status":"published",
+         "security":"Open",
+         "agencyAcr":"ATO",
+         "technology":"Rest/JSON"
+      },
+      "description":"The Superannuation Dashboard API will let you find out information about the status of the Superannuation supporting services."
+   },
+   "assetIdx$ingestor":0
+}

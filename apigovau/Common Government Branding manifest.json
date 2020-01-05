@@ -1,0 +1,54 @@
+{
+   "assets":[
+      {
+         "misc":[
+
+         ],
+         "type":"api_description",
+         "engine":{
+            "steps":[
+               {
+                  "name":"SingleMarkdownToServiceDesign",
+                  "input":[
+                     "md1"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"api_description"
+               }
+            ],
+            "resources":[
+               {
+                  "id":"md1",
+                  "uri":"F9B106FDB0D0DEC6499F3D513B89CA3B",
+                  "mechanism":"file"
+               }
+            ]
+         }
+      }
+   ],
+   "metadata":{
+      "id":"5bd921345149e90004f326a7",
+      "logo":"https://api.gov.au/img/catalogue_brand.png",
+      "misc":[
+
+      ],
+      "name":"Common Government Branding",
+      "tags":[
+
+      ],
+      "topics":[
+
+      ],
+      "features":{
+         "space":"apigovau",
+         "status":"published",
+         "security":"Open",
+         "agencyAcr":"ATO",
+         "technology":"Rest"
+      },
+      "description":"Generates consistent branding logos for Government websites and print publications"
+   },
+   "assetIdx$ingestor":0
+}
