@@ -1,0 +1,64 @@
+{
+   "assets":[
+      {
+         "misc":[
+
+         ],
+         "type":"api_description",
+         "engine":{
+            "steps":[
+               {
+                  "name":"StripFrontMatter",
+                  "input":[
+                     "md1"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"md2"
+               },
+               {
+                  "name":"SingleMarkdownToServiceDesign",
+                  "input":[
+                     "md2"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"api_description"
+               }
+            ],
+            "resources":[
+               {
+                  "id":"md1",
+                  "uri":"https://raw.githubusercontent.com/apigovau/api-descriptions/master/ipaustralia/ipright-management-b2b/ip-australia-ipright-management-b2b-api.md",
+                  "mechanism":"poll"
+               }
+            ]
+         }
+      }
+   ],
+   "metadata":{
+      "id":"",
+	  # Please ensure the correct id is filled in for relevent envrioment and remove this line.
+      "logo":"https://api-gov-au-crest-branding.apps.y.cld.gov.au/stacked.png?agency=IP%20Australia&height=250&square=true",
+      "misc":[
+
+      ],
+      "name":"IPRight Management B2B API",
+      "tags":[
+         "IPRightManagement"
+      ],
+      "topics":[
+
+      ],
+      "features":{
+         "space":"ipaus",
+         "status":"published",
+         "security":"oAuth2",
+         "technology":"Rest/JSON"
+      },
+      "description":"The IP Right Management B2B API enables you to lodge IP Right applications and manage your IP Rights with IP Australia."
+   },
+   "assetIdx$ingestor":0
+}

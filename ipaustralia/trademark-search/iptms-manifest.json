@@ -1,0 +1,64 @@
+{
+   "assets":[
+      {
+         "misc":[
+
+         ],
+         "type":"api_description",
+         "engine":{
+            "steps":[
+               {
+                  "name":"StripFrontMatter",
+                  "input":[
+                     "md1"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"md2"
+               },
+               {
+                  "name":"SingleMarkdownToServiceDesign",
+                  "input":[
+                     "md2"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"api_description"
+               }
+            ],
+            "resources":[
+               {
+                  "id":"md1",
+                  "uri":"https://raw.githubusercontent.com/apigovau/ingest/master/iptms.md",
+                  "mechanism":"poll"
+               }
+            ]
+         }
+      }
+   ],
+   "metadata":{
+      "id":"",
+	  # Please ensure the correct id is filled in for relevent envrioment and remove this line.
+      "logo":"https://apigovau.github.io/api-descriptions/ipaustralia/logos/ip_australia_tm_logo.svg",
+      "misc":[
+
+      ],
+      "name":"Australian Trade Mark Search API",
+      "tags":[
+
+      ],
+      "topics":[
+
+      ],
+      "features":{
+         "space":"apigovau",
+         "status":"published",
+         "security":"oAuth2",
+         "technology":"Rest/JSON"
+      },
+      "description":"The Australian Trade Mark Search API allows you to search for Australian Trade Marks."
+   },
+   "assetIdx$ingestor":0
+}
