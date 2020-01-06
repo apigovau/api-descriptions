@@ -1,0 +1,64 @@
+{
+   "assets":[
+      {
+         "misc":[
+
+         ],
+         "type":"api_description",
+         "engine":{
+            "steps":[
+               {
+                  "name":"StripFrontMatter",
+                  "input":[
+                     "md1"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"md2"
+               },
+               {
+                  "name":"SingleMarkdownToServiceDesign",
+                  "input":[
+                     "md2"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"api_description"
+               }
+            ],
+            "resources":[
+               {
+                  "id":"md1",
+                  "uri":"https://raw.githubusercontent.com/apigovau/api-descriptions/master/ipaustralia/classification-prediction/ip-australia-classification-prediction-api.md",
+                  "mechanism":"poll"
+               }
+            ]
+         }
+      }
+   ],
+   "metadata":{
+      "id":"",
+	  # Please ensure the correct id is filled in for relevent envrioment and remove this line.
+      "logo":"https://apigovau.github.io/api-descriptions/ipaustralia/logos/ip_australia_patent_logo.svg",
+      "misc":[
+
+      ],
+      "name":"Classification Prediction API",
+      "tags":[
+         "IPRightManagement"
+      ],
+      "topics":[
+         "Patent"
+      ],
+      "features":{
+         "space":"ipaus",
+         "status":"published",
+         "security":"oAuth2",
+         "technology":"Rest/JSON"
+      },
+      "description":"The Classification Prediction API is a collection of services supporting the patent examination process."
+   },
+   "assetIdx$ingestor":0
+}

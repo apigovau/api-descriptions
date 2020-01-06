@@ -1,0 +1,64 @@
+{
+   "assets":[
+      {
+         "misc":[
+
+         ],
+         "type":"api_description",
+         "engine":{
+            "steps":[
+               {
+                  "name":"StripFrontMatter",
+                  "input":[
+                     "md1"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"md2"
+               },
+               {
+                  "name":"SingleMarkdownToServiceDesign",
+                  "input":[
+                     "md2"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"api_description"
+               }
+            ],
+            "resources":[
+               {
+                  "id":"md1",
+                  "uri":"https://raw.githubusercontent.com/apigovau/api-descriptions/master/ipaustralia/tmgns/ip-australia-tmgns-api.md",
+                  "mechanism":"poll"
+               }
+            ]
+         }
+      }
+   ],
+   "metadata":{
+      "id":"",
+	  # Please ensure the correct id is filled in for relevent envrioment and remove this line.
+      "logo":"https://apigovau.github.io/api-descriptions/ipaustralia/logos/ip_australia_tm_logo.svg",
+      "misc":[
+
+      ],
+      "name":"Trade Mark Goods and Services API",
+      "tags":[
+         "TradeMarks"
+      ],
+      "topics":[
+
+      ],
+      "features":{
+         "space":"ipaus",
+         "status":"published",
+         "security":"oAuth2",
+         "technology":"Rest/JSON"
+      },
+      "description":"The Trade Mark Goods and Services (TMGnS) API provides services to query TMGnS reference data."
+   },
+   "assetIdx$ingestor":0
+}
