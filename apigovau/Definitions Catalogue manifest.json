@@ -57,7 +57,7 @@
                 },
                 {
                    "id":"md1",
-                   "uri":"https://raw.githubusercontent.com/apigovau/api-gov-au-definitions/master/api-documentation.md",
+                   "uri":"https://raw.githubusercontent.com/apigovau/api-descriptions/master/apigovau/Definitions%20Catalogue.md",
                    "mechanism":"poll"
                 }
              ]

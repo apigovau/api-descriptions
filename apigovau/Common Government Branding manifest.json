@@ -21,8 +21,8 @@
             "resources":[
                {
                   "id":"md1",
-                  "uri":"F9B106FDB0D0DEC6499F3D513B89CA3B",
-                  "mechanism":"file"
+                  "uri":"https://raw.githubusercontent.com/apigovau/api-descriptions/master/apigovau/Common%20Government%20Branding.md",
+                  "mechanism":"poll"
                }
             ]
          }
