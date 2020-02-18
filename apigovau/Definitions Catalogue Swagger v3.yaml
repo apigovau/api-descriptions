@@ -1,0 +1,155 @@
+openapi: 3.0.0
+info:
+  description: This is the Definitions Catalogue - where government defines it's digital
+    data
+  version: 1.0.0
+  title: Definitions Catalogue
+  contact:
+    email: alastair.parker@ato.gov.au
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+paths:
+  "/api/definition/{domain}/{id}":
+    get:
+      tags:
+        - definitions
+      operationId: findDefinition
+      summary: Finds definitions by their id
+      parameters:
+        - name: domain
+          in: path
+          description: The shorthand name of a domain. E.g. 'sbr' for Standard Business
+            Reporting and 'fs' for Financial Statistics
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: The id of an item. E.g. 'de55'
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Definition"
+  /api/browse:
+    get:
+      tags:
+        - definitions
+      operationId: browseDefinitions
+      summary: Browse through all the definitions
+      parameters:
+        - name: page
+          in: query
+          description: Which result page
+          required: false
+          schema:
+            type: integer
+        - name: size
+          in: query
+          description: How many results per page
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Results"
+  /api/search:
+    get:
+      tags:
+        - search
+      operationId: searchDefinitions
+      summary: Search for definitions
+      parameters:
+        - name: query
+          in: query
+          description: The search term
+          required: true
+          schema:
+            type: string
+        - name: domain
+          in: query
+          description: Which domain to search within. Defaults to '', which searches all
+            domains. Domains are specified by their shorthand notation, e.g.
+            'sbr' for Standard Business Reporting
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Which result page
+          required: false
+          schema:
+            type: integer
+        - name: size
+          in: query
+          description: How many results per page
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Results"
+servers:
+  - url: https://api.gov.au/definitions/
+components:
+  schemas:
+    Definition:
+      type: object
+      properties:
+        name:
+          type: string
+        domain:
+          type: string
+        definition:
+          type: string
+        guidance:
+          type: string
+        identifier:
+          type: string
+          format: uri
+        usage:
+          type: array
+          items:
+            type: string
+    Results:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/Definition"
+        numberOfElements:
+          type: integer
+        firstPage:
+          type: boolean
+        lastPage:
+          type: boolean
+        totalPages:
+          type: integer
+        id:
+          $ref: "#/components/schemas/Link"
+        links:
+          type: array
+          items:
+            $ref: "#/components/schemas/Link"
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
