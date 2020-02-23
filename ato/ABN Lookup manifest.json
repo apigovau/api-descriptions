@@ -30,15 +30,15 @@
    ],
    "metadata":{
       "id":"5b639f0f63f18432cd0e1a66",
-      "logo":"https://annualreport.ato.gov.au/sites/g/files/net1861/f/styles/fullsize/public/homeApp-8bit.png",
+      "logo":"https://api-gov-au-crest-branding.apps.y.cld.gov.au/stacked.png?agency=Australian+Taxation+Office&height=200",
       "misc":[
 
       ],
       "name":"ABN Lookup",
       "tags":[
          "ABN",
-		 "Business",
-		 "OpenAPISpec:WSDL"
+         "Business",
+         "OpenAPISpec:WSDL"
       ],
       "topics":[
 
@@ -47,10 +47,9 @@
          "space":"abr",
          "status":"published",
          "security":"Open",
-         "agencyAcr":"ATO",
          "technology":"Rest/JSON XML/SOAP"
       },
-      "description":"The ABN Lookup web services allow you to incorporate ABN information and search capabilities into your own applicaitons."
+      "description":"The ABN Lookup web services allow you to incorporate ABN information and search capabilities into your own applications."
    },
    "assetIdx$ingestor":0
 }
