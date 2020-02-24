@@ -1,91 +1,92 @@
 {
-    "assets":[
-       {
-          "misc":[
- 
-          ],
-          "type":"api_description",
-          "engine":{
-             "steps":[
-                {
-                   "name":"StripFrontMatter",
-                   "input":[
-                      "md1"
-                   ],
-                   "config":{
- 
-                   },
-                   "output":"md2"
-                },
-                {
-                   "name":"SwaggerToMarkdown",
-                   "input":[
-                      "sw1"
-                   ],
-                   "config":{
- 
-                   },
-                   "output":"md3"
-                },
-                {
-                   "name":"MergeMarkdown",
-                   "input":[
-                      "md3",
-                      "md2"
-                   ],
-                   "config":{
-                      "map":"md1"
-                   },
-                   "output":"md4"
-                },
-                {
-                   "name":"SingleMarkdownToServiceDesign",
-                   "input":[
-                      "md4"
-                   ],
-                   "config":{
- 
-                   },
-                   "output":"api_description"
-                }
-             ],
-             "resources":[
-                {
-                   "id":"sw1",
-                   "uri":"https://raw.githubusercontent.com/apigovau/api-gov-au-definitions/master/src/main/resources/public/swagger.json",
-                   "mechanism":"poll"
-                },
-                {
-                   "id":"md1",
-                   "uri":"https://raw.githubusercontent.com/apigovau/api-descriptions/master/apigovau/Definitions%20Catalogue.md",
-                   "mechanism":"poll"
-                }
-             ]
-          }
-       }
-    ],
-    "metadata":{
-       "id":"5b3eb4707d0e99000457ffa5",
-       "logo":"https://api.gov.au/img/catalogue_brand.png",
-       "misc":[
- 
-       ],
-       "name":"Definitions Catalogue",
-       "tags":[
-          "metadata",
-          "definitions"
-       ],
-       "topics":[
-          "wofg",
-          "api.gov.au"
-       ],
-       "features":{
-          "space":"apigovau",
-          "status":"published",
-          "security":"Open",
-          "technology":"REST/JSON"
-       },
-       "description":"The Definitions Catalogue Rest API allows you to search and browse for data definitions used by the Australian Government"
-    },
-    "assetIdx$ingestor":0
- }
+   "assets":[
+      {
+         "misc":[
+
+         ],
+         "type":"api_description",
+         "engine":{
+            "steps":[
+               {
+                  "name":"StripFrontMatter",
+                  "input":[
+                     "md1"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"md2"
+               },
+               {
+                  "name":"SwaggerToMarkdown",
+                  "input":[
+                     "sw1"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"md3"
+               },
+               {
+                  "name":"MergeMarkdown",
+                  "input":[
+                     "md3",
+                     "md2"
+                  ],
+                  "config":{
+                     "map":"{\"actionList\":[{\"from\":\"# Getting Started\",\"action\":\"add\",\"to\":\"# Overview\"},{\"from\":\"# Posting\",\"action\":\"insertAfter\",\"to\":\"# Schema\"},{\"from\":\"# Posting\",\"action\":\"insertAfter\",\"to\":\"# Paths\"}]}"
+                  },
+                  "output":"md4"
+               },
+               {
+                  "name":"SingleMarkdownToServiceDesign",
+                  "input":[
+                     "md4"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"api_description"
+               }
+            ],
+            "resources":[
+               {
+                  "id":"sw1",
+                  "uri":"https://raw.githubusercontent.com/apigovau/api-descriptions/master/apigovau/Definitions%20Catalogue%20Swagger%20v3.yaml",
+                  "mechanism":"poll"
+               },
+               {
+                  "id":"md1",
+                  "uri":"https://raw.githubusercontent.com/apigovau/api-descriptions/master/apigovau/Definitions%20Catalogue.md",
+                  "mechanism":"poll"
+               }
+            ]
+         }
+      }
+   ],
+   "metadata":{
+      "id":"5b3eb4707d0e99000457ffa5",
+      "logo":"https://api.gov.au/img/catalogue_brand.png",
+      "misc":[
+
+      ],
+      "name":"Definitions Catalogue",
+      "tags":[
+         "metadata",
+         "definitions"
+      ],
+      "topics":[
+         "wofg",
+         "api.gov.au"
+      ],
+      "features":{
+         "space":"apigovau",
+         "status":"published",
+         "security":"Open",
+         "agencyAcr":null,
+         "technology":"REST/JSON"
+      },
+      "description":"The Definitions Catalogue Rest API allows you to search and browse for data definitions used by the Australian Government"
+   },
+   "assetIdx$ingestor":0
+}
