@@ -12,9 +12,25 @@ tags:
  - "Definitions"
  
  # MergeMapping
- # "# Getting Started" add "# Overview"
- # "# Posting" insertAfter "# Definitions"
- # "# Posting" insertAfter "# Paths"
+{
+   "actionList":[
+      {
+         "from":"# Getting Started",
+         "action":"add",
+         "to":"# Overview"
+      },
+      {
+         "from":"# Posting",
+         "action":"insertAfter",
+         "to":"# Schema"
+      },
+      {
+         "from":"# Posting",
+         "action":"insertAfter",
+         "to":"# Paths"
+      }
+   ]
+}
 ---
 
 # Getting Started
