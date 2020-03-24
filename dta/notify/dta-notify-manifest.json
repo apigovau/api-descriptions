@@ -1,0 +1,52 @@
+{
+   "assets":[
+      {
+         "misc":[
+
+         ],
+         "type":"api_description",
+         "engine":{
+            "steps":[
+               {
+                  "name":"SingleMarkdownToServiceDesign",
+                  "input":[
+                     "md1"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"api_description"
+               }
+            ],
+            "resources":[
+               {
+                  "id":"md1",
+                  "uri":"https://raw.githubusercontent.com/apigovau/api-descriptions/master/dta/notify/dta-notify.md",
+                  "mechanism":"poll"
+               }
+            ]
+         }
+      }
+   ],
+   "metadata":{
+      "logo":"https://apigovau.github.io/api-descriptions/dta/logos/logo.jpg",
+      "misc":[
+
+      ],
+      "name":"Notify",
+      "tags":[
+         "Search"
+      ],
+      "topics":[
+
+      ],
+      "features":{
+         "space":"dta",
+         "status":"published",
+         "security":"oAuth2",
+         "technology":"Rest/JSON"
+      },
+      "description":"Notify is a service developed by the DTA that lets government agencies send and receive text messages and email messages."
+   },
+   "assetIdx$ingestor":0
+}
