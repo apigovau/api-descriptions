@@ -1,0 +1,49 @@
+{
+   "assets":[
+      {
+         "misc":[
+
+         ],
+         "type":"api_description",
+         "engine":{
+            "steps":[
+               {
+                  "name":"SingleMarkdownToServiceDesign",
+                  "input":[
+                     "md1"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"api_description"
+               }
+            ],
+            "resources":[
+               {
+                  "id":"md1",
+                  "uri":"https://raw.githubusercontent.com/apigovau/api-descriptions/master/aihw/myhospitals/content.md",
+                  "mechanism":"poll"
+               }
+            ]
+         }
+      }
+   ],
+   "metadata":{
+      "logo":"https://apigovau.github.io/api-descriptions/aihw/logos/logo.jpg",
+      "misc":[
+
+      ],
+      "name":"MyHospitals",
+      "tags":[
+      ],
+      "topics":[
+
+      ],
+      "features":{
+         "space":"aihw",
+         "status":"published"
+      },
+      "description":"Explore MyHospitals to find information on Australia's hospital system. Read the reports and use the interactive data tools to discover information about your local hospital, hospitals within your region, state or territory and nationally."
+   },
+   "assetIdx$ingestor":0
+}
