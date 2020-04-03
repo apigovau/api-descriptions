@@ -1,8 +1,8 @@
 # Getting Started
 
 
-Notify is an online notifications service that provides government entities the capability to send emails and text messages to their users.
+Notify is a service developed by the DTA that lets government agencies send and receive Text messages and emails
 
 Send bulk messages through to many users or to individuals and manage your messaging using the Notify dashboard.
 
-You can learn about notify [here](https://notify.gov.au/)
+You can learn about Notify [here](https://notify.gov.au/)

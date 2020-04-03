@@ -29,6 +29,7 @@
       }
    ],
    "metadata":{
+       "id":"c8883d2e-edee-487b-af5b-408b4956db65",
       "logo":"https://apigovau.github.io/api-descriptions/aihw/logos/logo.jpg",
       "misc":[
 
@@ -41,7 +42,9 @@
       ],
       "features":{
          "space":"aihw",
-         "status":"published"
+         "status":"published",
+         "security":"Open",
+         "technology":"REST/JSON"
       },
       "description":"Explore MyHospitals to find information on Australia's hospital system. Read the reports and use the interactive data tools to discover information about your local hospital, hospitals within your region, state or territory and nationally."
    },

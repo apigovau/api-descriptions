@@ -29,24 +29,22 @@
       }
    ],
    "metadata":{
+      "id":"593a538a-1e1c-4a5a-b771-e8639c4b42af",
       "logo":"https://apigovau.github.io/api-descriptions/dta/logos/logo.jpg",
       "misc":[
 
       ],
       "name":"Notify",
       "tags":[
-         "Search"
       ],
       "topics":[
 
       ],
       "features":{
          "space":"dta",
-         "status":"published",
-         "security":"oAuth2",
-         "technology":"Rest/JSON"
+         "status":"published"
       },
-      "description":"Notify is a service developed by the DTA that lets government agencies send and receive text messages and email messages."
+      "description":"Notify is a service developed by the DTA that lets government agencies send and receive Text messages and emails."
    },
    "assetIdx$ingestor":0
 }
