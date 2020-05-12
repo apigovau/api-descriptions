@@ -20,11 +20,28 @@ This service only responds to a single `GET` method:
 
 ### Response Format
 
-Data is available in XML, JSON and CSV.  If no format is selected they API will return XML.
+Data is available in XML, JSON and CSV.  If no format is selected the API will return XML.
 
 Metadata is primarily available in XML.  Some metadata is also available in JSON.
+
+ABS Data API (Beta) is fully compliant with SDMX 2.1 - the Statistical Data and Metadata Exchange information model. 
 
 
 ### Authentication
 
 This is a public and unauthenticated service.
+
+
+# Using the API
+
+ABS Data API (Beta) offers two modes of operation:
+-	Data retrieval, where users know the data they want to retrieve (eg. Unemployment rate, monthly trend estimate)
+-	Data discovery, where, using a metadata-driven approach, users need to discover the data exposed by the web service.
+
+## GET Data
+
+Coming soon
+
+## GET Metadata
+
+Coming soon
