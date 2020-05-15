@@ -41,7 +41,7 @@ ABS Data API (Beta) offers two modes of operation:
 ## GET Data
 
 Data is returned using the following syntax:
-> /data/{dataflowIdentifier}/{dataKey}?startPeriod={date value}&endPeriod={date value}&detail={value}&dimensionAtObservatio={value}
+> /data/{dataflowIdentifier}/{dataKey}?startPeriod={date value}&endPeriod={date value}&detail={value}&dimensionAtObservation={value}
 
 ### Path Parameters
 
@@ -50,6 +50,7 @@ Data is returned using the following syntax:
 A Dataflow in SDMX is the artefact used to request data. 
 
 The syntax is the identifier of the agency maintaining the dataflow, followed by the identifier of the dataflow, followed by the dataflow version, separated by commas. {agencyId},{dataflowId},{version} eg. "ABS,CPI,1.0.0".
+
 Version and agencyId are optional. If agencyId is not specified it will default to “all”. If version is not specified it will default to “latest.”
 
 A list of all available dataflows can be returned using:
