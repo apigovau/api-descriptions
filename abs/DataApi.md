@@ -45,7 +45,7 @@ Data is returned using the following syntax:
 
 ### Path Parameters
 
-#### dataflowIdentifier
+**dataflowIdentifier
 
 A Dataflow in SDMX is the artefact used to request data. 
 
@@ -56,7 +56,7 @@ Version and agencyId are optional. If agencyId is not specified it will default 
 A list of all available dataflows can be returned using:
 > GET /dataflow/{agencyId}
 
-#### dataKey 
+**dataKey 
 
 Data in the ABS Data API is structured in multi-dimensional datasets.  The combination of dimensions and dimension members allows statistical data to be uniquely identified. Such a combination is known as a data key or series key and is used to filter data in a query.
 
@@ -72,7 +72,7 @@ You can combine wildcarding and the OR operator. Eg. “M1+M2..Q”
 
 ### Query Parameters
 
-#### startPeriod and endPeriod
+**startPeriod and endPeriod
 
 It is possible to define a date range for which observations should be returned by using the startPeriod and/or endPeriod parameters. The values should be given according to the syntax defined in ISO 8601 or as SDMX reporting periods. The values will vary depending on the frequency. Start and end dates are inclusive.
 
@@ -86,7 +86,7 @@ The supported formats are:
 -	**YYYY-W[01-53]** for weekly data (e.g.: 2019-W01).
 -	**YYYY-MM-DD** for daily and business data (e.g.: 2019-01-01).
 
-#### detail
+**detail
 
 Using the detail parameter, it is possible to specify the desired amount of information to be returned by the web service. Possible options are:
 -	**full**: The data - series and observations - and the attributes will be returned. This is the default.
@@ -94,7 +94,7 @@ Using the detail parameter, it is possible to specify the desired amount of info
 -	**serieskeysonly**: Only the series, but without the attributes and the observations, will be returned. This can be useful for performance reasons, to return the series that match a certain query, without returning the actual data.
 -	**nodata**: The series, including the attributes, will be returned, but the observations will not be returned.
 
-#### dimensionAtObservation 
+**dimensionAtObservation 
 
 Using the dimensionAtObservation parameter, you can define the way the data should be organised in the returned message. Possible options are: 
 -	**TIME_PERIOD**: This will return a timeseries view of the data. This is the default value.
