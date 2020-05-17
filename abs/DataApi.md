@@ -27,6 +27,17 @@ Metadata is primarily available in XML.  Some metadata is also available in JSON
 ABS Data API (Beta) is fully compliant with SDMX 2.1 - the Statistical Data and Metadata Exchange information model. The SDMX-REST Guide is available on [GitHub](https://github.com/sdmx-twg/sdmx-rest/wiki).
 
 
+## OpenAPI Specification
+
+The OpenAPI / swagger definition for this service is [here](https://api.gov.au/swagger-ui/index.html?url=https://api.gov.au/github?path%3dabs~DataAPI.openapi.yaml#/Get_Data/GetData)
+
+Here's an automatically generated class diagram of the service.
+
+[![Generated class diagram from swagger](https://api.gov.au/graph/swagger.svg?url=https://api.gov.au/github?path%3dabs~DataAPI.openapi.yaml)](https://api.gov.au/graph/swagger.svg?url=https://api.gov.au/github?path%3dabs~DataAPI.openapi.yaml)
+
+Click for bigger version
+
+
 ### Authentication
 
 This is a public and unauthenticated service.
