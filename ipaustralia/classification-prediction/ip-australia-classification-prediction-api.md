@@ -15,7 +15,7 @@ tags:
 
 The Classification Prediction API is a collection of services supporting the patent examination process. Cooperative Patent Classification (CPC) prediction service aims to predict the top CPC symbol (subgroup level). This service utilises state-of-the-art Machine Learning technologies and Natural Language Processing to predict latest CPC symbols corresponding to a full-text patent specification.
 
-For more details, and to request access to the API please visit the [IP Australia Developer Portal.](https://anypoint.mulesoft.com/exchange/portals/ip-australia-3/)
+For more details, and to request access to the API please visit the [IP Australia Developer Portal.](https://portal.api.ipaustralia.gov.au/s/)
 
 ## Key Information
 
@@ -36,7 +36,7 @@ This API currently is not in production, check back for updates!
 
 ### Requests
 
-More details about each request will be available once the API is live in production, for full details about the api during its testing phase, including example request and response payloads, please view the Classification Prediction API on the [IP Australia Developer Portal.](https://anypoint.mulesoft.com/exchange/portals/ip-australia-3/)
+More details about each request will be available once the API is live in production, for full details about the api during its testing phase, including example request and response payloads, please view the Classification Prediction API on the [IP Australia Developer Portal.](https://portal.api.ipaustralia.gov.au/s/)
 
 
 
