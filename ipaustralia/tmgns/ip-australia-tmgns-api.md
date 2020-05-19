@@ -15,7 +15,7 @@ tags:
 
 The Trade Mark Goods and Services (TMGnS) API provides services to query TMGnS reference data including Trade Mark classifications and Goods and Services descriptions.
 
-For more details, and to request access to the API please visit the [IP Australia Developer Portal.](https://anypoint.mulesoft.com/exchange/portals/ip-australia-3/)
+For more details, and to request access to the API please visit the [IP Australia Developer Portal.](https://portal.api.ipaustralia.gov.au/s/)
 
 ## Key Information
 
@@ -38,7 +38,7 @@ The base URL for the Production instance TMGnS REST API is:
 
 ### Requests
 
-The TMGnS API has many endpoints basic details about each endpoint have been outlined below, for full details, including example request and response payloads, please view the TMGnS REST API on the [IP Australia Developer Portal.](https://anypoint.mulesoft.com/exchange/portals/ip-australia-3/)
+The TMGnS API has many endpoints basic details about each endpoint have been outlined below, for full details, including example request and response payloads, please view the TMGnS REST API on the [IP Australia Developer Portal.](https://portal.api.ipaustralia.gov.au/s/)
 
 #### Get Trade Mark Class by ID
 
