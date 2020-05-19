@@ -15,7 +15,7 @@ tags:
 
 The Australian Trade Mark Search API allows you to search for Australian Trade Marks.
 
-For more details, and to request access to the API please visit the [IP Australia Developer Portal.](https://anypoint.mulesoft.com/exchange/portals/ip-australia-3/)
+For more details, and to request access to the API please visit the [IP Australia Developer Portal.](https://portal.api.ipaustralia.gov.au/s/)
 
 ## Key Information
 
@@ -40,7 +40,7 @@ The base URL for the Production instance Australian Trade Mark Search API is:
 
 Australian Trade Mark Search API has two endpoints, a quick search and a get by Trade Mark Number. 
 
-Basic details about each endpoint have been outlined below, for full details, including example request and response payloads, please view the Australian Trade Mark Search API on the [IP Australia Developer Portal.](https://anypoint.mulesoft.com/exchange/portals/ip-australia-3/)
+Basic details about each endpoint have been outlined below, for full details, including example request and response payloads, please view the Australian Trade Mark Search API on the [IP Australia Developer Portal.](https://portal.api.ipaustralia.gov.au/s/)
 
 #### Quick Search
 
