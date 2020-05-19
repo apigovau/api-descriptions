@@ -15,7 +15,7 @@ tags:
 
 IP Right Management B2B API enables you to lodge IP Right applications and manage your IP Rights with IP Australia.
 
-For more details, and to request access to the API please visit the [IP Australia Developer Portal.](https://anypoint.mulesoft.com/exchange/portals/ip-australia-3/)
+For more details, and to request access to the API please visit the [IP Australia Developer Portal.](https://portal.api.ipaustralia.gov.au/s/)
 
 ## Key Information
 
@@ -38,7 +38,7 @@ The base URL for the Production instance Australian Design Search API is:
 
 ### Requests
 
- For full details about the requests IPRight Management B2B API supports, including example request and response payloads, please view the IPRight Management B2B API on the [IP Australia Developer Portal.](https://anypoint.mulesoft.com/exchange/portals/ip-australia-3/)
+ For full details about the requests IPRight Management B2B API supports, including example request and response payloads, please view the IPRight Management B2B API on the [IP Australia Developer Portal.](https://portal.api.ipaustralia.gov.au/s/)
 
 ### Contact Us
 
