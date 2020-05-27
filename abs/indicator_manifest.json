@@ -1,0 +1,52 @@
+{
+   "assets":[
+      {
+         "misc":[
+
+         ],
+         "type":"api_description",
+         "engine":{
+            "steps":[
+               {
+                  "name":"SingleMarkdownToServiceDesign",
+                  "input":[
+                     "md1"
+                  ],
+                  "config":{
+
+                  },
+                  "output":"api_description"
+               }
+            ],
+            "resources":[
+               {
+                  "id":"md1",
+                  "uri":"https://raw.githubusercontent.com/apigovau/api-descriptions/master/abs/indicator.md",
+                  "mechanism":"poll"
+               }
+            ]
+         }
+      }
+   ],
+   "metadata":{
+      "logo":"https://upload.wikimedia.org/wikipedia/en/thumb/5/5e/Australian_Bureau_of_Statistics_logo.svg/300px-Australian_Bureau_of_Statistics_logo.svg.png",
+      "misc":[
+
+      ],
+      "name":"ABS Indicator API (Beta)",
+      "tags":[
+      ],
+      "topics":[
+
+      ],
+      "features":{
+         "space":"abs.gov.au",
+         "status":"beta",
+         "security":"Open",
+         "agencyAcr":"ABS",
+         "technology":"Rest"
+      },
+      "description":"The ABS Indicator REST API allows you to request headline economic statistics from the ABS including Australia's key economic indicators."
+   },
+   "assetIdx$ingestor":0
+}

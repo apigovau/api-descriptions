@@ -1,0 +1,102 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: ABS Indicator API (Beta)
+  description: |
+    The ABS Indicator REST API allows you to request headline economic statistics from the ABS including Australia's key economic indicators. 
+    
+    All datasets are small, containing only the most in-demand data, so responses are returned as fast as possible.If you wish to request full economic datasets you can do so using the ABS Data API (Beta).     
+    
+    The ABS Indicator API uses the Statistical Data and Metadata Exchange (SDMX) standard.  Data is available in XML, JSON and CSV.
+    
+  contact:
+    email: api.data@abs.gov.au
+host: indicator.data.abs.gov.au
+schemes:
+ - https
+securityDefinitions:
+   APIKeyHeader:
+     type: apiKey
+     in: header
+     name: X-API-Key
+security:
+  - APIKeyHeader: []
+paths:
+  '/data/{dataflowIdentifier}':
+    get:
+      tags:
+        - Get Data
+      summary: Get data from a dataflow in XML, JSON or CSV.
+      operationId: GetData
+      consumes: []
+      produces:
+        - application/json
+        - application/xml
+        - text/csv
+      parameters:
+        - name: dataflowIdentifier
+          in: path
+          description: |
+            The dataflow identifier (eg. CPI). A list of all available dataflows and their IDs can be returned using the *GET /{dataflows}* operation.           
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: string
+        '403':
+          description: Forbidden. Authorization information is missing or invalid.
+        '404':
+          description: Not Found. Could not find the dataflow requested
+        '500':
+          description: Unexpected error.
+  '/dataflows':
+    get:
+      tags:
+        - Get Metadata
+      summary: Get all available dataflows.
+      description: Return a list of all dataflows available and information about them including name and ID. 
+      operationId: GetDataflows
+      consumes: []
+      produces:
+        - application/json
+        - application/xml
+      responses:
+       '200':
+         description: Success
+         schema:
+           type: string
+       '403':
+          description: Forbidden. Authorization information is missing or invalid.
+       '500':
+          description: Unexpected error.
+  '/metadata/{dataflowIdentifier}':
+    get:
+      tags:
+        - Get Metadata
+      summary: 'Get structural metadate for a specified dataflow'
+      operationId: GetMetadata
+      consumes: []
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: dataflowIdentifier
+          in: path
+          description: |
+            The dataflow identifier (eg. CPI). A list of all available dataflows and their IDs can be returned using the *GET /{dataflows}* operation.           
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: string
+        '403':
+          description: Forbidden. Authorization information is missing or invalid.
+        '404':
+          description: Not Found. Could not find the dataflow requested
+        '500':
+          description: Unexpected error.
+definitions: {}
