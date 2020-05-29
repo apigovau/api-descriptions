@@ -50,7 +50,9 @@ ABS Indicator API (Beta) offers two modes of operation:
 
 **/data/{dataflowIdentifier}**
 
-A Dataflow in SDMX is the artefact used to request data.  In the Indicator API, dataflow ID is a single string (e.g. CPI). A list of all available dataflows and their IDs can be returned using:
+A Dataflow in SDMX is the artefact used to request data.  In the Indicator API, dataflow ID is a single string (e.g. CPI). 
+
+A list of all available dataflows and their IDs can be returned using:
 > GET /{dataflows} operation.
 
 The ABS Indicator API will not accept any custom data queries or query parameters.  The GET Data method will return one standard data response for each dataflow.
@@ -66,8 +68,25 @@ Response format can be specified as XML, JSON or CSV using the "accept" header. 
 
 **/dataflows**
 
+Return a list of all dataflows available and information about them including ID, name, version and structure. 
+
+Response format can be specified as XML or JSON using the "accept" header.  XML is the default.
+-	accept: application/xml
+-	accept: application/json
 
 ### GET metadata
 
 **/metadata/{dataflowIdentifier}**
+
+Return structural metadata for the specified dataflow including ID, name, version and structure. 
+
+Response format can be specified as XML or JSON using the "accept" header.  XML is the default.
+-	accept: application/xml
+-	accept: application/json
+
+XML responses include more detailed information about the dataflow and its underlying data structure definition.  Information is provided on Codlists and Concept Schemes which combine to define the dimensions of the data structure.
+
+Codelists provide a list of codes used to define data in the dataflow.  Each code has an ID and a name.  Codes may also have a parent ID which defines a hierarchy within the codelist.
+
+Concept Schemes are groups of related Concepts.  Concepts are associated with all artefacts in the data structure, dimensions, annotations, etc., and define what each artefact is and how it is used.  Concepts include an ID, name and description.
 
