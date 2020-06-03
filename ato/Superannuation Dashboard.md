@@ -21,11 +21,11 @@ Responses are in JSON
 
 ## OpenAPI Specification
 
-The OpenAPI / Swagger documentation for the API is [here](/swagger-ui/index.html?url=https://services.ausdx.io/swagger/superannuation-dashboard.yaml)
+The OpenAPI / Swagger documentation for the API is [here](/swagger-ui/index.html?url=https://api.gov.au/swagger/superannuation-dashboard.yaml)
 
 Here's an automatically generated class diagram of the service.
 
-[![Generated class diagram from swagger](https://graph.ausdx.io/swagger.svg?url=https://services.ausdx.io/swagger/superannuation-dashboard.yaml)](https://graph.ausdx.io/swagger.svg?url=https://services.ausdx.io/swagger/superannuation-dashboard.yaml)
+[![Generated class diagram from swagger](https://graph.ausdx.io/swagger.svg?url=https://api.gov.au/swagger/superannuation-dashboard.yaml)](https://graph.ausdx.io/swagger.svg?url=https://api.gov.au/swagger/superannuation-dashboard.yaml)
 
 Click for bigger version
 
