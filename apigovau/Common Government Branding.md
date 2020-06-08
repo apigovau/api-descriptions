@@ -84,6 +84,8 @@ Lines won't wrap.
 
 If you want to break up a line, add a newline (\n, or %0A).
 
+If you want to add a comma, use $2C (also works for any other %-prefixed characters that might get munged)
+
 ```height```
 
 Sets the total height of the image.
