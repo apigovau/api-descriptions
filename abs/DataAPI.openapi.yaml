@@ -115,22 +115,9 @@ paths:
             - categoryscheme
             - contentconstraint
             - actualconstraint
-            - allowedconstraint
             - agencyscheme
             - categorisation
             - hierarchicalcodelist
-            - metadatastructure
-            - metadataflow
-            - reportingtaxonomy
-            - structure
-            - attachmentconstraint
-            - organisationscheme
-            - dataproviderscheme
-            - dataconsumerscheme
-            - organisationunitscheme
-            - provisionagreement
-            - structureset
-            - process
         - name: agencyId
           in: path
           description: The id of the agency maintaining the structures. Eg. "ABS".
@@ -149,7 +136,7 @@ paths:
             *	**children**: The artefacts referenced by the matching artefact will be returned (for example, the concept schemes and code lists used in a DSD).
             *	**descendants**: References of references, up to any level, will also be returned.
             *	**all**: The combination of parentsandsiblings and descendants.
-            *	In addition, a concrete type of resource, may also be used (for example, references=codelist).
+            *	In addition, a specific structure type may also be used (e.g. codelist, dataflow, etc.).
           required: false
           type: string
           enum:
@@ -166,22 +153,9 @@ paths:
             - categoryscheme
             - contentconstraint
             - actualconstraint
-            - allowedconstraint
             - agencyscheme
             - categorisation
             - hierarchicalcodelist
-            - metadatastructure
-            - metadataflow
-            - reportingtaxonomy
-            - structure
-            - attachmentconstraint
-            - organisationscheme
-            - dataproviderscheme
-            - dataconsumerscheme
-            - organisationunitscheme
-            - provisionagreement
-            - structureset
-            - process
         - name: detail
           in: query
           description: |
@@ -231,22 +205,9 @@ paths:
             - categoryscheme
             - contentconstraint
             - actualconstraint
-            - allowedconstraint
             - agencyscheme
             - categorisation
             - hierarchicalcodelist
-            - metadatastructure
-            - metadataflow
-            - reportingtaxonomy
-            - structure
-            - attachmentconstraint
-            - organisationscheme
-            - dataproviderscheme
-            - dataconsumerscheme
-            - organisationunitscheme
-            - provisionagreement
-            - structureset
-            - process
         - name: agencyId
           in: path
           description: The id of the agency maintaining the structures. Eg. "ABS".
@@ -270,7 +231,7 @@ paths:
             *	**children**: The artefacts referenced by the matching artefact will be returned (for example, the concept schemes and code lists used in a DSD).
             *	**descendants**: References of references, up to any level, will also be returned.
             *	**all**: The combination of parentsandsiblings and descendants.
-            *	In addition, a concrete type of resource, may also be used (for example, references=codelist).
+            *	In addition, a specific structure type may also be used (e.g. codelist, dataflow, etc.).
           required: false
           type: string
           enum:
@@ -287,22 +248,9 @@ paths:
             - categoryscheme
             - contentconstraint
             - actualconstraint
-            - allowedconstraint
             - agencyscheme
             - categorisation
             - hierarchicalcodelist
-            - metadatastructure
-            - metadataflow
-            - reportingtaxonomy
-            - structure
-            - attachmentconstraint
-            - organisationscheme
-            - dataproviderscheme
-            - dataconsumerscheme
-            - organisationunitscheme
-            - provisionagreement
-            - structureset
-            - process
         - name: detail
           in: query
           description: |
@@ -352,22 +300,9 @@ paths:
             - categoryscheme
             - contentconstraint
             - actualconstraint
-            - allowedconstraint
             - agencyscheme
             - categorisation
             - hierarchicalcodelist
-            - metadatastructure
-            - metadataflow
-            - reportingtaxonomy
-            - structure
-            - attachmentconstraint
-            - organisationscheme
-            - dataproviderscheme
-            - dataconsumerscheme
-            - organisationunitscheme
-            - provisionagreement
-            - structureset
-            - process
         - name: agencyId
           in: path
           description: The id of the agency maintaining the structures. Eg. "ABS".
@@ -381,7 +316,7 @@ paths:
           type: string
         - name: structureVersion
           in: path
-          description: The version of the structure to retrieve. Three numbers seporated by points, eg. "1.0.0".
+          description: The version of the structure to retrieve. Three numbers separated by points, eg. "1.0.0".
           required: true
           type: string
         - name: references
@@ -396,7 +331,7 @@ paths:
             *	**children**: The artefacts referenced by the matching artefact will be returned (for example, the concept schemes and code lists used in a DSD).
             *	**descendants**: References of references, up to any level, will also be returned.
             *	**all**: The combination of parentsandsiblings and descendants.
-            *	In addition, a concrete type of resource, may also be used (for example, references=codelist).
+            *	In addition, a specific structure type may also be used (e.g. codelist, dataflow, etc.).
           required: false
           type: string
           enum:
@@ -413,22 +348,9 @@ paths:
             - categoryscheme
             - contentconstraint
             - actualconstraint
-            - allowedconstraint
             - agencyscheme
             - categorisation
             - hierarchicalcodelist
-            - metadatastructure
-            - metadataflow
-            - reportingtaxonomy
-            - structure
-            - attachmentconstraint
-            - organisationscheme
-            - dataproviderscheme
-            - dataconsumerscheme
-            - organisationunitscheme
-            - provisionagreement
-            - structureset
-            - process
         - name: detail
           in: query
           description: |
