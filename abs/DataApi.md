@@ -114,4 +114,64 @@ Using the dimensionAtObservation parameter, you can define the way the data shou
 
 ## GET Metadata
 
-Coming soon
+Metadata is returned using the following syntax:
+> /{structureType}/{agencyId}/{structureId}/{structureVersion}? references={reference value}& detail={level of detail}
+
+Only Structure Type and Agency ID are mandatory.
+
+### Path Parameters
+
+**Structure Type**
+
+The type of metadata you want to retrieve. Available structures:
+-	datastructure
+-	dataflow
+-	codelist
+-	conceptscheme
+-	categoryscheme
+-	contentconstraint
+-	actualconstraint
+-	agencyscheme
+-	categorisation
+-	hierarchicalcodelist
+
+**agencyId**
+
+The ID of the agency maintaining the structures. All structures in this API are currently maintained by the Australian Bureau of Statistics with Agency ID **ABS**.
+
+**structureId**
+
+The ID of the structure you are requesting. “all” will return all available structures of the specified structure type. If no structure ID is given, all is the default. 
+
+**structureVersion**
+
+The version of the structure to retrieve. Three numbers separated by points, eg. "1.0.0".
+
+If no version is given then the latest version available will be returned.
+
+### Query Parameters
+
+**references**
+
+Instruct the API to return (or not) artefacts referenced by the artefact(s) you are querying. Eg. the codelists and concepts used by the data structure you are querying. You can also retrieve the artefacts that use the artefact you are querying, eg. the dataflows that use the data structure queried.
+
+-	**none**: No references will be returned. This is the default.
+-	**parents**: The artefacts that use the artefact matching the query (for example, the dataflows that use the data structure definition matching the query) will be returned.
+-	**parentsandsiblings**: The artefacts that use the artefact matching the query, as well as the artefacts referenced by these artefacts will be returned.
+-	**children**: The artefacts referenced by the matching artefact will be returned (for example, the concept schemes and code lists used in a DSD).
+-	**descendants**: References of references, up to any level, will also be returned.
+-	**all**: The combination of parentsandsiblings and descendants.
+
+In addition, a specific structure type may also be used (e.g. codelist, dataflow, etc.).
+
+**detail**
+
+Specify the desired amount of detail to be returned. For example, it is possible to instruct the web service to return only basic information about the resource, this is known in SDMX as a stub.
+
+-	**allstubs**: All artefacts will be returned as stubs.
+-	**referencestubs**: The referenced artefacts will be returned as stubs.
+-	**referencepartial**: The referenced item schemes should only include items used by the artefact to be returned. For example, a concept scheme would only contain the concepts used in a DSD, and its isPartial flag would be set to true. As another example, if a dataflow is constrained, then the codelists returned should only contain the subset of codes allowed by that constraint.
+-	**allcompletestubs**: All artefacts should be returned as complete stubs, containing identification information, the artefacts' name, description, annotations and isFinal information.
+-	**referencecompletestubs**: The referenced artefacts should be returned as complete stubs, containing identification information, the artefacts' name, description, annotations and isFinal information.
+-	**full**: All available information for all artefacts will be returned. This is the default.
+
