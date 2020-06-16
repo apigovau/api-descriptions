@@ -1,6 +1,6 @@
 # Getting Started
 
-## Limitations during Beta.
+## Limitations during Beta
 
 ABS Data API (Beta) has been made available so you can test it and provide feedback to the ABS
 
