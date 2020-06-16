@@ -1,15 +1,21 @@
 # Getting Started
 
-**This service is currently in Beta.**
-The statistical data available via this API may not be the latest. For the most up to date information visit the [ABS website](https://www.abs.gov.au/).
+## Limitations during Beta.
+
+ABS Data API (Beta) has been made available so you can test it and provide feedback to the ABS
+
+The statistical data available via this API may not be the latest. For the most up to date information visit the [ABS website](https://www.abs.gov.au/). 
+
+Availability of the ABS Data API (Beta) is not guaranteed.
+
+This service may be subject to change. Please contact api.data@abs.gov.au to join our register of interest so we can notify you of any changes.
+
+
+## Key Information
 
 The ABS Data REST API (Beta) allows you request detailed ABS statistics including economic, social and Census data.
 
 Customise your query to return only the data and metadata you are interested in, in the format you want.
-
-
-
-## Key Information
 
 ### Base URL
 
