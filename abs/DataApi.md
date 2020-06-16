@@ -1,14 +1,20 @@
 # Getting Started
 
-## Limitations during Beta
+<div class="panel panel-warning">
+**About the Beta**
+{: .panel-heading}
+<div class="panel-body">
 
-ABS Data API (Beta) has been made available so you can test it and provide feedback to the ABS
+This beta release allows you to preview ABS.Stat before it is released in its final form and gives you the opportunity to provide the ABS with feedback as we work to enhance the tool.
 
-The statistical data available via this API may not be the latest. For the most up to date information visit the [ABS website](https://www.abs.gov.au/). 
+We will continue to load new datasets and update existing datasets in ABS.Stat as soon as possible after embargo on the data is lifted. However, **data in this ABS.Stat beta release may not necessarily be the most up to date**. For the most up to date information visit the [ABS website](https://www.abs.gov.au/). 
 
 Availability of the ABS Data API (Beta) is not guaranteed.
 
-This service may be subject to change. Please contact api.data@abs.gov.au to join our register of interest so we can notify you of any changes.
+This service may be subject to change. Please contact [api.data@abs.gov.au](mailto:api.data@abs.gov.au) to join our register of interest so we can notify you of any changes.
+
+</div>
+</div>
 
 
 ## Key Information
@@ -181,3 +187,9 @@ Specify the desired amount of detail to be returned. For example, it is possible
 -	**referencecompletestubs**: The referenced artefacts should be returned as complete stubs, containing identification information, the artefacts' name, description, annotations and isFinal information.
 -	**full**: All available information for all artefacts will be returned. This is the default.
 
+
+<style>
+.alert-warning {
+  color: rgb(138,109,59) !important;
+}
+</style>
