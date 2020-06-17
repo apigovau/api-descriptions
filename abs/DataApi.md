@@ -9,7 +9,7 @@
   
   <p>This beta release allows you to preview ABS Data API before it is released in its final form and gives you the opportunity to provide the ABS with feedback as we work to enhance the service.</p>
   
-  <p>We will continue to load new datasets and update existing datasets in ABS.Stat as soon as possible after embargo on the data is lifted. However, <b>data in this ABS.Stat beta release may not necessarily be the most up to date.</b> For the most up to date information visit the <a href="https://www.abs.gov.au/">ABS website</a>.</p>
+  <p>We will continue to load new datasets and update existing datasets as soon as possible after embargo on the data is lifted. However, <b>data in this ABS.Stat beta release may not necessarily be the most up to date.</b> For the most up to date information visit the <a href="https://www.abs.gov.au/">ABS website</a>.</p>
   
   <p>Availability of the ABS Data API (Beta) is not guaranteed.</p>
   
