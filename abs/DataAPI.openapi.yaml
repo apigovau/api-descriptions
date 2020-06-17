@@ -3,20 +3,27 @@ info:
   version: 1.0.0
   title: ABS Data API (Beta)
   description: |
-    The ABS Data REST API allows you to request ABS statistics including detailed economic, social and Census data.  Filter your query to return the data and metadata you are interested in.  
-    
-    The ABS Data API uses the Statistical Data and Metadata Exchange (SDMX) standard.  Data is available in XML, JSON and CSV.      
-    
-    This Demo of the API is hosted by the OECD.
+    <div style="background-color: #fffdb5">
+      <h2>About the Beta</h2>
+      <p>This beta release allows you to preview ABS Data API before it is released in its final form and gives you the opportunity to provide the ABS with feedback as we work to enhance the service.</p>
+      <p>We will continue to load new datasets and update existing datasets in ABS.Stat as soon as possible after embargo on the data is lifted. However, <b>data in this ABS.Stat beta release may not necessarily be the most up to date.</b> For the most up to date information visit the <a href="https://www.abs.gov.au/">ABS website</a>.</p>
+      <p>Availability of the ABS Data API (Beta) is not guaranteed.</p>
+      <p>This service may be subject to change. Please contact <a href="mailto:api.data@abs.gov.au">api.data@abs.gov.au</a> to join our register of interest so we can notify you of any changes.</p>
+      </br>
+    </div>
+    <div>
+      <h2>Key Information</h2>
+      <p>The ABS Data REST API allows you to request ABS statistics including detailed economic, social and Census data.  Filter your query to return the data and metadata you are interested in.</p>
+      <p>The ABS Data API uses the Statistical Data and Metadata Exchange (SDMX) standard.  Data is available in XML, JSON and CSV.</p>
+    </div>
   contact:
     email: api.data@abs.gov.au
-host: nsi-stable-siscc.redpelicans.com
-basePath: /rest
+host: api.data.abs.gov.au
 externalDocs:
   description: SDMX RESTful web services specification on GitHub 
   url: https://github.com/sdmx-twg/sdmx-rest/wiki
 schemes:
- - http
+ - https
 paths:
   '/data/{dataflowIdentifier}/{dataKey}':
     get:
@@ -36,7 +43,6 @@ paths:
             The dataflow identifier in {agencyId},{dataflowId},{version} format (eg. "ABS,CPI,1.0.0"). A list of all available dataflows can be returned using the *GET /{structureType}/{agencyId}* operation.
               
             Version and agencyId are optional.  If agencyId is not specified it will default to “all”. If version is not specified it will default to “latest.”
-
           required: true
           type: string
         - name: dataKey
@@ -79,11 +85,9 @@ paths:
           in: query
           description: |
             Define the way data should be organized in the returned message. Possible options are:
-
             * **TIME_PERIOD**: This will return a timeseries view of the data. This is the default value.
             * **AllDimensions**: This will return a flat view of the data, with no groupings.
             * **The ID of any other dimension**: This will return a cross-sectional view of the data.
-
           required: false
           type: string
       responses:
