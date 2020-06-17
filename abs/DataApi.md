@@ -14,9 +14,6 @@
   <p>Availability of the ABS Data API (Beta) is not guaranteed. The service may be subject to change.</p>
   
   <p>You can contact the ABS APIs team at <a href="mailto:api.data@abs.gov.au">api.data@abs.gov.au</a>. Please let us know any feedback or issues you have. You can request to join our register of interest to be notified of any changes in the API.  The <a href="https://www.abs.gov.au/websitedbs/D3310114.nsf/Home/Privacy?opendocument#from-banner=GB" target="_blank">ABS privacy policy</a> outlines how the ABS handles any personal information that you provide to us.</p>
-  
-  <p>This service may be subject to change. Please contact <a href="mailto:api.data@abs.gov.au">api.data@abs.gov.au</a> to join our register of interest so we can notify you of any changes.</p>
-</div>
 
 
 ## Key Information
