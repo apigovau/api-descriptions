@@ -1,17 +1,28 @@
 # Getting Started
 
-**This service is currently in Beta.**
-The statistical data available via this API may not be the latest.  For the most up to date information visit the [ABS website](https://www.abs.gov.au/).
+<div>
+  </br>
+<div>
+<div style="background-color: #fad2c0; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px">
+  
+  <h2>About the Beta</h2>
+  
+  <p>This beta release allows you to preview ABS Indicator API before it is released in its final form and gives you the opportunity to provide the ABS with feedback as we work to enhance the service.</p>
+  
+  <p>We will continue to load new datasets and update existing datasets as soon as possible after embargo on the data is lifted. However, <b>data in this beta release may not necessarily be the most up to date.</b> For the most up to date information visit the <a href="https://www.abs.gov.au/">ABS website</a>.</p>
+  
+  <p>Availability of the ABS Indicator API (Beta) is not guaranteed. The service may be subject to change.</p>
+  
+  <p>You can contact the ABS APIs team at <a href="mailto:api.data@abs.gov.au">api.data@abs.gov.au</a>. Please let us know any feedback or issues you have. You can request to join our register of interest to be notified of any changes in the API.  The <a href="https://www.abs.gov.au/websitedbs/D3310114.nsf/Home/Privacy?opendocument#from-banner=GB" target="_blank">ABS privacy policy</a> outlines how the ABS handles any personal information that you provide to us.</p>
+  <div>
+
+## Key Information
 
 The ABS Indicator REST API (Beta) allows you to request headline economic statistics from the ABS including Australia's key economic indicators. 
 
 All datasets are small, containing only the most in-demand data, so responses are returned as fast as possible.  If you wish to request full economic datasets you can do so using the ABS Data API (Beta).  
 
 The ABS Indicator API uses the Statistical Data and Metadata Exchange (SDMX) standard.  Data is available in XML, JSON and CSV.
-
-
-
-## Key Information
 
 ### Base URL
 
