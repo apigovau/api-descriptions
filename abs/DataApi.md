@@ -22,14 +22,6 @@ The ABS Data REST API (Beta) allows you request detailed ABS statistics includin
 
 Customise your query to return only the data and metadata you are interested in, in the format you want.
 
-`
-<div>
-  </br>
-  <form target="_blank action="https://api.gov.au/swagger-ui/index.html?url=https://api.gov.au/github?path%3dabs~DataAPI.openapi.yaml">
-    <input style="background-color: #45C2F0; width: 100px; padding: 10px; border-radius: 2px; border: none; font-size: 15px; font-weight:600;" type="submit" value="Try it out" />
-  </form>
-</div>
-`
 
 ### Base URL
 
