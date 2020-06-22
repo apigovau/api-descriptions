@@ -26,7 +26,7 @@ Customise your query to return only the data and metadata you are interested in,
 
 This service only responds to a single `GET` method:
 
-> nsi-stable-siscc.redpelicans.com/rest
+> https://api.data.abs.gov.au
 
 
 ### Response Format
