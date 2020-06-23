@@ -24,7 +24,7 @@ Customise your query to return only the data and metadata you are interested in,
 
 <div>
   </br>
-<p class="intro__button"><a class="au-btn au-btn--secondary" target="_blank href="https://api.gov.au/swagger-ui/index.html?url=https://api.gov.au/github?path%3dabs~DataAPI.openapi.yaml">Try it out</a></p>
+<p class="intro__button"><a class="au-btn au-btn--secondary" href="https://api.gov.au/swagger-ui/index.html?url=https://api.gov.au/github?path%3dabs~DataAPI.openapi.yaml" target="_blank">Try it out</a></p>
 </div>
 
 ### Base URL
