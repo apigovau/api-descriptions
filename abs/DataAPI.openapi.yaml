@@ -34,7 +34,9 @@ paths:
       produces:
         - application/json
         - application/xml
+        - application/vnd.sdmx.structurespecificdata+xml
         - text/csv
+        - application/vnd.sdmx.data+csv;labels=both
       parameters:
         - name: dataflowIdentifier
           in: path
@@ -102,8 +104,8 @@ paths:
       operationId: GetStructuresByAgencyId
       consumes: []
       produces:
-        - application/json
         - application/xml
+        - application/json
       parameters:
         - name: structureType
           in: path
@@ -192,8 +194,8 @@ paths:
       operationId: GetLatestStructure
       consumes: []
       produces:
-        - application/json
         - application/xml
+        - application/json
       parameters:
         - name: structureType
           in: path
@@ -287,8 +289,8 @@ paths:
       operationId: GetStructures
       consumes: []
       produces:
-        - application/json
         - application/xml
+        - application/json
       parameters:
         - name: structureType
           in: path
