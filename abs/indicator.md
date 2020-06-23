@@ -24,6 +24,12 @@ All datasets are small, containing only the most in-demand data, so responses ar
 
 The ABS Indicator API uses the Statistical Data and Metadata Exchange (SDMX) standard.  Data is available in XML, JSON and CSV.
 
+<div style="margin-top: 22px;>
+  <p class="intro__button">
+    <a class="au-btn au-btn--secondary" href="https://api.gov.au/swagger-ui/index.html?url=https://api.gov.au/github?path%3dabs~indicator.openapi.yaml" target="_blank">Try it out</a>
+  </p>
+</div>
+
 ### Base URL
 
 This service only responds to a single `GET` method:
