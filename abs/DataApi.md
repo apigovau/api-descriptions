@@ -193,8 +193,19 @@ Specify the desired amount of detail to be returned. For example, it is possible
 -	**full**: All available information for all artefacts will be returned. This is the default.
 
 
-<style>
-.alert-warning {
-  color: rgb(138,109,59) !important;
-}
-</style>
+# Troubleshooting
+
+### Request returned too much data
+
+The ABS data API has a maximum size allowed for all data responses of 10MB with compression applied. This translates to around 90MB of data once it is uncompressed. Requests that exceed this limit will return a 500 error.
+
+To call the API with compression enabled, ensure your headers include “Accept-Encoding: gzip,deflate”
+
+If you are exceeding the maximum size even with compression, then you will need to break your data request into several, smaller requests. The simplest way to do this is using the startPeriod and endPeriod query parameters to subset data on time range. Or use dataKey to subset data on dimension members (e.g. request all data for each region separately).  For information on this see: GET Data, Path Parameters, dataKey.
+
+### Request URL too long
+
+The maximum allowed length of the ‘Path Parameters’ section of the URL is currently 260 characters. Requests that exceed this limit will return a 400 error.  We intend to increase this limit soon.
+
+To work around the maximum allowed URL length, we recommend using wildcards to request all members of a given dimension rather than specifying the code for each dimension member individually in the URL. For information on this see: GET Data, Path Parameters, dataKey.
+
