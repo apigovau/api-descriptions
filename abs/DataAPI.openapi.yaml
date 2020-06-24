@@ -53,17 +53,29 @@ paths:
               
             The combination of dimensions allows statistical data to be uniquely identified. This combination is called a data key and is used to filter data in a query. For example, a dataset for property prices could be uniquely identified by *measure* (eg. Mean property price - code M1), *region* (eg. Australia – code AUS) and *frequency* (eg. quarterly - code Q). The key is one or more value for each dimension, separated by a dot (dimensions must be in the order they are defined in the data structure). The series key for the example above is: “M1.AUS.Q”
                 
-              Wildcarding is supported by omitting all codes for the dimension to be wildcarded. Eg. to get data for all regions: “M1..Q”. The OR operator is supported using the + character. Eg. “M1+M2.AUS.Q”. You can combine wildcarding and the OR operator. Eg. “M1+M2..Q”. “all” will always return al available data.
+            Wildcarding is supported by omitting all codes for the dimension to be wildcarded. Eg. to get data for all regions: “M1..Q”. The OR operator is supported using the + character. Eg. “M1+M2.AUS.Q”. You can combine wildcarding and the OR operator. Eg. “M1+M2..Q”. “all” will always return al available data.
+              
+            The maximum allowed length of this parameter is currently 260 characters. Requests that exceed this limit will return a 400 error. We intend to increase this limit soon.
+            
+            The dataKey parameter is case sensitive.
           required: true
           type: string
         - name: startPeriod
           in: query
-          description: 'The start period (used to filter on time). This is inclusive. The value can be in the following formats:  year: yyyy, year-semester: "yyyy-S1 - yyyy-S2",  year-quarter: "yyyy-Q1 - yyyy-Q4",  year-month: "yyyy-01 - yyyy-12"'
+          description: 'The start period (used to filter on time). This is inclusive. The value can be in the following formats:  
+            *	year: yyyy, 
+            *	year-semester: "yyyy-S1 - yyyy-S2",  
+            *	year-quarter: "yyyy-Q1 - yyyy-Q4",  
+            *	year-month: "yyyy-01 - yyyy-12"'
           required: false
           type: string
         - name: endPeriod
           in: query
-          description: 'The end period (used to filter on time). This is inclusive. The value can be in the following formats:  year: yyyy, year-semester: "yyyy-S1 - yyyy-S2",  year-quarter: "yyyy-Q1 - yyyy-Q4",  year-month: "yyyy-01 - yyyy-12"'
+          description: 'The end period (used to filter on time). This is inclusive. The value can be in the following formats:
+            *	year: yyyy, 
+            *	year-semester: "yyyy-S1 - yyyy-S2",  
+            *	year-quarter: "yyyy-Q1 - yyyy-Q4",  
+            *	year-month: "yyyy-01 - yyyy-12"'
           required: false
           type: string
         - name: detail
@@ -133,38 +145,6 @@ paths:
           required: true
           type: string
           default: ABS
-        - name: references
-          in: query
-          description: 
-           | 
-            Instruct the web service to return (or not) the artefacts referenced by the artefact(s) you are querying. Eg. the codelists and concepts used by the data structure you are querying. You can also retrieve the artefacts that use the artefact you are querying, eg. the dataflows that use the data structure definition queried.
-            
-            *	**none**: No references will be returned. This is the default.
-            *	**parents**: The artefacts that use the artefact matching the query (for example, the dataflows that use the data structure definition matching the query) will be returned.
-            *	**parentsandsiblings**: The artefacts that use the artefact matching the query, as well as the artefacts referenced by these artefacts will be returned.
-            *	**children**: The artefacts referenced by the matching artefact will be returned (for example, the concept schemes and code lists used in a DSD).
-            *	**descendants**: References of references, up to any level, will also be returned.
-            *	**all**: The combination of parentsandsiblings and descendants.
-            *	In addition, a specific structure type may also be used (e.g. codelist, dataflow, etc.).
-          required: false
-          type: string
-          enum:
-            - none
-            - parents
-            - parentsandsiblings
-            - children
-            - descendants
-            - all
-            - datastructure
-            - dataflow
-            - codelist
-            - conceptscheme
-            - categoryscheme
-            - contentconstraint
-            - actualconstraint
-            - agencyscheme
-            - categorisation
-            - hierarchicalcodelist
         - name: detail
           in: query
           description: |
