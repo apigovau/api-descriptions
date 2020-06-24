@@ -196,13 +196,13 @@ Specify the desired amount of detail to be returned. For example, it is possible
 
 ## Find out what data is available
 
-The first step to using the ABS Data API is to find out what data is available. In SDMX data is stored in a Data Structure but accessed via a Dataflow. Every Data Structure has one or more Dataflow.  When constructing a data request, the Dataflow Identifier is used to identify which dataset you want. 
+The first step to using the ABS Data API is to find out what data is available. In SDMX data is stored in a Data Structure but accessed via a Dataflow. Every data structure has one or more dataflow.  When constructing a data request, the dataflow identifier is used to identify what data you want. 
 
-To find out what data is available in the ABS Data API you need to request a list of all available Dataflows. Here is an example call for all Dataflows and their IDs.
+To find out what data is available in the ABS Data API you need to request a list of all available dataflows. Here is an example call for all dataflows and their IDs.
 
 [https://api.data.abs.gov.au/dataflow/ABS](https://api.data.abs.gov.au/dataflow/ABS)
 
-This will return a list of all Dataflows and information about them including their ID, name and version number. The ID is used to construct a GET Data request to that Dataflow.
+This will return a list of all dataflows and information about them including their ID, name and version number. The ID is used to construct a GET Data request for that dataflow.
 
 
 Example JSON response:
@@ -224,9 +224,9 @@ Example JSON response:
 
 ## Explore Dataflows
 
-Once you have chosen a dataflow to request data from, it is useful to understand more about its structure. Each Dataflow is linked to a Data Structure and each Data Structure is made up of multiple dimensions.  Dimensions are defined by a Codelist and a Concept.
+Once you have chosen a dataflow to request data from, it's useful to understand more about its structure. Each dataflow is linked to a data structure and each data structure is made up of multiple dimensions.  Dimensions are defined by a Codelist and a Concept.
 
-Codelists provide a list of codes used to identify data in the dataflow.  Each code has an ID and a name.  Codes may also have a parent ID which defines a hierarchy within the Codelist. Code IDs are used to construct a data request.
+Codelists provide a list of codes used to identify data in the dataflow.  Each code has an ID and a name.  Codes may also have a parent ID which defines a hierarchy within the codelist. Code IDs are used to construct a data request.
 
 Concept Schemes are groups of related Concepts.  Concepts are associated with all artefacts in the data structure: dimensions, annotations, etc., and define what each artefact is and how it is used.
 
@@ -237,19 +237,19 @@ Functionality to provide this response in JSON is not implemented.
 
 ## Construct a Data Request
 
-Once you know the Dataflow ID, dimensions and Codelists for the data you want to call, you can construct a GET Data request. In this example we will use the Residential Dwellings Dataflow which has the ID “RES_DWELL”. 
+Once you know the Dataflow ID, dimensions and Codelists for the data you want to call, you can construct a GET Data request. In this example we will use the Residential Dwellings dataflow which has the ID “RES_DWELL”. 
 
-The RES_DWELL Dataflow has three dimensions; Measure, Region, Frequency. We need to specify codes for each dimension and optionally a time range:
+The RES_DWELL dataflow has three dimensions; Measure, Region, Frequency. We need to specify codes for each dimension and optionally a time range:
 - Measure - we will request code “1” for Number of Established House Transfers
-- Region - we will request two codes “1GSYD” and “1RNSW” for Greater Sydney and Rest of NSW respectively
+- Region - we will request two codes “1GSYD+1RNSW” for Greater Sydney and Rest of NSW respectively
 - Frequency - we will request “Q” for Quarterly
-- startPeriod and endPeriod are used to request data from the fourth quarter of 2019 to the first quarter of 2020 inclusive
+- startPeriod and endPeriod - we will request data from the fourth quarter of 2019 to the first quarter of 2020 inclusive
 
-The data request looks like the following:
+This data request looks like:
 [https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW.Q?detail=Full&startPeriod=2019-Q2&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW.Q?detail=Full&startPeriod=2019-Q2&endPeriod=2020-Q1)
 
 
-To request all members of the Region dimension, replace the region codes “1GSDY+1RNSW” with either the full list of region IDs separated by the plus sign: [https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW+2GMEL+2RVIC+3GBRI+3RQLD +4GADE+4RSAU+5GPER+5RWAU+6GHOB+6RTAS+7GDAR+7RNTE+8ACTE.Q?startPeriod=2019-Q2&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW+2GMEL+2RVIC+3GBRI+3RQLD+4GADE+4RSAU+5GPER+5RWAU+6GHOB+6RTAS+7GDAR+7RNTE+8ACTE.Q?startPeriod=2019-Q2&endPeriod=2020-Q1)  
+To request all members of the Region dimension, replace the region codes “1GSDY+1RNSW” with either the full list of all region IDs separated by the plus sign: [https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW+2GMEL+2RVIC+3GBRI+3RQLD +4GADE+4RSAU+5GPER+5RWAU+6GHOB+6RTAS+7GDAR+7RNTE+8ACTE.Q?startPeriod=2019-Q2&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW+2GMEL+2RVIC+3GBRI+3RQLD+4GADE+4RSAU+5GPER+5RWAU+6GHOB+6RTAS+7GDAR+7RNTE+8ACTE.Q?startPeriod=2019-Q2&endPeriod=2020-Q1)  
 
 Or an empty string as a wildcard for the Region dimension: [https://api.data.abs.gov.au/data/ABS,RES_DWELL/1..Q?startPeriod=2019-Q4&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/1..Q?startPeriod=2019-Q4&endPeriod=2020-Q1)   
 
