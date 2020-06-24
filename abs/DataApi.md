@@ -200,7 +200,7 @@ The first step to using the ABS Data API is to find out what data is available. 
 
 To find out what data is available in the ABS Data API you need to request a list of all available Dataflows. Here is an example call for all Dataflows and their IDs.
 
-https://api.data.abs.gov.au/dataflow/ABS
+[https://api.data.abs.gov.au/dataflow/ABS](https://api.data.abs.gov.au/dataflow/ABS)
 
 This will return a list of all Dataflows and information about them including their ID, name and version number. The ID is used to construct a GET Data request to that Dataflow.
 
@@ -253,7 +253,7 @@ Concept Schemes are groups of related Concepts.  Concepts are associated with al
 The example below will return all information about the structure of the Residential Dwellings Dataflow which has the ID “RES_DWELL”.
 Functionality to provide this response in JSON is not implemented.
 
-https://api.data.abs.gov.au/dataflow/ABS/RES_DWELL?references=all 
+[https://api.data.abs.gov.au/dataflow/ABS/RES_DWELL?references=all](https://api.data.abs.gov.au/dataflow/ABS/RES_DWELL?references=all)
 
 ## Construct a Data Request
 
@@ -266,16 +266,14 @@ The RES_DWELL Dataflow has three dimensions; Measure, Region, Frequency. We need
 - startPeriod and endPeriod are used to request data from the fourth quarter of 2019 to the first quarter of 2020 inclusive
 
 The data request looks like the following:
-https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW.Q?detail=Full&startPeriod=2019-Q2&endPeriod=2020-Q1 
+[https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW.Q?detail=Full&startPeriod=2019-Q2&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW.Q?detail=Full&startPeriod=2019-Q2&endPeriod=2020-Q1)
 
 
-To request all members of the Region dimension, replace the region codes “1GSDY+1RNSW” with either the full list of region IDs separated by the plus sign:
-https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW+2GMEL+2RVIC+3GBRI+3RQLD+4GADE+4RSAU+5GPER+5RWAU+6GHOB+6RTAS+7GDAR+7RNTE+8ACTE.Q?startPeriod=2019-Q2&endPeriod=2020-Q1  
+To request all members of the Region dimension, replace the region codes “1GSDY+1RNSW” with either the full list of region IDs separated by the plus sign: [https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW+2GMEL+2RVIC+3GBRI+3RQLD+4GADE+4RSAU+5GPER+5RWAU+6GHOB+6RTAS+7GDAR+7RNTE+8ACTE.Q?startPeriod=2019-Q2&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW+2GMEL+2RVIC+3GBRI+3RQLD+4GADE+4RSAU+5GPER+5RWAU+6GHOB+6RTAS+7GDAR+7RNTE+8ACTE.Q?startPeriod=2019-Q2&endPeriod=2020-Q1)  
 
-Or an empty string as a wildcard for the Region dimension: https://api.data.abs.gov.au/data/ABS,RES_DWELL/1..Q?startPeriod=2019-Q4&endPeriod=2020-Q1    
+Or an empty string as a wildcard for the Region dimension: [https://api.data.abs.gov.au/data/ABS,RES_DWELL/1..Q?startPeriod=2019-Q4&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/1..Q?startPeriod=2019-Q4&endPeriod=2020-Q1)   
 
-To retrieve all (unfiltered) observations for RES_DWELL, replace the entire dataKey expression with "all":
-https://api.data.abs.gov.au/data/ABS,RES_DWELL/all?startPeriod=2019-Q4&endPeriod=2020-Q1 
+To retrieve all (unfiltered) observations for RES_DWELL, replace the entire dataKey expression with "all": [https://api.data.abs.gov.au/data/ABS,RES_DWELL/all?startPeriod=2019-Q4&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/all?startPeriod=2019-Q4&endPeriod=2020-Q1) 
 
 
 # Troubleshooting
