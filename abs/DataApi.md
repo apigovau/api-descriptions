@@ -268,7 +268,7 @@ If you are exceeding the maximum size even with compression, then you will need 
 
 ### Request URL too long
 
-The maximum allowed length of the ‘Path Parameters’ section of the URL is currently 260 characters. Requests that exceed this limit will return a 400 error.  We intend to increase this limit soon.
+The maximum allowed length of the ‘dataKey’ section of the URL is currently 260 characters. Requests that exceed this limit will return a 400 error.  We intend to increase this limit soon.
 
 To work around the maximum allowed URL length, we recommend using wildcards to request all members of a given dimension rather than specifying the code for each dimension member individually in the URL. For information on this see: GET Data, Path Parameters, dataKey.
 
