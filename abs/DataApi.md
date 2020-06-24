@@ -215,26 +215,6 @@ Example JSON response:
       "isFinal": true,
       "urn": "urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=ABS:RES_DWELL(1.0.0)",
       "annotations": [
-        {
-          "type": "NonProductionDataflow",
-          "text": "true"
-        },
-        {
-          "title": "REGION",
-          "type": "LAYOUT_COLUMN"
-        },
-        {
-          "title": "TIME_PERIOD",
-          "type": "LAYOUT_ROW"
-        },
-        {
-          "title": "MEASURE",
-          "type": "LAYOUT_ROW_SECTION"
-        },
-        {
-          "title": "FREQ=Q,LASTNOBSERVATIONS=16",
-          "type": "DEFAULT"
-        }
       ],
       "structure": {
         "urn": "urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=ABS:RES_DWELL(1.0.0)"
