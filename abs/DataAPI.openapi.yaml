@@ -131,8 +131,8 @@ paths:
           required: true
           type: string
           enum:
-            - datastructure
             - dataflow
+            - datastructure
             - codelist
             - conceptscheme
             - categoryscheme
@@ -189,8 +189,8 @@ paths:
           required: true
           type: string
           enum:
-            - datastructure
             - dataflow
+            - datastructure
             - codelist
             - conceptscheme
             - categoryscheme
@@ -284,8 +284,8 @@ paths:
           required: true
           type: string
           enum:
-            - datastructure
             - dataflow
+            - datastructure
             - codelist
             - conceptscheme
             - categoryscheme
