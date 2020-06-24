@@ -206,10 +206,10 @@ This will return a list of all Dataflows and information about them including th
 
 
 Example JSON response:
-```yaml
+```json
     "urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=ABS:RES_DWELL(1.0.0)": {
       "id": "RES_DWELL",
-      "name": "Residential Dwellings: Unstratified Medians and Transfer Counts by Dwelling Type, GCCSA and Rest of State",
+      "name": "Residential Dwellings: Unstratified Medians and Transfer Counts by Dwelling Type",
       "agencyID": "ABS",
       "version": "1.0.0",
       "isFinal": true,
