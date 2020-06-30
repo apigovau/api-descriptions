@@ -32,10 +32,10 @@ paths:
       operationId: GetData
       consumes: []
       produces:
-        - application/json
+        - application/vnd.sdmx.data+json
         - application/xml
         - application/vnd.sdmx.structurespecificdata+xml
-        - text/csv
+        - application/vnd.sdmx.data+csv
         - application/vnd.sdmx.data+csv;labels=both
       parameters:
         - name: dataflowIdentifier
@@ -123,7 +123,7 @@ paths:
       consumes: []
       produces:
         - application/xml
-        - application/json
+        - application/vnd.sdmx.structure+json
       parameters:
         - name: structureType
           in: path
@@ -181,7 +181,7 @@ paths:
       consumes: []
       produces:
         - application/xml
-        - application/json
+        - application/vnd.sdmx.structure+json
       parameters:
         - name: structureType
           in: path
@@ -276,7 +276,7 @@ paths:
       consumes: []
       produces:
         - application/xml
-        - application/json
+        - application/vnd.sdmx.structure+json
       parameters:
         - name: structureType
           in: path
