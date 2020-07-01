@@ -95,7 +95,7 @@ Return a list of all dataflows available and information about them including ID
 
 Response format can be specified as XML or JSON using the "accept" header.  XML is the default.
 -	accept: application/xml
--	accept: application/json
+- application/vnd.sdmx.structurespecificdata+xml
 
 ### GET metadata
 
@@ -105,11 +105,11 @@ Return structural metadata for the specified dataflow including ID, name, versio
 
 Response format can be specified as XML or JSON using the "accept" header.  XML is the default.
 -	accept: application/xml
--	accept: application/json
+- application/vnd.sdmx.structurespecificdata+xml
 
-XML responses include more detailed information about the dataflow and its underlying data structure definition.  Information is provided on Codlists and Concept Schemes which combine to define the dimensions of the data structure.
+Information is provided on Codlists and Concept Schemes which combine to define the dimensions of the data structure.
 
 Codelists provide a list of codes used to define data in the dataflow.  Each code has an ID and a name.  Codes may also have a parent ID which defines a hierarchy within the codelist.
 
-Concept Schemes are groups of related Concepts.  Concepts are associated with all artefacts in the data structure, dimensions, annotations, etc., and define what each artefact is and how it is used.  Concepts include an ID, name and description.
+Concept Schemes are groups of related Concepts.  Concepts are associated with all artefacts in the data structure: dimensions, annotations, etc., and define what each artefact is and how it is used.  Concepts include an ID, name and description.
 
