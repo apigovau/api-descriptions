@@ -70,7 +70,7 @@ paths:
       operationId: GetDataflows
       consumes: []
       produces:
-        - application/json
+        - application/vnd.sdmx.structure+json
         - application/xml
       responses:
        '200':
@@ -89,7 +89,7 @@ paths:
       operationId: GetMetadata
       consumes: []
       produces:
-        - application/json
+        - application/vnd.sdmx.structure+json
         - application/xml
       parameters:
         - name: dataflowIdentifier
