@@ -47,7 +47,7 @@ Metadata is available in XML and JSON.
 Access to this API is managed by API Key.  Currently ABS Indicator API is in a closed Beta. If you are interested in testing and providing feedback please contact us at [api.data@abs.gov.au](mailto:api.data@abs.gov.au). We will open the Beta to public access soon.
 
 If you have been issued an API Key you need to add it as a header in your API requests: 
-`X-API-Key: xxxxxxxxxxxxxxx`
+`x-api-key: xxxxxxxxxxxxxxx`
 
 If you are using the linked Swagger user interface to test the API, click ‘Authorize’ enter your API Key and then click Authorize again. 
 
