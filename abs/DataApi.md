@@ -57,7 +57,16 @@ Click for bigger version
 
 ### Authentication
 
-This is a public and unauthenticated service.
+Unauthenticated access to the ABS Data API is allowed for the purposes of investigation and testing.
+
+If you decide to use the ABS Data API for a system or application, we strongly encourage you to register for an API key. The key will allow you to make API requests without being impacted by other users of the system.  If you have issues, it will be easier for us to investigate them.
+
+If you wish to register for an API key, please contact us at [api.data@abs.gov.au](mailto:api.data@abs.gov.au).  Providing your name or organisation name and a brief description of what you will use the API for.  It may take a few days for us to respond. 
+
+If you have been issued an API Key, you need to add it as a header in your API requests: “x-api-key: xxxxxxxxxxxxxxx”
+
+If you are using the linked Swagger user interface to test the API, click ‘Authorize’ enter your API Key and then click 'Authorize' again.
+
 
 
 # Using the API
