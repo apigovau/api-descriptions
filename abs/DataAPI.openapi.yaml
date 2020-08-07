@@ -23,6 +23,11 @@ externalDocs:
   url: https://github.com/sdmx-twg/sdmx-rest/wiki
 schemes:
  - https
+securityDefinitions:
+   APIKeyHeader:
+     type: apiKey
+     in: header
+     name: x-api-key
 paths:
   '/data/{dataflowIdentifier}/{dataKey}':
     get:
