@@ -28,6 +28,8 @@ securityDefinitions:
      type: apiKey
      in: header
      name: x-api-key
+security:
+  - APIKeyHeader: []
 paths:
   '/data/{dataflowIdentifier}/{dataKey}':
     get:
