@@ -43,6 +43,23 @@ Metadata is primarily available in XML.  Some metadata is also available in JSON
 
 ABS Data API (Beta) is fully compliant with SDMX 2.1 - the Statistical Data and Metadata Exchange information model. The SDMX-REST Guide is available on [GitHub](https://github.com/sdmx-twg/sdmx-rest/wiki).
 
+You can specify the response in the API URL using the "format" query parameter. E.g: https://api.data.abs.gov.au/data/jv/all?startPeriod=2020&format=jsondata 
+- XML is returned by default
+- Structure specific XML (good for time series): "format=structurespecificdata" 
+- JSON: "format=jsondata" 
+- CSV: "format=csv"
+
+
+You can also use the "accept" header to specify the response format as a header when you make an API call. 
+E.g: "accept: application/xml"
+- XML: "application/xml"
+- Structure specific XML: "application/vnd.sdmx.structurespecificdata+xml"
+- JSON: "accept: application/vnd.sdmx.data+json"
+- CSV: "accept: application/vnd.sdmx.data+csv"
+- CSV with labels for codelists: "accept: application/vnd.sdmx.data+csv;labels=both"
+
+
+
 
 ## OpenAPI Specification
 
