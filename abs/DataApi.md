@@ -234,7 +234,7 @@ We'll be going through this process step by step and explaining a little bit alo
 
 ### Step 1: Finding a Dataflow
 
-All data in the ABS APIs comes out of a dataflow (a type of SDMX structure). You can kind of think of a dataflow as a table of data (it isn't, but you can kind of think of it as one). To begin our search, we'll need to find a dataflow containing data from the `Apparent Consumption of Alcohol` collection. Luckily, all SDMX structures have their own URL we can call to list them (as well as do some other exciting things if we like). Simply by visiting [https://api.data.abs.gov.au/dataflow](https://api.data.abs.gov.au/dataflow) I get to see a list of all the dataflows the ABS offers. There are a lot of them. If I search for `Apparent Consumption of Alcohol` however, I find one:
+All data in the ABS APIs comes out of a dataflow (a type of SDMX structure). You can think of a dataflow as a table of data (it isn't, but you can kind of think of it as one). To begin our search, we'll need to find a dataflow containing data from the `Apparent Consumption of Alcohol` collection. Luckily, all SDMX structures have their own URL we can call to list them (as well as do some other exciting things if we like). Simply by visiting [https://api.data.abs.gov.au/dataflow](https://api.data.abs.gov.au/dataflow) we get to see a list of all the dataflows the ABS offers. There are a lot of them. If I search for `Apparent Consumption of Alcohol` however, I find one:
 
 ```xml
    <structure:Dataflow id="ALC" agencyID="ABS" version="1.0.0" isFinal="true">
