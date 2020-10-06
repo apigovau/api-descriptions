@@ -234,7 +234,7 @@ We'll be going through this process step by step and explaining a little bit alo
 
 ### Step 1: Finding a Dataflow
 
-All data in the ABS APIs comes out of a dataflow (a type of SDMX structure). You can kind of think of a dataflow as a table of data (it isn't, but you can kind of think of it as one). To begin our search, we'll need to find a dataflow containing data from the `Apparent Consumption of Alcohol` collection. Luckily, all SDMX structures have their own URL we can call to list them (as well as do some other exciting things if we like). Simply by visiting https://api.data.abs.gov.au/dataflow I get to see a list of all the dataflows the ABS offers. There are a lot of them. If I search for `Apparent Consumption of Alcohol` however, I find one:
+All data in the ABS APIs comes out of a dataflow (a type of SDMX structure). You can kind of think of a dataflow as a table of data (it isn't, but you can kind of think of it as one). To begin our search, we'll need to find a dataflow containing data from the `Apparent Consumption of Alcohol` collection. Luckily, all SDMX structures have their own URL we can call to list them (as well as do some other exciting things if we like). Simply by visiting [https://api.data.abs.gov.au/dataflow](https://api.data.abs.gov.au/dataflow) I get to see a list of all the dataflows the ABS offers. There are a lot of them. If I search for `Apparent Consumption of Alcohol` however, I find one:
 
 ```xml
    <structure:Dataflow id="ALC" agencyID="ABS" version="1.0.0" isFinal="true">
@@ -257,7 +257,7 @@ Dataflows are how we look at the data in the ABS API, but there's another struct
 
 What has this got to do with getting the data? It's important to know how the data is structured so we can build a query. Now, our dataflow is pretty small, so we could just get all the data and deal with finding the value we want... but some of the other dataflows are very large. So we should learn how to query the API to avoid getting a whole bunch of data we don't want, crashing our computer or exceeding the size limits for the API.
 
-Data queries to the API look like this: `https://api.data.abs.gov.au/data/{flowRef}/{key}?{queryParameters}`. We're going to need to provide a `flowRef` so the API knows what dataflow to get data from, and a `key` to filter the data we get back. We'll leave the extra parameters to the next section.
+Data queries to the API look like this: `https://api.data.abs.gov.au/data/{flowRef}/{dataKey}?{queryParameters}`. We're going to need to provide a `flowRef` so the API knows what dataflow to get data from, and a `dataKey` to filter the data we get back. We'll leave the extra parameters to the next section.
 
 **FlowRef**
 
@@ -265,7 +265,7 @@ There's a few ways we can define the `flowRef`, but we'll be using the simplest 
 
 **dataKey**
 
-The key section of the URL lets us tell the ABS API that we only want some subset of the available data. We do that by providing the values we want from each `dimension`, separated by the `.` character. You can think of the dimensions as the columns and rows of the table defined by the DSD. So, this is why we need to look at the DSD our dataflow is using. Firstly, we need to know what order the dimensions appear in the DSD, because that's the order we need to put them in the `key`. Secondly, we need to know what values are available, and which ones correspond to the information I want to retrieve.
+The dataKey section of the URL lets us tell the ABS API that we only want a subset of the available data. We do that by providing the values we want from each `dimension`, separated by the `.` character. You can think of the dimensions as the columns and rows of the table defined by the DSD. So, this is why we need to look at the DSD our dataflow is using. Firstly, we need to know what order the dimensions appear in the DSD, because that's the order we need to put them in the `dataKey`. Secondly, we need to know what values are available, and which ones correspond to the information I want to retrieve.
 
 Each of the dimensions in our dataflow's DSD is represented by a `codelist`. A codelist... lists... codes... So, we need to look at the DSD and see what order the dimensions are (and what they are) and then look at each of the codelists and work out what code corresponds to the information we want (remember, it's how much mid-strength beer each Australian drank in 2008).
 
@@ -283,7 +283,7 @@ Now, we don't actually have to provide a version number for our DSD, because if 
 </structure:Structure>
 ```
 
-Given this, we can get the DSD using the url: https://api.data.abs.gov.au/datastructure/ABS/ALC. 
+Given this, we can get the DSD using the url: [https://api.data.abs.gov.au/datastructure/ABS/ALC](https://api.data.abs.gov.au/datastructure/ABS/ALC). 
 
 ```xml
 <message:Structures>
@@ -318,7 +318,7 @@ This gives us the Data Structure with dimensions. The order of dimensions is giv
 
 But, we don't just need to know the order of the dimensions, but what values they take. That's defined by the codelist each dimension uses. Now, we could do the same sort of thing we did with getting to the DSD from the dataflow. Each dimension will refer to a codelist like we can see above for the codelist `CL_ALC_TYP`.
 
-We could call the API to get each of the codelists in turn using URLs like https://api.data.abs.gov.au/codelist/ABS/CL_ALC_TYP/1.0.0 (we included the version number 1.0.0 here). But that means we have to make a call for every dimension. Let’s save time and use our first query parameter when getting structure information: `references`. This parameter lets us retrieve not just the specified structure from the API, but some of the structures it references as well. We're going to specify the value `codelist`, telling the API that we want to retrieve any codelists referred to by our DSD: https://api.data.abs.gov.au/datastructure/ABS/ALC?references=codelist:
+We could call the API to get each of the codelists in turn using URLs like [https://api.data.abs.gov.au/codelist/ABS/CL_ALC_TYP/1.0.0](https://api.data.abs.gov.au/codelist/ABS/CL_ALC_TYP/1.0.0) (we included the version number 1.0.0 here). But that means we have to make a call for every dimension. Let’s save time and use our first query parameter when getting structure information: `references`. This parameter lets us retrieve not just the specified structure from the API, but some of the structures it references as well. We're going to specify the value `codelist`, telling the API that we want to retrieve any codelists referred to by our DSD: [https://api.data.abs.gov.au/datastructure/ABS/ALC?references=codelist](https://api.data.abs.gov.au/datastructure/ABS/ALC?references=codelist):
 
 ```xml
 <structure:DataStructures>
@@ -377,7 +377,7 @@ We could call the API to get each of the codelists in turn using URLs like https
 
 We've worked out how to get the codelists that define the values each dimension can take, however, it’s not clear what the highlighted dimension is. To find this we need to look at the `concept` it refers to. The concept gives the dimension its meaning and its name. As codes are stored in codelists, concepts are stored in... conceptschemes (conceptlists would be too obvious). So, we want the DSD to get the dimensions and their order, the referenced concepts (via their conceptschemes) to work out what they are, and the referenced codelists (to work out what values we need).
 
-We're going back to the `references` query parameter. Instead of `codelist`, we’ll use the value `children` to tell the API we want all directly-referenced structures (which will include both the codelists, and the conceptschemes). Finally, we have all the information we need. Our API call is https://api.data.abs.gov.au/datastructure/ABS/ALC?references=children (Some codelists and conceptschemes we're not using removed for brevity):
+We're going back to the `references` query parameter. Instead of `codelist`, we’ll use the value `children` to tell the API we want all directly-referenced structures (which will include both the codelists, and the conceptschemes). Finally, we have all the information we need. Our API call is [https://api.data.abs.gov.au/datastructure/ABS/ALC?references=children](https://api.data.abs.gov.au/datastructure/ABS/ALC?references=children) (Some codelists and conceptschemes we're not using removed for brevity):
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -840,7 +840,7 @@ We'll leave time period off for now, as it's handled differently to other dimens
 
 ### Step 3: Getting the Data
 
-All the above work means I can put together the following url to get data: https://api.data.abs.gov.au/data/ALC/1.2.1.4.A.
+All the above work means I can put together the following url to get data: [https://api.data.abs.gov.au/data/ALC/1.2.1.4.A](https://api.data.abs.gov.au/data/ALC/1.2.1.4.A).
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -939,7 +939,7 @@ All the above work means I can put together the following url to get data: https
 </message:GenericData>
 ```
 
-That’s data for all time periods, but we only want to know about the consumption in 2008. To return just the year we want, we're going to introduce a couple of query parameters to our query. Time period is treated differently to the other dimensions, you specify time period using the query parameters `startPeriod` and `endPeriod`. By setting startPeriod to 2008 and endPeriod to 2008 we can get back only one observation. So, we use https://api.data.abs.gov.au/data/ALC/1.2.1.4.A?startPeriod=2008&endPeriod=2008:
+That’s data for all time periods, but we only want to know about the consumption in 2008. To return just the year we want, we're going to introduce a couple of query parameters to our query. Time period is treated differently to the other dimensions, you specify time period using the query parameters `startPeriod` and `endPeriod`. By setting startPeriod to 2008 and endPeriod to 2008 we can get back only one observation. So, we use [https://api.data.abs.gov.au/data/ALC/1.2.1.4.A?startPeriod=2008&endPeriod=2008](https://api.data.abs.gov.au/data/ALC/1.2.1.4.A?startPeriod=2008&endPeriod=2008):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -983,12 +983,12 @@ So, finally we have our answer: In 2008 the average per person consumption of mi
 
 ### Summary
 
-Call https://api.data.abs.gov.au/dataflow to find our dataflow is `ALC`, with agency `ABS`.
+Call [https://api.data.abs.gov.au/dataflow](https://api.data.abs.gov.au/dataflow) to find our dataflow is `ALC`, with agency `ABS`.
 
-Call https://api.data.abs.gov.au/datastructure/ABS/ALC?references=children so we get the DSD and all the codelists and conceptschemes.
-You can also call https://api.data.abs.gov.au/dataflow/ABS/ALC?references=descendants `descendants` will call references of references to any level.
+Call [https://api.data.abs.gov.au/datastructure/ABS/ALC?references=children](https://api.data.abs.gov.au/datastructure/ABS/ALC?references=children) so we get the DSD and all the codelists and conceptschemes.
+You can also call [https://api.data.abs.gov.au/dataflow/ABS/ALC?references=descendants](https://api.data.abs.gov.au/dataflow/ABS/ALC?references=descendants) `descendants` will call references of references to any level.
 
-Build the data call https://api.data.abs.gov.au/data/ALC/1.2.1.4.A?startPeriod=2008&endPeriod=2008 to get the data. 
+Build the data call [https://api.data.abs.gov.au/dataflow/ABS/ALC?references=descendants](https://api.data.abs.gov.au/data/ALC/1.2.1.4.A?startPeriod=2008&endPeriod=2008) to get the data. 
 
 
 ## Constructing more detailed data queries
@@ -1016,7 +1016,7 @@ In this example we will request the Number of established house transfers for tw
 This data request looks like:
 [https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW.Q?detail=Full&startPeriod=2019-Q4&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW.Q?detail=Full&startPeriod=2019-Q4&endPeriod=2020-Q1)
 
-### Use Wildcard to request all dimension members
+### Use wildcards to request all dimension members
 
 Wildcarding is supported by specifying no codes for a given dimension. This will return all available observations for that dimension. 
 
