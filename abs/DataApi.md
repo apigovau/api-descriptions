@@ -236,7 +236,20 @@ We'll be going through this process step by step and explaining a little bit alo
 
 All data in the ABS APIs comes out of a dataflow (a type of SDMX structure). You can kind of think of a dataflow as a table of data (it isn't, but you can kind of think of it as one). To begin our search, we'll need to find a dataflow containing data from the `Apparent Consumption of Alcohol` collection. Luckily, all SDMX structures have their own URL we can call to list them (as well as do some other exciting things if we like). Simply by visiting https://api.data.abs.gov.au/dataflow I get to see a list of all the dataflows the ABS offers. There are a lot of them. If I search for `Apparent Consumption of Alcohol` however, I find one:
 
-![Finding the Dataflow](documentation-images/FindingDataflow.PNG "Finding the Dataflow")
+```xml
+   <structure:Dataflow id="ALC" agencyID="ABS" version="1.0.0" isFinal="true">
+      <common:Annotations>
+         <common:Annotation>
+            <common:AnnotationType>NonProductionDataflow</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">true</common:AnnotationText>
+         </common:Annotation>
+      </common:Annotations>
+      <common:Name xml:lang="en">Apparent Consumption of Alcohol, Australia</common:Name>
+      <structure:Structure>
+         <Ref id="ALC" version="1.0.0" agencyID="ABS" package="datastructure" class="DataStructure" />
+      </structure:Structure>
+   </structure:Dataflow>
+```
 
 ### Step 2: Reviewing the Structure
 
@@ -250,7 +263,7 @@ Data queries to the API look like this: `https://api.data.abs.gov.au/data/{flowR
 
 There's a few ways we can define the `flowRef`, but we'll be using the simplest one. From the first request we made above we know `Dataflow id=“ALC”` therefore our flowRef is `ALC`
 
-**Key**
+**dataKey**
 
 The key section of the URL lets us tell the ABS API that we only want some subset of the available data. We do that by providing the values we want from each `dimension`, separated by the `.` character. You can think of the dimensions as the columns and rows of the table defined by the DSD. So, this is why we need to look at the DSD our dataflow is using. Firstly, we need to know what order the dimensions appear in the DSD, because that's the order we need to put them in the `key`. Secondly, we need to know what values are available, and which ones correspond to the information I want to retrieve.
 
@@ -262,19 +275,107 @@ Now, we can use the same URL we used for the dataflow (because DSDs also have th
 - The structure id itself
 - The version number of the structure: this is used when structures need to change over time. A classic example would be adding a country to the list of countries... the old list will still be around, but we'll create a new version of it
 
-Now, we don't actually have to provide a version number for our DSD, because if you don't give one, the API assumes you just want the latest one... which is true! We do just want the latest one! The question now is where to get the structure id for the DSD for our dataflow. Well, luckily we've already seen it, when we were looking for our dataflow!
+Now, we don't actually have to provide a version number for our DSD, because if you don't give one, the API assumes you just want the latest one... which is true! We do just want the latest one! The question now is where to get the structure id for the DSD for our dataflow. Well, luckily we've already seen it, when we were looking for our dataflow in step 1 above.
 
-![Finding the DSD Values](documentation-images/FindingDSDValues.PNG "Finding the DSD Values")
+```xml
+<structure:Structure>
+  <Ref id="ALC" version="1.0.0" agencyID="ABS" package="datastructure" class="DataStructure"/>
+</structure:Structure>
+```
 
-Given this, we know we can get the DSD using the url: https://api.data.abs.gov.au/datastructure/ABS/ALC. But, we can go one better... we know that we don't just need to know the order of the dimensions, but what values they take. That's defined by the codelist each dimension uses. Now, we could do the same sort of thing we did with getting to the DSD from the dataflow. Each dimension will refer to a codelist like we can see here:
+Given this, we can get the DSD using the url: https://api.data.abs.gov.au/datastructure/ABS/ALC. 
 
-![Slow way to get Codelists](documentation-images/BadGettingCodelists.PNG "Slow way to get Codelists")
+```xml
+<message:Structures>
+   <structure:DataStructures>
+      <structure:DataStructure id="ALC" agencyID="ABS" version="1.0.0" isFinal="true">
+         <common:Name xml:lang="en">Apparent Consumption of Alcohol, Australia</common:Name>
+         <structure:DataStructureComponents>
+            <structure:DimensionList id="DimensionDescriptor">
+               <structure:Dimension id="TYP" position="1">
+                  <structure:ConceptIdentity>
+                     <Ref id="TYP" maintainableParentID="CS_ALC" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept" />
+                  </structure:ConceptIdentity>
+                  <structure:LocalRepresentation>
+                     <structure:Enumeration>
+                        <Ref id="CL_ALC_TYP" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist" />
+                     </structure:Enumeration>
+                  </structure:LocalRepresentation>
+               </structure:Dimension>
+               <structure:Dimension id="MEA" position="2">
+                  <structure:ConceptIdentity>
+                     <Ref id="MEASURE" maintainableParentID="CS_COMMON" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept" />
+                  </structure:ConceptIdentity>
+                  <structure:LocalRepresentation>
+                     <structure:Enumeration>
+                        <Ref id="CL_ALC_MEASURE" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist" />
+                     </structure:Enumeration>
+                  </structure:LocalRepresentation>
+               </structure:Dimension>
+```
 
-We could call the API to get each of the codelists in turn using URLs lie https://api.data.abs.gov.au/codelist/ABS/CL_ALC_TYP/1.0.0 (we included the version number 1.0.0 here). But that means we have to make a call for every dimension. Let’s save time and use our first query parameter when getting structure information: `references`. This parameter lets us retrieve not just the specified structure from the API, but some of the structures it references as well. We're going to specify the value `codelist`, telling the API that we want to retrieve any codelists referred to by our DSD: https://api.data.abs.gov.au/datastructure/ABS/ALC?references=codelist:
+This gives us the Data Structure with dimensions. The order of dimensions is given by their position eg. `position="1"`.
 
-![What even are these dimensions?](documentation-images/WhatAreTheseDimensions.PNG "What even are these dimensions?")
+But, we don't just need to know the order of the dimensions, but what values they take. That's defined by the codelist each dimension uses. Now, we could do the same sort of thing we did with getting to the DSD from the dataflow. Each dimension will refer to a codelist like we can see above for the codelist `CL_ALC_TYP`.
 
-We've worked out how to get the codelists that define the values each dimension can take, however, it’s not clear what the highlighted dimension is. To find this we need to look at the `concept` it refers to. The concept gives the dimension its meaning its name. As codes are stored in codelists, concepts are stored in... conceptschemes (conceptlists would be too obvious). So, we want the DSD to get the dimensions and their order, the referenced concepts (via their conceptschemes) to work out what they are, and the referenced codelists (to work out what values we need).
+We could call the API to get each of the codelists in turn using URLs like https://api.data.abs.gov.au/codelist/ABS/CL_ALC_TYP/1.0.0 (we included the version number 1.0.0 here). But that means we have to make a call for every dimension. Let’s save time and use our first query parameter when getting structure information: `references`. This parameter lets us retrieve not just the specified structure from the API, but some of the structures it references as well. We're going to specify the value `codelist`, telling the API that we want to retrieve any codelists referred to by our DSD: https://api.data.abs.gov.au/datastructure/ABS/ALC?references=codelist:
+
+```xml
+<structure:DataStructures>
+         <structure:DataStructure id="ALC" agencyID="ABS" version="1.0.0" isFinal="true">
+            <common:Name xml:lang="en">Apparent Consumption of Alcohol, Australia</common:Name>
+            <structure:DataStructureComponents>
+               <structure:DimensionList id="DimensionDescriptor">
+                  <structure:Dimension id="TYP" position="1">
+                     <structure:ConceptIdentity>
+                        <Ref id="TYP" maintainableParentID="CS_ALC" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept" />
+                     </structure:ConceptIdentity>
+                     <structure:LocalRepresentation>
+                        <structure:Enumeration>
+                           <Ref id="CL_ALC_TYP" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist" />
+                        </structure:Enumeration>
+                     </structure:LocalRepresentation>
+                  </structure:Dimension>
+                  <structure:Dimension id="MEA" position="2">
+                     <structure:ConceptIdentity>
+                        <Ref id="MEASURE" maintainableParentID="CS_COMMON" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept" />
+                     </structure:ConceptIdentity>
+                     <structure:LocalRepresentation>
+                        <structure:Enumeration>
+                           <Ref id="CL_ALC_MEASURE" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist" />
+                        </structure:Enumeration>
+                     </structure:LocalRepresentation>
+                  </structure:Dimension>
+                  <structure:Dimension id="BEVT" position="3">
+                     <structure:ConceptIdentity>
+                        <Ref id="BEVT" maintainableParentID="CS_ALC" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept" />
+                     </structure:ConceptIdentity>
+                     <structure:LocalRepresentation>
+                        <structure:Enumeration>
+                           <Ref id="CL_ALC_BEVT" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist" />
+                        </structure:Enumeration>
+                     </structure:LocalRepresentation>
+                  </structure:Dimension>
+                  <structure:Dimension id="SUB" position="4">
+                     <structure:ConceptIdentity>
+                        <Ref id="SUB" maintainableParentID="CS_ALC" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept" />
+                     </structure:ConceptIdentity>
+                     <structure:LocalRepresentation>
+                        <structure:Enumeration>
+                           <Ref id="CL_ALC_SUB" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist" />
+                        </structure:Enumeration>
+                     </structure:LocalRepresentation>
+                  </structure:Dimension>
+                  <structure:Dimension id="FREQUENCY" position="5">
+                     <structure:ConceptIdentity>
+                        <Ref id="FREQ" maintainableParentID="CS_COMMON" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept" />
+                     </structure:ConceptIdentity>
+                     <structure:LocalRepresentation>
+                        <structure:Enumeration>
+                           <Ref id="CL_FREQ" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist" />
+```
+
+We've worked out how to get the codelists that define the values each dimension can take, however, it’s not clear what the highlighted dimension is. To find this we need to look at the `concept` it refers to. The concept gives the dimension its meaning and its name. As codes are stored in codelists, concepts are stored in... conceptschemes (conceptlists would be too obvious). So, we want the DSD to get the dimensions and their order, the referenced concepts (via their conceptschemes) to work out what they are, and the referenced codelists (to work out what values we need).
 
 We're going back to the `references` query parameter. Instead of `codelist`, we’ll use the value `children` to tell the API we want all directly-referenced structures (which will include both the codelists, and the conceptschemes). Finally, we have all the information we need. Our API call is https://api.data.abs.gov.au/datastructure/ABS/ALC?references=children (Some codelists and conceptschemes we're not using removed for brevity):
 
@@ -892,64 +993,42 @@ Build the data call https://api.data.abs.gov.au/data/ALC/1.2.1.4.A?startPeriod=2
 
 ## Constructing more detailed data queries
 
-The first step to using the ABS Data API is to find out what data is available. In SDMX data is stored in a Data Structure but accessed via a Dataflow. Every data structure has one or more dataflow.  When constructing a data request, the dataflow identifier is used to identify what data you want. 
+### Explore Dataflow
 
-To find out what data is available in the ABS Data API you need to request a list of all available dataflows. Here is an example call for all dataflows and their IDs.
+The example above takes you through constructing an API request to return 1 observation. However, the ABS Data API has a lot of flexibility in how you can construct requests for the data you are interested in.
 
-[https://api.data.abs.gov.au/dataflow/ABS](https://api.data.abs.gov.au/dataflow/ABS)
+In this example we'll explore the Residential Dwellings dataflow which has the ID `RES_DWELL`. The URL below will return all information we need to know about the Residential Dwellings dataflow to construct our data request.
 
-This will return a list of all dataflows and information about them including their ID, name and version number. The ID is used to construct a GET Data request for that dataflow.
+[https://api.data.abs.gov.au/dataflow/ABS/RES_DWELL?references=descendants](https://api.data.abs.gov.au/dataflow/ABS/RES_DWELL?references=descendants)
 
+### Use "+" to request multiple dimension members
 
-Example JSON response:
-```json
-    "urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=ABS:RES_DWELL(1.0.0)": {
-      "id": "RES_DWELL",
-      "name": "Residential Dwellings: Unstratified Medians and Transfer Counts by Dwelling Type",
-      "agencyID": "ABS",
-      "version": "1.0.0",
-      "isFinal": true,
-      "urn": "urn:sdmx:org.sdmx.infomodel.datastructure.Dataflow=ABS:RES_DWELL(1.0.0)",
-      "annotations": [
-      ],
-      "structure": {
-        "urn": "urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=ABS:RES_DWELL(1.0.0)"
-      }
-    },
-```
+Once you know the Dataflow ID, Codelists, Concepts, dimensions and dimension position for the data you want to call, you can construct a GET Data request. 
 
-## Step 1: Explore Dataflows
+The OR operator is supported using the `+` character. The RES_DWELL dataflow has three dimensions; Measure, Region, Frequency. To use the OR operator we specify two or more codes for one dimension separated by +.
 
-Once you have chosen a dataflow to request data from, it's useful to understand more about its structure. Each dataflow is linked to a data structure and each data structure is made up of multiple dimensions.  Dimensions are defined by a Codelist and a Concept.
-
-Codelists provide a list of codes used to identify data in the dataflow.  Each code has an ID and a name.  Codes may also have a parent ID which defines a hierarchy within the codelist. Code IDs are used to construct a data request.
-
-Concept Schemes are groups of related Concepts.  Concepts are associated with all artefacts in the data structure: dimensions, annotations, etc., and define what each artefact is and how it is used.
-
-The example below will return all information about the structure of the Residential Dwellings Dataflow which has the ID `RES_DWELL`.
-Functionality to provide this response in JSON is not implemented.
-
-[https://api.data.abs.gov.au/dataflow/ABS/RES_DWELL?references=all](https://api.data.abs.gov.au/dataflow/ABS/RES_DWELL?references=all)
-
-## Step 2: Construct a Data Request
-
-Once you know the Dataflow ID, dimensions and Codelists for the data you want to call, you can construct a GET Data request. In this example we will use the Residential Dwellings dataflow which has the ID `RES_DWELL`. 
-
-The RES_DWELL dataflow has three dimensions; Measure, Region, Frequency. We need to specify codes for each dimension and optionally a time range:
+In this example we will request the Number of established house transfers for two regions; Sydney and the Rest of NSW:
 - Measure - we will request code `1` for Number of Established House Transfers
 - Region - we will request two codes `1GSYD+1RNSW` for Greater Sydney and Rest of NSW respectively
 - Frequency - we will request `Q` for Quarterly
 - startPeriod and endPeriod - we will request data from the fourth quarter of 2019 to the first quarter of 2020 inclusive
 
 This data request looks like:
-[https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW.Q?detail=Full&startPeriod=2019-Q2&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW.Q?detail=Full&startPeriod=2019-Q2&endPeriod=2020-Q1)
+[https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW.Q?detail=Full&startPeriod=2019-Q4&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW.Q?detail=Full&startPeriod=2019-Q4&endPeriod=2020-Q1)
 
+### Use Wildcard to request all dimension members
 
-To request all members of the Region dimension, replace the region codes `1GSDY+1RNSW` with either the full list of all region IDs separated by the plus sign: [https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW+2GMEL+2RVIC+3GBRI+3RQLD +4GADE+4RSAU+5GPER+5RWAU+6GHOB+6RTAS+7GDAR+7RNTE+8ACTE.Q?startPeriod=2019-Q2&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW+2GMEL+2RVIC+3GBRI+3RQLD+4GADE+4RSAU+5GPER+5RWAU+6GHOB+6RTAS+7GDAR+7RNTE+8ACTE.Q?startPeriod=2019-Q2&endPeriod=2020-Q1)  
+Wildcarding is supported by specifying no codes for a given dimension. This will return all available observations for that dimension. 
 
-Or an empty string as a wildcard for the Region dimension: [https://api.data.abs.gov.au/data/ABS,RES_DWELL/1..Q?startPeriod=2019-Q4&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/1..Q?startPeriod=2019-Q4&endPeriod=2020-Q1)   
+To request all members of the Region dimension, replace the region codes `1GSDY+1RNSW` with an empty string as a wildcard for the Region dimension: [https://api.data.abs.gov.au/data/ABS,RES_DWELL/1..Q?startPeriod=2019-Q4&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/1..Q?startPeriod=2019-Q4&endPeriod=2020-Q1)   
 
-To retrieve all (unfiltered) observations for RES_DWELL, replace the entire dataKey expression with "all": [https://api.data.abs.gov.au/data/ABS,RES_DWELL/all?startPeriod=2019-Q4&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/all?startPeriod=2019-Q4&endPeriod=2020-Q1) 
+This will return the same result as if you had specified all Region IDs separated by the plus character: [https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW+2GMEL+2RVIC+3GBRI+3RQLD +4GADE+4RSAU+5GPER+5RWAU+6GHOB+6RTAS+7GDAR+7RNTE+8ACTE.Q?startPeriod=2019-Q2&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1GSYD+1RNSW+2GMEL+2RVIC+3GBRI+3RQLD+4GADE+4RSAU+5GPER+5RWAU+6GHOB+6RTAS+7GDAR+7RNTE+8ACTE.Q?startPeriod=2019-Q2&endPeriod=2020-Q1) 
+
+### Use "all" to request all data
+
+To retrieve all (unfiltered) observations for, replace the entire dataKey expression with `all`: [https://api.data.abs.gov.au/data/ABS,RES_DWELL/all?startPeriod=2019-Q4&endPeriod=2020-Q1](https://api.data.abs.gov.au/data/ABS,RES_DWELL/all?startPeriod=2019-Q4&endPeriod=2020-Q1) 
+
+Leaving the series key blank will default to all.
 
 
 # Troubleshooting
@@ -964,7 +1043,8 @@ If you are exceeding the maximum size even with compression, then you will need 
 
 ### Request URL too long
 
-The maximum allowed length of the ‘dataKey’ section of the URL is currently 260 characters. Requests that exceed this limit will return a 400 error.  We intend to increase this limit soon.
+The maximum allowed length of the ‘dataKey’ section of the URL is 5,000 characters. Requests that exceed this limit will return a 400 error. 
 
 To work around the maximum allowed URL length, we recommend using wildcards to request all members of a given dimension rather than specifying the code for each dimension member individually in the URL. For information on this see: GET Data, Path Parameters, dataKey.
+
 
