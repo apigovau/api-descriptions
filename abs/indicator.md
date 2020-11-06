@@ -13,7 +13,9 @@
   
   <p>Availability of the ABS Indicator API (Beta) is not guaranteed. The service may be subject to change.</p>
   
-  <p>You can contact the ABS APIs team at <a href="mailto:api.data@abs.gov.au">api.data@abs.gov.au</a>. Please let us know any feedback or issues you have. You can request to join our register of interest to be notified of any changes in the API.  The <a href="https://www.abs.gov.au/websitedbs/D3310114.nsf/Home/Privacy?opendocument#from-banner=GB" target="_blank">ABS privacy policy</a> outlines how the ABS handles any personal information that you provide to us.</p>
+  <p>If you have any issues with the ABS Indicator API, you can ask for help and provide feedback through our <a href="https://community.digital.gov.au/c/api/Discuss-get-help-or-provide-feedback-for-APIs-from-the-Australian-Bureau-of-Statistics/133">API Community of Practice</a>.</p>
+  
+  <p>Contact the ABS APIs team at <a href="mailto:api.data@abs.gov.au">api.data@abs.gov.au</a>. You can request to join our register of interest to be notified of any changes in the API. The <a href="https://www.abs.gov.au/websitedbs/D3310114.nsf/Home/Privacy?opendocument#from-banner=GB" target="_blank">ABS privacy policy</a> outlines how the ABS handles any personal information that you provide to us.</p>
   </div>
 
 ## Key Information
