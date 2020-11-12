@@ -84,8 +84,10 @@ The ABS Indicator API will not accept any custom data queries or query parameter
 
 Response format can be specified as XML, JSON or CSV using the "accept" header.  XML is the default.
 - accept: application/xml
+- application/vnd.sdmx.structurespecificdata+xml
 - accept: application/json
 - accept: text/csv
+- accept: application/vnd.sdmx.data+csv;labels=both
 
 ## GET Metadata
 
@@ -97,7 +99,7 @@ Return a list of all dataflows available and information about them including ID
 
 Response format can be specified as XML or JSON using the "accept" header.  XML is the default.
 -	accept: application/xml
-- application/vnd.sdmx.structurespecificdata+xml
+- accept: application/vnd.sdmx.structure+json
 
 ### GET metadata
 
