@@ -157,6 +157,16 @@ Using the dimensionAtObservation parameter, you can define the way the data shou
 -	**AllDimensions**: This will return a flat view of the data, with no groupings.
 -	**The ID of any other dimension**: This will return a cross-sectional view of the data.
 
+### Format
+
+Response format can be specified as XML, JSON or CSV using the "accept" header.  XML is the default.
+- accept: application/xml
+- application/vnd.sdmx.structurespecificdata+xml
+- accept: application/json
+- accept: text/csv
+- accept: application/vnd.sdmx.data+csv;labels=both
+
+
 ## GET Metadata
 
 Metadata is returned using the following syntax:
@@ -219,6 +229,12 @@ Specify the desired amount of detail to be returned. For example, it is possible
 -	**allcompletestubs**: All artefacts should be returned as complete stubs, containing identification information, the artefacts' name, description, annotations and isFinal information.
 -	**referencecompletestubs**: The referenced artefacts should be returned as complete stubs, containing identification information, the artefacts' name, description, annotations and isFinal information.
 -	**full**: All available information for all artefacts will be returned. This is the default.
+
+### Format
+
+Response format can be specified as XML or JSON using the "accept" header.  XML is the default.
+-	accept: application/xml
+- accept: application/vnd.sdmx.structure+json
 
 # Worked Examples
 
