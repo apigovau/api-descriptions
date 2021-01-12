@@ -1006,7 +1006,7 @@ Call [https://api.data.abs.gov.au/dataflow](https://api.data.abs.gov.au/dataflow
 Call [https://api.data.abs.gov.au/datastructure/ABS/ALC?references=children](https://api.data.abs.gov.au/datastructure/ABS/ALC?references=children) so we get the DSD and all the codelists and conceptschemes.
 You can also call [https://api.data.abs.gov.au/dataflow/ABS/ALC?references=descendants](https://api.data.abs.gov.au/dataflow/ABS/ALC?references=descendants) `descendants` will call references of references to any level.
 
-Build the data call [https://api.data.abs.gov.au/dataflow/ABS/ALC?references=descendants](https://api.data.abs.gov.au/data/ALC/1.2.1.4.A?startPeriod=2008&endPeriod=2008) to get the data. 
+Build the data call [https://api.data.abs.gov.au/data/ALC/1.2.1.4.A?startPeriod=2008&endPeriod=2008](https://api.data.abs.gov.au/data/ALC/1.2.1.4.A?startPeriod=2008&endPeriod=2008) to get the data. 
 
 
 ## Constructing more detailed data queries
