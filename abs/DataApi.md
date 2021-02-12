@@ -236,6 +236,767 @@ Response format can be specified as XML or JSON using the "accept" header.  XML 
 -	accept: application/xml
 - accept: application/vnd.sdmx.structure+json
 
+
+# Understanding SDMX Data
+
+The ABS Data API provides data in the Statistical Data and Metadata eXchange (SDMX) format.  The API is compliant with the SDMX version 2.1 Information Model. 
+
+SDMX is an initiative that aims to foster common standards and guidelines for the exchange and sharing of statistical data and metadata, where the two are presented together, with an emphasis on aggregated data. Metadata gives context to the data exchanged, so information is immediately understandable and more useful than if it was presented without the relevant metadata. More information on the SDMX standard is available at [SDMX.org](https://sdmx.org/).
+
+Data is in the ABS Data API is available in SDMX-ML (XML), SDMX-JSON and SDMX-CSV.
+
+## SDMX-ML (XML)
+
+Coming soon.
+
+
+## SDMX-JSON
+
+SDMX-JSON conforms to the JSON standard specification and supports the SDMX 2.1 Information Model.  This guide will focus on interpreting SDMX-JSON data responses, it has been adapted from the SDMX Technical Working Group’s [SDMX-JSON Field Guide](https://github.com/sdmx-twg/sdmx-json/blob/master/data-message/docs/1-sdmx-json-field-guide.md) which goes into more detail on the standard and its implementations.
+
+### Overview
+
+The most important concepts to understand are observations, dimensions, attributes, and annotations. 
+
+-	Observations are the actual data points or numbers being measured.
+-	Dimensions provide the structure of the dataset. Each observation is uniquely identified by the combination of one member from each dimension. 
+-	Attributes don’t help to identify observations, but add useful additional information to them (like the unit of measure or the number of decimals). 
+-	Annotations are similar to attributes in that they provide additional information. They can be referenced by any other SDMX object (including dimensions, attributes and observations) 
+
+Observations within a dataset can be grouped in different ways to assist in reading the data.  A grouping of observations is known as a series.  The most common way to group data is by the Time dimension (aka a time series). For example, the unemployment rate for Australia is measured each month and these measures can be grouped together into a time series. Similarly, you can group a collection of observations made at the same point in time, in a "cross-section". For example the unemployment rate for each state and territory for a single month (this would be a series grouped on the Region dimension). You can also return ungrouped data as a flat list of observations.  
+
+Grouping by Time is the default in the ABS Data API.  
+
+### SDMX-JSON Data Message Objects
+
+**message**
+
+Message is the top level object and it contains the data as well as the structural metadata needed to interpret that data.
+-	meta - Contains information about the message
+-	data - The main part of the message containing observations and structural information 
+
+
+**meta**
+
+Provides meta-information about the message, such as when it was prepared.
+-	id - a unique identifier for this response, the ID will change with every request even if you are calling the same data. 
+-	test - true/false - indicates whether the message is for test purposes or not
+-	schema - URL to the schema to validate the message
+-	prepared - timestamp for when the message was prepared. Time zone is the sender’s location, for the ABS Data API this is Australian Eastern Standard Time
+-	content-languages - languages used in the massage
+-	sender - information about the sender including an ID and name
+
+```json
+{
+  "meta": {
+    "schema": "https://raw.githubusercontent.com/sdmx-twg/sdmx-json/master/data-message/tools/schemas/1.0/sdmx-json-data-schema.json",
+    "id": "IREF44b98b50333f442d9875d836628f18fc",
+    "prepared": "2021-01-22T11:37:40Z",
+    "test": true,
+    "content-languages": [
+      "en"
+    ],
+    "sender": {
+      "id": "ABS",
+      "name": "Australian Bureau of Statistics",
+      "names": {
+        "en": "unknown"
+      }
+    }
+  },
+```
+
+
+**data**
+
+The main part of the message containing observations and structural information
+-	datasets - an array of dataSet objects. This is where the observations (i.e. the actual numbers) will be.
+-	structure - contains the information needed to interpret the observations, such as the list of dimensions, attributes and annotations. 
+
+
+**structure**
+
+Provides the structural metadata necessary to interpret the data. The structure section gives you the dimensions, attributes and annotations used in the message. It also describes to which level in the hierarchy these are attached.
+-	name - the name of the dataset you are viewing 
+-	dimensions - describes the dimensions used in the message as well as the levels in the hierarchy (dataSet, series or observations) to which these dimensions are attached. 
+-	attributes - describes the attributes used in the message as well as the levels in the hierarchy (dataSet, series or observations) to which these dimensions are attached.
+-	annotations - an array of annotation objects that may be referred to by any other SDMX objects or components
+
+
+**dimensions, attributes**
+
+Describes the dimensions/attributes used in the message as well as the levels in the hierarchy (dataSet, series or observations) to which these dimensions/attributes are attached.
+-	dataSet - an array of components (dimensions/annotations) provided if dimensions or attributes are presented at the dataSet level. 
+-	series - an array of components (dimensions/annotations) provided if dimensions or attributes are presented at the series level. If you call the ABS Data API for data as a series (e.g. time series) then all dimensions and attributes will be at the series level.
+-	observation - an array of components (dimensions/annotations) provided if dimensions or attributes are presented at the observation level. If you call the ABS Data API for flat data `dimensionAtObservation=AllDimensions` then all dimensions and attributes will be at the observation level.
+
+
+**component (dimension/attribute)**
+
+The dimensions and attributes presented in the message are also called components. Each component contains basic information about the component (such as its name and id) as well as the list of component values used in the message. Each of the components may contain the following fields:
+-	id - identifier for this dimension or attribute - unique within a data structure
+-	name - human-readable name for the dimension or attribute
+-	description - if used it will provided additional information about the dimension or attribute
+-	keyPosition - number - always present for dimensions but not supplied for attributes. Indicates the position of the dimension in the Data Structure Definition, starting at 0. It is provided for all dimensions including Time. The information in this field is consistent with the order of dimensions in the "key" parameter string when requesting data from the API. 
+-	roles - defines the role of the dimension or attribute. These are defined by the Concept applied to that dimension (more on Concepts here). The role will often be the same as the dimension id but may be different to assist in interpreting the data. E.g. geographic dimensions that can used to map data may have the role of REGION even if the dimension id is something else.
+-	relationship - always present for attributes but not supplied for dimensions. This relationship expresses the attachment level of the attribute as defined in the data structure definition. Depending on the message context (especially the data query) an attribute value can however be attached physically in the message at a different level.
+-	values - an array of component values. These are the individual dimension members or attribute values.
+
+
+**component value (dimension member/attribute value)**
+
+An individual value for a given component. That is, dimension members for the given dimension or values for the given attribute.
+-	id - identifier for this dimension member or attribute value - unique within this dimension or attribute
+-	name - human-readable name for this dimension member or attribute value
+-	description - if used it will provided additional information about the dimension member or attribute value
+-	order - an integer signifying the original order of this value within its codelist.  You can use order to reconstruct the component value hierarchy. E.g order allows you to display dimension members in the correct order when visualising data.  Note that the order of observations and component values in their array is not significant.
+-	parent - the ID of the parent for this component value (if this value is part of a hierarchical codelist). The parent value will only be present in the message if it also has data present.
+-	annotations - A collection of indices of the corresponding annotations for this component value. Indices refer to a position in the array of annotations in the structure field.
+
+
+**annotations**
+
+The annotations section contains an array of annotations that can be referenced by other SDMX objects such as structure, component, component value, dataSets, series and observations.
+
+Annotations provide additional information about the objects that reference them.
+
+When referencing an annotation, an SDMX object will specify a number corresponding to a position in the annotations array.  `0` is the first annotation in the array, `1` is the second and so on.
+-	type - Defines the use for this annotation. 
+-	text - Human-readable text of the annotation.
+-	title - Non-localised title for the annotation.  In the ABS Data API, this field is generally used by LAYOUT annotations to define IDs for dimensions and dimension members that can be used to construct a default table view of the data.
+
+
+**dataSets**
+
+This is where the data (i.e. the observations) will be. Typically, there should only be one dataSet in the message. 
+
+There are between 2 and 3 levels in a dataSet object, depending on the way data in the message is organised. 
+
+A dataSet may contain a flat list of observations. If this is the case, we have 2 levels in the data part of the message: the dataSet level and the observation level. A dataSet may also organise observations in logical groups called series. These groups can represent time series or cross-sections, see [Overview](#Overview) for more information. 
+
+Dimensions and attributes may be specified at any of these 3 levels. 
+
+If the dataSet is a flat list of observations, observations will be found directly under a dataSet object. This structure has all dimensions at observation level.  To request data in this structure, you should specify `dimensionAtObservation=AllDimensions` as a query parameter. 
+
+If the dataSet represents a time series or cross section, then observations will be found under the series objects.  If this is the case, we have 3 levels in the data part of the message: the dataSet level, the series level and the observation level with only one dimension at observation level.
+
+dataSet properties are:
+-	action - Describes the intention of the data transmission from the sender's side. This will generally be `Information`.
+-	links - A collection of links to additional information regarding the dataSet.
+-	annotations - A collection of indices of the corresponding annotations for the dataSet. Indices refer to a position in the array of annotations in the structure field.
+-	attributes - A collection of indices of the corresponding values of all attributes presented at the dataSet level. Each value is an index in the values array of the respective component object within the structure.attributes.dataSet array. ABS Data API does not typically defined attributes at dataset level.  If this is present, it indicates the attribute applies to all observations.
+-	series - A collection of series objects, used when the observations contained in the dataSet are presented in logical groups (time series or cross-sections). E.g. when calling the API with the query parameter "dimensionAtObservation=TIME_PERIOD" (default) or with the "dimensionAtObservation" parameter set to the ID of any other dimension. The series element is not present if data has been requested as a flat view of observations.
+-	observations - A collection of observations used in cases when a dataSet is presented as a flat view of observations, e.g. when calling the API with the query parameter "dimensionAtObservation=AllDimensions".
+
+examples:
+
+```json
+        "action": "Information",
+        "links": [
+          {
+            "urn": "urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=ABS:EXAMPLE(1.0.0)",
+            "rel": "DataStructure"
+          }
+        ],
+        "annotations": [ 0, 1, 2 ],
+        "observations": {
+             # observation object #
+          }
+```
+
+```json
+        "action": "Information",
+        "links": [
+          {
+            "urn": "urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=ABS:EXAMPLE (1.0.0)",
+            "rel": "DataStructure"
+          }
+        ],
+        "annotations": [ 0, 1, 2 ],
+        "series": {
+             # series object #
+          }
+
+```
+
+
+**series**
+
+A collection of series objects, used when the observations contained in the dataSet are presented in logical groups (time series or cross-sections). Each underlying series is represented as a name/value pair in the series object.
+
+A series is uniquely identified through the content of the name in the name/value pair otherwise known as the dimension key. This is the indices for the corresponding values of all dimensions presented at series level separated by a colon "":". See dimension key for more information.
+
+The value in the name/value pair is an object containing:
+-	annotations - A collection of indices of the corresponding annotations for the series. Indices refer to a position in the array of annotations in the structure field.
+-	attributes - Collection of indices of the corresponding values of all attributes presented at the series level. Each value is an index in the values array of the respective component object within the structure.attributes.series array. This is used for attributes that have the same value for all observations in a series. When an attribute has no value for a specific series, then null is used instead of the index.
+-	observations - Collection of observations. Presented under the series object when observations are grouped as a time series or cross-section. E.g. when calling the API with the query parameter `dimensionAtObservation=TIME_PERIOD` (default) or with `dimensionAtObservation` set to the ID of any other dimension then the dimensionAtObservation dimension.
+
+
+**dimension key**
+
+Dimension keys link observation values (i.e. the actual data) to the dimensions and dimension members that give them meaning. Dimension keys are the series of numbers separated by colons `:` under `data.dataSets.series` or `data.dataSet.observations`. Each dimension key is uniquely describing an observation or a series of observations by combining one member from each dimension (except the dimension at observation level if the data is presented as a series).
+
+There is one number in the key per dimension. The order of dimensions in the key is defined by the dimension `keyPosition` in the structure section of the message. The first dimension in the key is `"keyPosition": 0`, the second is `"keyPosition": 1`, and so on.  
+
+The numbers themselves identify one dimension member for each dimension in the key. Dimension members are defined in the `values` array for that dimension in the structure section. The order of dimension members is the order they appear in the values array. A `0` in the dimension key means the first value in the array for that dimension, a `1` means the second value, and so on.
+
+Example call: https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1+1GSYD+1RNSW.Q?detail=Full&startPeriod=2020-Q1&endPeriod=2020-Q2&format=jsondata 
+
+This call returns two observations each for two time periods.  The data is presented as a time series (the default presentation).
+
+As a CSV this data would be presented as follows, the first row is the header:
+```csv
+DATAFLOW,MEASURE,REGION,FREQ,TIME_PERIOD,OBS_VALUE,UNIT_MEASURE,UNIT_MULT,OBS_STATUS,OBS_COMMENT
+ABS:RES_DWELL(1.0.0),1,1RNSW,Q,2020-Q1,10210,NUM,0,r,
+ABS:RES_DWELL(1.0.0),1,1RNSW,Q,2020-Q2,9555,NUM,0,r,
+ABS:RES_DWELL(1.0.0),1,1GSYD,Q,2020-Q1,10119,NUM,0,r,
+ABS:RES_DWELL(1.0.0),1,1GSYD,Q,2020-Q2,9493,NUM,0,r,
+```
+
+In SDMX-JSON, using `dimensionAtObservation=TIME_PERIOD` (default), the observations are grouped by time series with the `TIME_PERIOD` dimension at observation level.  Dimension and attribute values are replaced by their indices:
+
+```json
+"series": {
+          "0:0:0": {
+                  "attributes": [0, 0],
+                  "annotations": [],
+                  "observations": {
+                         "0": [10210, 0, null],
+                         "1": [9555, 0, null]
+                  }
+          },
+          "0:1:0": {
+                  "attributes": [0, 0],
+                  "annotations": [],
+                  "observations": {
+                         "0": [10119, 0, null],
+                         "1": [9493, 0, null]
+                  }
+             }
+        }
+```
+
+`0:0:0` is the dimension key (the indices for the dimension values).  There are three numbers because this response has three dimensions at the series level.  Looking at the structure call below you can see that the dimension with key position 0 is MEASURE, key position 1 is REGION and key position 2 is FREQ.
+`[0,0]` are the indices for the attribute values.  There are two numbers because there are two attributes at the series level. These correspond with values in the attributes array similar to the dimension key.
+
+```
+series 1: 
+    0:0:0 corresponds to the first value for all three dimensions “MEASURE:1”, “REGION: 1RNSW”, “FREQ:Q”
+    The attributes for this series are “UNIT_MEASURE:NUM”, “UNIT_MULT:0"
+    There are no annotations for the series
+    This series has two observations:
+      Observation 1:
+          “0” corresponds to the first value of the dimension at observation-level dimension (Time) “TIME_PERIOD: 2020-Q1”
+          The value for this observation is 10210
+          There are two attributes for this observation
+          the first value for the first observation-level attribute “OBS_STATUS:r”
+          no value for the second observation-level attribute “OBS_COMMENT:null”
+      Observation 2:
+          “1” corresponds to the second Time dimension value “TIME_PERIOD: 2020-Q2”
+          The value for this observation is 9555
+          The attributes for this observation are “OBS_STATUS:r”, “OBS_COMMENT:null” 
+
+series 2:  
+     0:1:0 corresponds to the three indices for “MEASURE:1”, “REGION: 1GSYD”, “FREQ:Q”
+    The attributes for this series are “UNIT_MEASURE:NUM”, “UNIT_MULT:0"
+    There are no annotations for the series
+    This series has two observations:
+      Observation 1:
+          “0” corresponds to the first Time dimension value “TIME_PERIOD: 2020-Q1”
+          The value for this observation is 10119
+          The attributes for this observation are “OBS_STATUS:r”, “OBS_COMMENT:null”
+      Observation 2:
+          “1” corresponds to the second Time dimension value “TIME_PERIOD: 2020-Q2”
+          The value for this observation is 9493
+          The attributes for this observation are “OBS_STATUS:r”, “OBS_COMMENT:null” 
+```
+
+Here's the structure section for that data response:
+```json
+      "dimensions": {
+        "dataset": [],
+        "series": [
+          {
+            "id": "MEASURE",
+            "name": "Measure",
+            "names": {"en": "Measure"},
+            "keyPosition": 0,
+            "roles": ["MEASURE"],
+            "values": [
+              {
+                "id": "1",
+                "order": 0,
+                "name": "Number of Established House Transfers",
+                "names": {"en": "Number of Established House Transfers"}
+              }
+            ]
+          },
+          {
+            "id": "REGION",
+            "name": "Region",
+            "names": {"en": "Region"},
+            "keyPosition": 1,
+            "roles": ["REGION"],
+            "values": [
+              {
+                "id": "1RNSW",
+                "order": 3,
+                "name": "Rest of NSW",
+                "names": {"en": "Rest of NSW"},
+                "parent": "1"
+              },
+              {
+                "id": "1GSYD",
+                "order": 2,
+                "name": "Greater Sydney",
+                "names": {"en": "Greater Sydney"},
+                "parent": "1"
+              }
+            ]
+          },
+          {
+            "id": "FREQ",
+            "name": "Frequency",
+            "names": {
+              "en": "Frequency"
+            },
+            "keyPosition": 2,
+            "roles": [
+              "FREQ"
+            ],
+            "values": [
+              {
+                "id": "Q",
+                "order": 8,
+                "name": "Quarterly",
+                "names": {
+                  "en": "Quarterly"
+                }
+              }
+            ]
+          }
+        ],
+        "observation": [
+          {
+            "id": "TIME_PERIOD",
+            "name": "Time Period",
+            "names": {"en": "Time Period"},
+            "keyPosition": 3,
+            "roles": ["TIME_PERIOD"],
+            "values": [
+              {
+                "start": "2020-01-01T00:00:00Z",
+                "end": "2020-03-31T00:00:00Z",
+                "id": "2020-Q1",
+                "name": "2020-Q1",
+                "names": {"en": "2020-Q1"}
+              },
+              {
+                "start": "2020-04-01T00:00:00Z",
+                "end": "2020-06-30T00:00:00Z",
+                "id": "2020-Q2",
+                "name": "2020-Q2",
+                "names": {"en": "2020-Q2"}
+              }
+            ]
+          }
+        ]
+      },
+      "attributes": {
+        "dataSet": [],
+        "series": [
+          {
+            "id": "UNIT_MEASURE",
+            "name": "Unit of Measure",
+            "names": {"en": "Unit of Measure"},
+            "roles": ["UNIT_MEASURE"],
+            "relationship": {
+              "dimensions": ["MEASURE"]
+            },
+            "values": [
+              {
+                "id": "NUM",
+                "order": 1,
+                "name": "Number",
+                "names": {"en": "Number"}
+              }
+            ],
+            "annotations": [1]
+          },
+          {
+            "id": "UNIT_MULT",
+            "name": "Unit of Multiplier",
+            "names": {
+              "en": "Unit of Multiplier"
+            },
+            "roles": [
+              "UNIT_MULT"
+            ],
+            "relationship": {
+              "dimensions": [
+                "MEASURE"
+              ]
+            },
+            "values": [
+              {
+                "id": "0",
+                "order": 0,
+                "name": "Units",
+                "names": {"en": "Units"}
+              }
+            ],
+            "annotations": [2]
+          }
+        ],
+        "observation": [
+          {
+            "id": "OBS_STATUS",
+            "name": "Observation Status",
+            "names": {"en": "Observation Status"},
+            "roles": ["OBS_STATUS"],
+            "relationship": {"primaryMeasure": "OBS_VALUE"},
+            "values": [
+              {
+                "id": "r",
+                "order": 7,
+                "name": "revised",
+                "names": {"en": "revised"}
+              }
+            ]
+          },
+          {
+            "id": "OBS_COMMENT",
+            "name": "Observation Comment",
+            "names": {"en": "Observation Comment"},
+            "roles": ["OBS_COMMENT"],
+            "relationship": {"primaryMeasure": "OBS_VALUE"},
+            "values": []
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "NonProductionDataflow",
+          "text": "true",
+          "texts": {"en": "true"}
+        }
+        {
+          "type": "CONTEXT",
+          "text": "If a unit multiplier exists the data is recorded according to the combination of the unit multiplier and the unit of measure.",
+        },
+        {
+          "type": "CONTEXT",
+          "text": "Codes for unit of multiplier are the exponent in base 10 so that multiplying the observation by 10^UNIT_MULT gives a value expressed in the unit of measure.",
+        }
+      ]
+```
+
+
+**observations**
+
+A collection of observations. Each observation is represented as a name/value pair in the observations object.
+
+An observation is uniquely identified through the content of the name in the name/value pair, which is the indices of the corresponding values of all dimensions presented at observation level (indices in the values array of the respective component object within the `structure.dimensions.observation` array) separated by a colon ":". There’s one single index per observation for time series and cross-section representations, but there will be more than one when the data are represented as a flat view of observations.
+
+The value in the name/value pair is an array containing the observation value (first position), followed by the indices of the corresponding values of attributes presented at observation level up to the number of attributes defined at observation level, then the indices of the corresponding values of annotations of that observation, if any are present. Therefore, elements after the observation value are for the observation level attributes and for annotations of that observation. 
+
+The data type for observation value is number or string. The data type for a reported missing observation value is a null. The index for an attribute is the corresponding index in the values array of the respective component object within the `structure.attributes.observation` array. It is nulled for unused optional attributes when the attribute index needs to be included. The index for an annotation is the index in the array of annotations in the structure field.
+
+
+Example call: https://api.data.abs.gov.au/data/ABS,RES_DWELL/1.1+1GSYD+1RNSW.Q?detail=Full&startPeriod=2020-Q1&endPeriod=2020-Q2&format=jsondata&dimensionAtObservation=AllDimensions 
+
+This call returns two observations each for two time periods. The `dimensionAtObservation` parameter is set to `AllDimensions` which returns a flat data file.
+
+As a CSV this data would be presented as follows, the first row is the header:
+
+```csv
+DATAFLOW,MEASURE,REGION,FREQ,TIME_PERIOD,OBS_VALUE,UNIT_MEASURE,UNIT_MULT,OBS_STATUS,OBS_COMMENT
+ABS:RES_DWELL(1.0.0),1,1RNSW,Q,2020-Q1,10210,NUM,0,r,
+ABS:RES_DWELL(1.0.0),1,1RNSW,Q,2020-Q2,9555,NUM,0,r,
+ABS:RES_DWELL(1.0.0),1,1GSYD,Q,2020-Q1,10119,NUM,0,r,
+ABS:RES_DWELL(1.0.0),1,1GSYD,Q,2020-Q2,9493,NUM,0,r,
+```
+
+In SDMX-JSON, the observations are presented in a similar flattened way, but dimension and attribute values are replaced by their indices:
+
+```json
+        "observations": {
+          "0:0:0:0": [10210, 0, 0, 0, null],
+          "0:0:0:1": [9555, 0, 0, 0, null],
+          "0:1:0:0": [10119, 0, 0, 0, null],
+          "0:1:0:1": [9493, 0, 0, 0, null]
+        }
+```
+
+```
+Observation 1: 
+	“0:0:0:0” corresponds to the four indices for “MEASURE:1”, “REGION: 1RNSW”, “FREQ:Q”, “TIME_PERIOD: 2020-Q1”
+	The value for this observation is 10210
+	The following four values are the attributes. Attributes for this observation are:
+		“UNIT_MEASURE:NUM”
+		“UNIT_MULT:0”
+		“OBS_STATUS:r”
+		“OBS_COMMENT:null”
+
+Observation 2: 
+	“0:0:0:1” corresponds to the four indices for “MEASURE:1”, “REGION: 1RNSW”, “FREQ:Q”, “TIME_PERIOD: 2020-Q2”
+	The value for this observation is 9555
+	Observation attributes: “UNIT_MEASURE:NUM”, “UNIT_MULT:0”, “OBS_STATUS:r”, “OBS_COMMENT:null”
+
+Observation 3: 
+	“0:1:0:0” corresponds to the four indices for “MEASURE:1”, “REGION: 1GSYD”, “FREQ:Q”, “TIME_PERIOD: 2020-Q1”
+	The value for this observation is 10119
+	Observation attributes: “UNIT_MEASURE:NUM”, “UNIT_MULT:0”, “OBS_STATUS:r”, “OBS_COMMENT:null”
+
+Observation 4: 
+	“0:1:0:1” corresponds to the four indices for “MEASURE:1”, “REGION: 1GSYD”, “FREQ:Q”, “TIME_PERIOD: 2020-Q2”
+	The value for this observation is 9493
+	Observation attributes: “UNIT_MEASURE:NUM”, “UNIT_MULT:0”, “OBS_STATUS:r”, “OBS_COMMENT:null”
+```
+
+Here's the structure section for that data response:
+```json
+"dimensions": {
+        "dataset": [],
+        "series": [],
+        "observation": [
+          {
+            "id": "MEASURE",
+            "name": "Measure",
+            "names": {"en": "Measure"},
+            "keyPosition": 0,
+            "roles": ["MEASURE"],
+            "values": [
+              {
+                "id": "1",
+                "order": 0,
+                "name": "Number of Established House Transfers",
+                "names": {"en": "Number of Established House Transfers"},
+              }
+            ]
+          },
+          {
+            "id": "REGION",
+            "name": "Region",
+            "names": {"en": "Region"},
+            "keyPosition": 1,
+            "roles": ["REGION"],
+            "values": [
+              {
+                "id": "1RNSW",
+                "order": 3,
+                "name": "Rest of NSW",
+                "names": {"en": "Rest of NSW"},
+                "parent": "1"
+              },
+              {
+                "id": "1GSYD",
+                "order": 2,
+                "name": "Greater Sydney",
+                "names": {"en": "Greater Sydney"},
+                "parent": "1"
+              }
+            ]
+          },
+          {
+            "id": "FREQ",
+            "name": "Frequency",
+            "names": {
+              "en": "Frequency"
+            },
+            "keyPosition": 2,
+            "roles": ["FREQ"],
+            "values": [
+              {
+                "id": "Q",
+                "order": 8,
+                "name": "Quarterly",
+                "names": {"en": "Quarterly"}
+              }
+            ]
+          },
+          {
+            "id": "TIME_PERIOD",
+            "name": "Time Period",
+            "names": {"en": "Time Period"},
+            "keyPosition": 3,
+            "roles": ["TIME_PERIOD"],
+            "values": [
+              {
+                "start": "2020-01-01T00:00:00Z",
+                "end": "2020-03-31T00:00:00Z",
+                "id": "2020-Q1",
+                "name": "2020-Q1",
+                "names": {"en": "2020-Q1"}
+              },
+              {
+                "start": "2020-04-01T00:00:00Z",
+                "end": "2020-06-30T00:00:00Z",
+                "id": "2020-Q2",
+                "name": "2020-Q2",
+                "names": {"en": "2020-Q2"}
+              }
+            ]
+          }
+        ]
+      },
+      "attributes": {
+        "dataSet": [],
+        "series": [],
+        "observation": [
+          {
+            "id": "UNIT_MEASURE",
+            "name": "Unit of Measure",
+            "names": {"en": "Unit of Measure"},
+            "roles": ["UNIT_MEASURE"],
+            "relationship": {
+              "dimensions": ["MEASURE"]
+            },
+            "values": [
+              {
+                "id": "NUM",
+                "order": 1,
+                "name": "Number",
+                "names": {"en": "Number"}
+              }
+            ],
+            "annotations": [1]
+          },
+          {
+            "id": "UNIT_MULT",
+            "name": "Unit of Multiplier",
+            "names": {"en": "Unit of Multiplier"},
+            "roles": ["UNIT_MULT"],
+            "relationship": {
+              "dimensions": ["MEASURE"]
+            },
+            "values": [
+              {
+                "id": "0",
+                "order": 0,
+                "name": "Units",
+                "names": {
+                  "en": "Units"
+                }
+              }
+            ],
+            "annotations": [2]
+          },
+          {
+            "id": "OBS_STATUS",
+            "name": "Observation Status",
+            "names": {
+              "en": "Observation Status"
+            },
+            "roles": [
+              "OBS_STATUS"
+            ],
+            "relationship": {
+              "primaryMeasure": "OBS_VALUE"
+            },
+            "values": [
+              {
+                "id": "r",
+                "order": 7,
+                "name": "revised",
+                "names": {
+                  "en": "revised"
+                }
+              }
+            ]
+          },
+          {
+            "id": "OBS_COMMENT",
+            "name": "Observation Comment",
+            "names": {
+              "en": "Observation Comment"
+            },
+            "roles": [
+              "OBS_COMMENT"
+            ],
+            "relationship": {
+              "primaryMeasure": "OBS_VALUE"
+            },
+            "values": []
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "NonProductionDataflow",
+          "text": "true",
+          "texts": {"en": "true"}
+        }
+        {
+          "type": "CONTEXT",
+          "text": "If a unit multiplier exists the data is recorded according to the combination of the unit multiplier and the unit of measure.",
+        },
+        {
+          "type": "CONTEXT",
+          "text": "Codes for unit of multiplier are the exponent in base 10 so that multiplying the observation by 10^UNIT_MULT gives a value expressed in the unit of measure.",
+        }
+      ]
+```
+
+
+## SDMX CSV
+
+SDMX-CSV Data Message is an SDMX data exchange format based on the RFC 4180 specification (determined column number, "comma" separated).
+
+More information on the SDMX-CSV standard is available on the SDMX Technical Working Group’s [SDMX-CSV Field Guide](https://github.com/sdmx-twg/sdmx-csv/blob/master/data-message/docs/sdmx-csv-field-guide.md). 
+
+
+### Format
+
+**Rows:**
+
+-	In an SDMX-CSV file, the first row is always the header. The header defines what each of the columns in the data file contains.  
+-	Every subsequent row in the file contains information related to one specific observation.  That is, in SDMX-CSV, each row contains just one data point and the metadata to define that data point.
+
+
+**Columns:**
+
+The comma separator `,` is used to separate columns. The first column defines the dataflow. Then there is one column for each dimension defined in the data structure definition (DSD). One column for data observations. And one column for each attribute defined in the DSD regardless of whether the attribute is used.
+
+Column headers (first row):
+-	The first column is the dataflow column and the header is always the term `DATAFLOW`
+-	For a dimension column, it is the dimension's ID or both ID and label 
+-	`OBS_VALUE` is the column for data observations
+-	For an attribute column, it is the attribute's ID or both ID and label
+
+Column content (all rows after header):
+-	The first column always defines the dataflow. The dataflow is given in the format `agencyId:dataflowId(version)` e.g. `ABS:CPI(1.0.0)`
+-	All the dimensions defined in the DSD follow, one dimension per column. Dimensions are always in the order defined by the dimensions position number in the DSD. More information on dimension ordering is available in [worked examples](#dataKey).
+-	The final dimension column is always Time.
+-	The next column is always data observations, defined by the `OBS_VALUE` header
+-	The final columns are attributes such as Unit of Measure
+
+Codes and Labels
+There are two options when returning data in CSV format; codes only or codes and labels. More information on how to request each is available in the [Response Format](#Response Format) section. 
+-	Codes - Each column will contain only the ID Code for its contents e.g. “TOT”
+-	Codes and Labels - Each column will contain the ID Code and then the Label for it’s contents, separated by a colon : e.g. `TOT:Total`
+
+Example: 
+Codes only: https://dotstat-intra.infra.abs.gov.au/DisseminateNSIService/Rest/data/ABS,ANA_AGG,/M1.GPM_PCA+GPM.20.AUS.Q?startPeriod=2019-Q4&endPeriod=2020-Q1&format=csv 
+
+```csv
+DATAFLOW,MEASURE,DATA_ITEM,TSEST,REGION,FREQ,TIME_PERIOD,OBS_VALUE,UNIT_MEASURE,UNIT_MULT,OBS_STATUS,OBS_COMMENT
+ABS:ANA_AGG(1.1.0),M1,GPM,20,AUS,Q,2019-Q4,496921,AUD,6,,
+ABS:ANA_AGG(1.1.0),M1,GPM,20,AUS,Q,2020-Q1,495533,AUD,6,,
+ABS:ANA_AGG(1.1.0),M1,GPM_PCA,20,AUS,Q,2019-Q4,19452,AUD,0,,
+ABS:ANA_AGG(1.1.0),M1,GPM_PCA,20,AUS,Q,2020-Q1,19334,AUD,0,,
+```
+
+Codes and Labels:
+```csv
+DATAFLOW,MEASURE: Measure,DATA_ITEM: Data Item,TSEST: Adjustment Type,REGION: Region,FREQ: Frequency,TIME_PERIOD: Time Period,OBS_VALUE,UNIT_MEASURE: Unit of Measure,UNIT_MULT: Unit of Multiplier,OBS_STATUS: Observation Status,OBS_COMMENT: Observation Comment
+ABS:ANA_AGG(1.1.0),M1: Chain volume measures,GPM: Gross domestic product,20: Seasonally Adjusted,AUS: Australia,Q: Quarterly,2019-Q4,496921,AUD: Australian Dollars,6: Millions,,
+ABS:ANA_AGG(1.1.0),M1: Chain volume measures,GPM: Gross domestic product,20: Seasonally Adjusted,AUS: Australia,Q: Quarterly,2020-Q1,495533,AUD: Australian Dollars,6: Millions,,
+ABS:ANA_AGG(1.1.0),M1: Chain volume measures,GPM_PCA: GDP per capita,20: Seasonally Adjusted,AUS: Australia,Q: Quarterly,2019-Q4,19452,AUD: Australian Dollars,0: Units,,
+ABS:ANA_AGG(1.1.0),M1: Chain volume measures,GPM_PCA: GDP per capita,20: Seasonally Adjusted,AUS: Australia,Q: Quarterly,2020-Q1,19334,AUD: Australian Dollars,0: Units,,
+```
+
+
 # Worked Examples
 
 ## Explore a dataset and construct a data request
