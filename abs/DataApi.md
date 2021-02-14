@@ -323,7 +323,7 @@ Provides the structural metadata necessary to interpret the data. The structure 
 -	annotations - an array of annotation objects that may be referred to by any other SDMX objects or components
 
 
-**dimensions, attributes**
+#### dimensions, attributes
 
 Describes the dimensions/attributes used in the message as well as the levels in the hierarchy (dataSet, series or observations) to which these dimensions/attributes are attached.
 -	dataSet - an array of components (dimensions/annotations) provided if dimensions or attributes are presented at the dataSet level. 
@@ -331,14 +331,14 @@ Describes the dimensions/attributes used in the message as well as the levels in
 -	observation - an array of components (dimensions/annotations) provided if dimensions or attributes are presented at the observation level. If you call the ABS Data API for flat data `dimensionAtObservation=AllDimensions` then all dimensions and attributes will be at the observation level.
 
 
-**component (dimension/attribute)**
+#### component (dimension/attribute)
 
 The dimensions and attributes presented in the message are also called components. Each component contains basic information about the component (such as its name and id) as well as the list of component values used in the message. Each of the components may contain the following fields:
 -	id - identifier for this dimension or attribute - unique within a data structure
 -	name - human-readable name for the dimension or attribute
 -	description - if used it will provided additional information about the dimension or attribute
 -	keyPosition - number - always present for dimensions but not supplied for attributes. Indicates the position of the dimension in the Data Structure Definition, starting at 0. It is provided for all dimensions including Time. The information in this field is consistent with the order of dimensions in the "key" parameter string when requesting data from the API. 
--	roles - defines the role of the dimension or attribute. These are defined by the Concept applied to that dimension (more information on Concepts under [Worked Examples](/worked%20examples#concept)). The role will often be the same as the dimension id but may be different to assist in interpreting the data. E.g. geographic dimensions that can used to map data may have the role of REGION even if the dimension id is something else.
+-	roles - defines the role of the dimension or attribute. These are defined by the Concept applied to that dimension (more information on Concepts is available under Worked Examples). The role will often be the same as the dimension id but may be different to assist in interpreting the data. E.g. geographic dimensions that can used to map data may have the role of REGION even if the dimension id is something else.
 -	relationship - always present for attributes but not supplied for dimensions. This relationship expresses the attachment level of the attribute as defined in the data structure definition. Depending on the message context (especially the data query) an attribute value can however be attached physically in the message at a different level.
 -	values - an array of component values. These are the individual dimension members or attribute values.
 
