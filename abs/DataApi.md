@@ -269,14 +269,14 @@ Grouping by Time is the default in the ABS Data API.
 
 ### SDMX-JSON Data Message Objects
 
-**message**
+#### **message**
 
 Message is the top level object and it contains the data as well as the structural metadata needed to interpret that data.
 -	meta - Contains information about the message
 -	data - The main part of the message containing observations and structural information 
 
 
-**meta**
+#### **meta**
 
 Provides meta-information about the message, such as when it was prepared.
 -	id - a unique identifier for this response, the ID will change with every request even if you are calling the same data. 
@@ -307,11 +307,11 @@ Provides meta-information about the message, such as when it was prepared.
 ```
 
 
-**data**
+#### **data**
 
 The main part of the message containing observations and structural information
 -	datasets - an array of dataSet objects. This is where the observations (i.e. the actual numbers) will be.
--	structure - contains the information needed to interpret the observations, such as the list of dimensions, attributes and annotations. 
+-	structure - contains the information needed to interpret the observations, such as lists of dimensions, attributes and annotations. 
 
 
 **structure**
@@ -338,7 +338,7 @@ The dimensions and attributes presented in the message are also called component
 -	name - human-readable name for the dimension or attribute
 -	description - if used it will provided additional information about the dimension or attribute
 -	keyPosition - number - always present for dimensions but not supplied for attributes. Indicates the position of the dimension in the Data Structure Definition, starting at 0. It is provided for all dimensions including Time. The information in this field is consistent with the order of dimensions in the "key" parameter string when requesting data from the API. 
--	roles - defines the role of the dimension or attribute. These are defined by the Concept applied to that dimension (more on Concepts here). The role will often be the same as the dimension id but may be different to assist in interpreting the data. E.g. geographic dimensions that can used to map data may have the role of REGION even if the dimension id is something else.
+-	roles - defines the role of the dimension or attribute. These are defined by the Concept applied to that dimension (more information on [Concepts](#worked-examples)). The role will often be the same as the dimension id but may be different to assist in interpreting the data. E.g. geographic dimensions that can used to map data may have the role of REGION even if the dimension id is something else.
 -	relationship - always present for attributes but not supplied for dimensions. This relationship expresses the attachment level of the attribute as defined in the data structure definition. Depending on the message context (especially the data query) an attribute value can however be attached physically in the message at a different level.
 -	values - an array of component values. These are the individual dimension members or attribute values.
 
@@ -372,7 +372,7 @@ This is where the data (i.e. the observations) will be. Typically, there should 
 
 There are between 2 and 3 levels in a dataSet object, depending on the way data in the message is organised. 
 
-A dataSet may contain a flat list of observations. If this is the case, we have 2 levels in the data part of the message: the dataSet level and the observation level. A dataSet may also organise observations in logical groups called series. These groups can represent time series or cross-sections, see [Overview](#Overview) for more information. 
+A dataSet may contain a flat list of observations. If this is the case, we have 2 levels in the data part of the message: the dataSet level and the observation level. A dataSet may also organise observations in logical groups called series. These groups can represent time series or cross-sections, see [Overview](#overview) for more information. 
 
 Dimensions and attributes may be specified at any of these 3 levels. 
 
@@ -1153,6 +1153,8 @@ We could call the API to get each of the codelists in turn using URLs like [http
                         <structure:Enumeration>
                            <Ref id="CL_FREQ" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist" />
 ```
+
+**Concept**
 
 We've worked out how to get the codelists that define the values each dimension can take, however, it’s not clear what the highlighted dimension is. To find this we need to look at the `concept` it refers to. The concept gives the dimension its meaning and its name. As codes are stored in codelists, concepts are stored in... conceptschemes (conceptlists would be too obvious). So, we want the DSD to get the dimensions and their order, the referenced concepts (via their conceptschemes) to work out what they are, and the referenced codelists (to work out what values we need).
 
