@@ -112,7 +112,7 @@ Version and agencyId are optional. If agencyId is not specified it will default 
 A list of all available dataflows can be returned using:
 > GET /dataflow/{agencyId}
 
-**dataKey**
+#### **dataKey**
 
 Data in the ABS Data API is structured in multi-dimensional datasets.  The combination of dimensions and dimension members allows statistical data to be uniquely identified. Such a combination is known as a data key or series key and is used to filter data in a query.
 
@@ -128,7 +128,7 @@ You can combine wildcarding and the OR operator. Eg. “M1+M2..Q”
 
 ### Query Parameters
 
-**startPeriod and endPeriod**
+#### **startPeriod and endPeriod**
 
 It is possible to define a date range for which observations should be returned by using the startPeriod and/or endPeriod parameters. The values should be given according to the syntax defined in ISO 8601 or as SDMX reporting periods. The values will vary depending on the frequency. Start and end dates are inclusive.
 
@@ -142,7 +142,7 @@ The supported formats are:
 -	**YYYY-W[01-53]** for weekly data (e.g.: 2019-W01).
 -	**YYYY-MM-DD** for daily and business data (e.g.: 2019-01-01).
 
-**detail**
+#### **detail**
 
 Using the detail parameter, it is possible to specify the desired amount of information to be returned by the web service. Possible options are:
 -	**full**: The data - series and observations - and the attributes will be returned. This is the default.
@@ -150,7 +150,7 @@ Using the detail parameter, it is possible to specify the desired amount of info
 -	**serieskeysonly**: Only the series, but without the attributes and the observations, will be returned. This can be useful for performance reasons, to return the series that match a certain query, without returning the actual data.
 -	**nodata**: The series, including the attributes, will be returned, but the observations will not be returned.
 
-**dimensionAtObservation**
+#### **dimensionAtObservation**
 
 Using the dimensionAtObservation parameter, you can define the way the data should be organised in the returned message. Possible options are: 
 -	**TIME_PERIOD**: This will return a timeseries view of the data. This is the default value.
@@ -176,7 +176,7 @@ Only Structure Type and Agency ID are mandatory.
 
 ### Path Parameters
 
-**Structure Type**
+#### **Structure Type**
 
 The type of metadata you want to retrieve. Available structures:
 -	datastructure
@@ -190,11 +190,11 @@ The type of metadata you want to retrieve. Available structures:
 -	categorisation
 -	hierarchicalcodelist
 
-**agencyId**
+#### **agencyId**
 
 The ID of the agency maintaining the structures. All structures in this API are currently maintained by the Australian Bureau of Statistics with Agency ID **ABS**.
 
-**structureId**
+#### **structureId**
 
 The ID of the structure you are requesting. “all” will return all available structures of the specified structure type. If no structure ID is given, all is the default. 
 
@@ -206,7 +206,7 @@ If no version is given then the latest version available will be returned.
 
 ### Query Parameters
 
-**references**
+#### **references**
 
 Instruct the API to return (or not) artefacts referenced by the artefact(s) you are querying. Eg. the codelists and concepts used by the data structure you are querying. You can also retrieve the artefacts that use the artefact you are querying, eg. the dataflows that use the data structure queried.
 
@@ -219,7 +219,7 @@ Instruct the API to return (or not) artefacts referenced by the artefact(s) you 
 
 In addition, a specific structure type may also be used (e.g. codelist, dataflow, etc.).
 
-**detail**
+#### **detail**
 
 Specify the desired amount of detail to be returned. For example, it is possible to instruct the web service to return only basic information about the resource, this is known in SDMX as a stub.
 
@@ -314,7 +314,7 @@ The main part of the message containing observations and structural information
 -	structure - contains the information needed to interpret the observations, such as lists of dimensions, attributes and annotations. 
 
 
-**structure**
+#### **structure**
 
 Provides the structural metadata necessary to interpret the data. The structure section gives you the dimensions, attributes and annotations used in the message. It also describes to which level in the hierarchy these are attached.
 -	name - the name of the dataset you are viewing 
@@ -338,12 +338,12 @@ The dimensions and attributes presented in the message are also called component
 -	name - human-readable name for the dimension or attribute
 -	description - if used it will provided additional information about the dimension or attribute
 -	keyPosition - number - always present for dimensions but not supplied for attributes. Indicates the position of the dimension in the Data Structure Definition, starting at 0. It is provided for all dimensions including Time. The information in this field is consistent with the order of dimensions in the "key" parameter string when requesting data from the API. 
--	roles - defines the role of the dimension or attribute. These are defined by the Concept applied to that dimension (more information on [Concepts](#worked-examples)). The role will often be the same as the dimension id but may be different to assist in interpreting the data. E.g. geographic dimensions that can used to map data may have the role of REGION even if the dimension id is something else.
+-	roles - defines the role of the dimension or attribute. These are defined by the Concept applied to that dimension (more information on Concepts under [Worked Examples](#worked-examples)). The role will often be the same as the dimension id but may be different to assist in interpreting the data. E.g. geographic dimensions that can used to map data may have the role of REGION even if the dimension id is something else.
 -	relationship - always present for attributes but not supplied for dimensions. This relationship expresses the attachment level of the attribute as defined in the data structure definition. Depending on the message context (especially the data query) an attribute value can however be attached physically in the message at a different level.
 -	values - an array of component values. These are the individual dimension members or attribute values.
 
 
-**component value (dimension member/attribute value)**
+#### **component value (dimension member/attribute value)**
 
 An individual value for a given component. That is, dimension members for the given dimension or values for the given attribute.
 -	id - identifier for this dimension member or attribute value - unique within this dimension or attribute
@@ -354,7 +354,7 @@ An individual value for a given component. That is, dimension members for the gi
 -	annotations - A collection of indices of the corresponding annotations for this component value. Indices refer to a position in the array of annotations in the structure field.
 
 
-**annotations**
+#### **annotations**
 
 The annotations section contains an array of annotations that can be referenced by other SDMX objects such as structure, component, component value, dataSets, series and observations.
 
@@ -366,7 +366,7 @@ When referencing an annotation, an SDMX object will specify a number correspondi
 -	title - Non-localised title for the annotation.  In the ABS Data API, this field is generally used by LAYOUT annotations to define IDs for dimensions and dimension members that can be used to construct a default table view of the data.
 
 
-**dataSets**
+#### **dataSets**
 
 This is where the data (i.e. the observations) will be. Typically, there should only be one dataSet in the message. 
 
@@ -420,11 +420,11 @@ examples:
 ```
 
 
-**series**
+#### **series**
 
 A collection of series objects, used when the observations contained in the dataSet are presented in logical groups (time series or cross-sections). Each underlying series is represented as a name/value pair in the series object.
 
-A series is uniquely identified through the content of the name in the name/value pair otherwise known as the dimension key. This is the indices for the corresponding values of all dimensions presented at series level separated by a colon "":". See dimension key for more information.
+A series is uniquely identified through the content of the name in the name/value pair otherwise known as the dimension key. This is the indices for the corresponding values of all dimensions presented at series level separated by a colon "":". See [dimension key](#dimension-key) for more information.
 
 The value in the name/value pair is an object containing:
 -	annotations - A collection of indices of the corresponding annotations for the series. Indices refer to a position in the array of annotations in the structure field.
@@ -432,7 +432,7 @@ The value in the name/value pair is an object containing:
 -	observations - Collection of observations. Presented under the series object when observations are grouped as a time series or cross-section. E.g. when calling the API with the query parameter `dimensionAtObservation=TIME_PERIOD` (default) or with `dimensionAtObservation` set to the ID of any other dimension then the dimensionAtObservation dimension.
 
 
-**dimension key**
+#### **dimension key**
 
 Dimension keys link observation values (i.e. the actual data) to the dimensions and dimension members that give them meaning. Dimension keys are the series of numbers separated by colons `:` under `data.dataSets.series` or `data.dataSet.observations`. Each dimension key is uniquely describing an observation or a series of observations by combining one member from each dimension (except the dimension at observation level if the data is presented as a series).
 
@@ -692,7 +692,7 @@ Here's the structure section for that data response:
 ```
 
 
-**observations**
+#### **observations**
 
 A collection of observations. Each observation is represented as a name/value pair in the observations object.
 
@@ -948,13 +948,13 @@ More information on the SDMX-CSV standard is available on the SDMX Technical Wor
 
 ### Format
 
-**Rows:**
+#### **Rows:**
 
 -	In an SDMX-CSV file, the first row is always the header. The header defines what each of the columns in the data file contains.  
 -	Every subsequent row in the file contains information related to one specific observation.  That is, in SDMX-CSV, each row contains just one data point and the metadata to define that data point.
 
 
-**Columns:**
+#### **Columns:**
 
 The comma separator `,` is used to separate columns. The first column defines the dataflow. Then there is one column for each dimension defined in the data structure definition (DSD). One column for data observations. And one column for each attribute defined in the DSD regardless of whether the attribute is used.
 
@@ -966,13 +966,13 @@ Column headers (first row):
 
 Column content (all rows after header):
 -	The first column always defines the dataflow. The dataflow is given in the format `agencyId:dataflowId(version)` e.g. `ABS:CPI(1.0.0)`
--	All the dimensions defined in the DSD follow, one dimension per column. Dimensions are always in the order defined by the dimensions position number in the DSD. More information on dimension ordering is available in [worked examples](#dataKey).
+-	All the dimensions defined in the DSD follow, one dimension per column. Dimensions are always in the order defined by the dimensions position number in the DSD. More information on dimension ordering is available in [worked examples](#worked-examples).
 -	The final dimension column is always Time.
 -	The next column is always data observations, defined by the `OBS_VALUE` header
 -	The final columns are attributes such as Unit of Measure
 
 Codes and Labels
-There are two options when returning data in CSV format; codes only or codes and labels. More information on how to request each is available in the [Response Format](#Response Format) section. 
+There are two options when returning data in CSV format; codes only or codes and labels. More information on how to request each is available in the [Response Format](#response-format) section. 
 -	Codes - Each column will contain only the ID Code for its contents e.g. “TOT”
 -	Codes and Labels - Each column will contain the ID Code and then the Label for it’s contents, separated by a colon : e.g. `TOT:Total`
 
@@ -1038,11 +1038,11 @@ What has this got to do with getting the data? It's important to know how the da
 
 Data queries to the API look like this: `https://api.data.abs.gov.au/data/{flowRef}/{dataKey}?{queryParameters}`. We're going to need to provide a `flowRef` so the API knows what dataflow to get data from, and a `dataKey` to filter the data we get back. We'll leave the extra parameters to the next section.
 
-**FlowRef**
+#### **FlowRef**
 
 There's a few ways we can define the `flowRef`, but we'll be using the simplest one. From the first request we made above we know `Dataflow id=“ALC”` therefore our flowRef is `ALC`
 
-**dataKey**
+#### **dataKey**
 
 The dataKey section of the URL lets us tell the ABS API that we only want a subset of the available data. We do that by providing the values we want from each `dimension`, separated by the `.` character. You can think of the dimensions as the columns and rows of the table defined by the DSD. So, this is why we need to look at the DSD our dataflow is using. Firstly, we need to know what order the dimensions appear in the DSD, because that's the order we need to put them in the `dataKey`. Secondly, we need to know what values are available, and which ones correspond to the information I want to retrieve.
 
@@ -1154,7 +1154,7 @@ We could call the API to get each of the codelists in turn using URLs like [http
                            <Ref id="CL_FREQ" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist" />
 ```
 
-**Concept**
+#### **Concept**
 
 We've worked out how to get the codelists that define the values each dimension can take, however, it’s not clear what the highlighted dimension is. To find this we need to look at the `concept` it refers to. The concept gives the dimension its meaning and its name. As codes are stored in codelists, concepts are stored in... conceptschemes (conceptlists would be too obvious). So, we want the DSD to get the dimensions and their order, the referenced concepts (via their conceptschemes) to work out what they are, and the referenced codelists (to work out what values we need).
 
