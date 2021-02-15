@@ -170,7 +170,7 @@ Response format can be specified as XML, JSON or CSV using the "accept" header. 
 ## GET Metadata
 
 Metadata is returned using the following syntax:
-> /{structureType}/{agencyId}/{structureId}/{structureVersion}? references={reference value}& detail={level of detail}
+`/{structureType}/{agencyId}/{structureId}/{structureVersion}? references={reference value}& detail={level of detail}`
 
 Only Structure Type and Agency ID are mandatory.
 
