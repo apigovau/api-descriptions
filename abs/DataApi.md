@@ -97,22 +97,22 @@ ABS Data API (Beta) offers two modes of operation:
 ## GET Data
 
 Data is returned using the following syntax:
-> /data/{dataflowIdentifier}/{dataKey}?startPeriod={date value}&endPeriod={date value}&detail={value}&dimensionAtObservation={value}
+`/data/{dataflowIdentifier}/{dataKey}?startPeriod={date value}&endPeriod={date value}&detail={value}&dimensionAtObservation={value}`
 
 ### Path Parameters
 
-**dataflowIdentifier**
+#### dataflowIdentifier
 
 A Dataflow in SDMX is the artefact used to request data. 
 
-The syntax is the identifier of the agency maintaining the dataflow, followed by the identifier of the dataflow, followed by the dataflow version, separated by commas. {agencyId},{dataflowId},{version} eg. "ABS,CPI,1.0.0".
+The syntax is the identifier of the agency maintaining the dataflow, followed by the identifier of the dataflow, followed by the dataflow version, separated by commas. `{agencyId},{dataflowId},{version}` eg. "ABS,CPI,1.0.0".
 
 Version and agencyId are optional. If agencyId is not specified it will default to “all”. If version is not specified it will default to “latest.”
 
 A list of all available dataflows can be returned using:
-> GET /dataflow/{agencyId}
+`GET /dataflow/{agencyId}`
 
-#### **dataKey**
+#### dataKey
 
 Data in the ABS Data API is structured in multi-dimensional datasets.  The combination of dimensions and dimension members allows statistical data to be uniquely identified. Such a combination is known as a data key or series key and is used to filter data in a query.
 
@@ -128,7 +128,7 @@ You can combine wildcarding and the OR operator. Eg. “M1+M2..Q”
 
 ### Query Parameters
 
-#### **startPeriod and endPeriod**
+#### startPeriod and endPeriod
 
 It is possible to define a date range for which observations should be returned by using the startPeriod and/or endPeriod parameters. The values should be given according to the syntax defined in ISO 8601 or as SDMX reporting periods. The values will vary depending on the frequency. Start and end dates are inclusive.
 
@@ -142,7 +142,7 @@ The supported formats are:
 -	**YYYY-W[01-53]** for weekly data (e.g.: 2019-W01).
 -	**YYYY-MM-DD** for daily and business data (e.g.: 2019-01-01).
 
-#### **detail**
+#### detail
 
 Using the detail parameter, it is possible to specify the desired amount of information to be returned by the web service. Possible options are:
 -	**full**: The data - series and observations - and the attributes will be returned. This is the default.
@@ -150,7 +150,7 @@ Using the detail parameter, it is possible to specify the desired amount of info
 -	**serieskeysonly**: Only the series, but without the attributes and the observations, will be returned. This can be useful for performance reasons, to return the series that match a certain query, without returning the actual data.
 -	**nodata**: The series, including the attributes, will be returned, but the observations will not be returned.
 
-#### **dimensionAtObservation**
+#### dimensionAtObservation
 
 Using the dimensionAtObservation parameter, you can define the way the data should be organised in the returned message. Possible options are: 
 -	**TIME_PERIOD**: This will return a timeseries view of the data. This is the default value.
@@ -176,7 +176,7 @@ Only Structure Type and Agency ID are mandatory.
 
 ### Path Parameters
 
-#### **Structure Type**
+#### Structure Type
 
 The type of metadata you want to retrieve. Available structures:
 -	datastructure
@@ -190,15 +190,15 @@ The type of metadata you want to retrieve. Available structures:
 -	categorisation
 -	hierarchicalcodelist
 
-#### **agencyId**
+#### agencyId
 
 The ID of the agency maintaining the structures. All structures in this API are currently maintained by the Australian Bureau of Statistics with Agency ID **ABS**.
 
-#### **structureId**
+#### structureId
 
 The ID of the structure you are requesting. “all” will return all available structures of the specified structure type. If no structure ID is given, all is the default. 
 
-**structureVersion**
+#### structureVersion
 
 The version of the structure to retrieve. Three numbers separated by points, eg. "1.0.0".
 
@@ -206,7 +206,7 @@ If no version is given then the latest version available will be returned.
 
 ### Query Parameters
 
-#### **references**
+#### references
 
 Instruct the API to return (or not) artefacts referenced by the artefact(s) you are querying. Eg. the codelists and concepts used by the data structure you are querying. You can also retrieve the artefacts that use the artefact you are querying, eg. the dataflows that use the data structure queried.
 
@@ -219,7 +219,7 @@ Instruct the API to return (or not) artefacts referenced by the artefact(s) you 
 
 In addition, a specific structure type may also be used (e.g. codelist, dataflow, etc.).
 
-#### **detail**
+#### detail
 
 Specify the desired amount of detail to be returned. For example, it is possible to instruct the web service to return only basic information about the resource, this is known in SDMX as a stub.
 
@@ -269,14 +269,14 @@ Grouping by Time is the default in the ABS Data API.
 
 ### SDMX-JSON Data Message Objects
 
-#### **message**
+#### message
 
 Message is the top level object and it contains the data as well as the structural metadata needed to interpret that data.
 -	meta - Contains information about the message
 -	data - The main part of the message containing observations and structural information 
 
 
-#### **meta**
+#### meta
 
 Provides meta-information about the message, such as when it was prepared.
 -	id - a unique identifier for this response, the ID will change with every request even if you are calling the same data. 
@@ -307,14 +307,14 @@ Provides meta-information about the message, such as when it was prepared.
 ```
 
 
-#### **data**
+#### data
 
 The main part of the message containing observations and structural information
 -	datasets - an array of dataSet objects. This is where the observations (i.e. the actual numbers) will be.
 -	structure - contains the information needed to interpret the observations, such as lists of dimensions, attributes and annotations. 
 
 
-#### **structure**
+#### structure
 
 Provides the structural metadata necessary to interpret the data. The structure section gives you the dimensions, attributes and annotations used in the message. It also describes to which level in the hierarchy these are attached.
 -	name - the name of the dataset you are viewing 
@@ -343,7 +343,7 @@ The dimensions and attributes presented in the message are also called component
 -	values - an array of component values. These are the individual dimension members or attribute values.
 
 
-#### **component value (dimension member/attribute value)**
+#### component value (dimension member/attribute value)
 
 An individual value for a given component. That is, dimension members for the given dimension or values for the given attribute.
 -	id - identifier for this dimension member or attribute value - unique within this dimension or attribute
@@ -354,7 +354,7 @@ An individual value for a given component. That is, dimension members for the gi
 -	annotations - A collection of indices of the corresponding annotations for this component value. Indices refer to a position in the array of annotations in the structure field.
 
 
-#### **annotations**
+#### annotations
 
 The annotations section contains an array of annotations that can be referenced by other SDMX objects such as structure, component, component value, dataSets, series and observations.
 
@@ -366,7 +366,7 @@ When referencing an annotation, an SDMX object will specify a number correspondi
 -	title - Non-localised title for the annotation.  In the ABS Data API, this field is generally used by LAYOUT annotations to define IDs for dimensions and dimension members that can be used to construct a default table view of the data.
 
 
-#### **dataSets**
+#### dataSets
 
 This is where the data (i.e. the observations) will be. Typically, there should only be one dataSet in the message. 
 
@@ -420,7 +420,7 @@ examples:
 ```
 
 
-#### **series**
+#### series
 
 A collection of series objects, used when the observations contained in the dataSet are presented in logical groups (time series or cross-sections). Each underlying series is represented as a name/value pair in the series object.
 
@@ -432,7 +432,7 @@ The value in the name/value pair is an object containing:
 -	observations - Collection of observations. Presented under the series object when observations are grouped as a time series or cross-section. E.g. when calling the API with the query parameter `dimensionAtObservation=TIME_PERIOD` (default) or with `dimensionAtObservation` set to the ID of any other dimension then the dimensionAtObservation dimension.
 
 
-#### **dimension key**
+#### dimension key
 
 Dimension keys link observation values (i.e. the actual data) to the dimensions and dimension members that give them meaning. Dimension keys are the series of numbers separated by colons `:` under `data.dataSets.series` or `data.dataSet.observations`. Each dimension key is uniquely describing an observation or a series of observations by combining one member from each dimension (except the dimension at observation level if the data is presented as a series).
 
@@ -477,9 +477,10 @@ In SDMX-JSON, using `dimensionAtObservation=TIME_PERIOD` (default), the observat
 ```
 
 `0:0:0` is the dimension key (the indices for the dimension values).  There are three numbers because this response has three dimensions at the series level.  Looking at the structure call below you can see that the dimension with key position 0 is MEASURE, key position 1 is REGION and key position 2 is FREQ.
+
 `[0,0]` are the indices for the attribute values.  There are two numbers because there are two attributes at the series level. These correspond with values in the attributes array similar to the dimension key.
 
-```
+```txt
 series 1: 
     0:0:0 corresponds to the first value for all three dimensions “MEASURE:1”, “REGION: 1RNSW”, “FREQ:Q”
     The attributes for this series are “UNIT_MEASURE:NUM”, “UNIT_MULT:0"
@@ -692,7 +693,7 @@ Here's the structure section for that data response:
 ```
 
 
-#### **observations**
+#### observations
 
 A collection of observations. Each observation is represented as a name/value pair in the observations object.
 
@@ -728,31 +729,31 @@ In SDMX-JSON, the observations are presented in a similar flattened way, but dim
         }
 ```
 
-```
-Observation 1: 
-	“0:0:0:0” corresponds to the four indices for “MEASURE:1”, “REGION: 1RNSW”, “FREQ:Q”, “TIME_PERIOD: 2020-Q1”
-	The value for this observation is 10210
-	The following four values are the attributes. Attributes for this observation are:
-		“UNIT_MEASURE:NUM”
-		“UNIT_MULT:0”
-		“OBS_STATUS:r”
-		“OBS_COMMENT:null”
 
-Observation 2: 
-	“0:0:0:1” corresponds to the four indices for “MEASURE:1”, “REGION: 1RNSW”, “FREQ:Q”, “TIME_PERIOD: 2020-Q2”
-	The value for this observation is 9555
-	Observation attributes: “UNIT_MEASURE:NUM”, “UNIT_MULT:0”, “OBS_STATUS:r”, “OBS_COMMENT:null”
+>Observation 1: 
+>	“0:0:0:0” corresponds to the four indices for “MEASURE:1”, “REGION: 1RNSW”, “FREQ:Q”, “TIME_PERIOD: 2020-Q1”
+>	The value for this observation is 10210
+>	The following four values are the attributes. Attributes for this observation are:
+>		“UNIT_MEASURE:NUM”
+>		“UNIT_MULT:0”
+>		“OBS_STATUS:r”
+>		“OBS_COMMENT:null”
+>
+>Observation 2: 
+>	“0:0:0:1” corresponds to the four indices for “MEASURE:1”, “REGION: 1RNSW”, “FREQ:Q”, “TIME_PERIOD: 2020-Q2”
+>	The value for this observation is 9555
+>	Observation attributes: “UNIT_MEASURE:NUM”, “UNIT_MULT:0”, “OBS_STATUS:r”, “OBS_COMMENT:null”
+>
+>Observation 3: 
+>	“0:1:0:0” corresponds to the four indices for “MEASURE:1”, “REGION: 1GSYD”, “FREQ:Q”, “TIME_PERIOD: 2020-Q1”
+>	The value for this observation is 10119
+>	Observation attributes: “UNIT_MEASURE:NUM”, “UNIT_MULT:0”, “OBS_STATUS:r”, “OBS_COMMENT:null”
+>
+>Observation 4: 
+>	“0:1:0:1” corresponds to the four indices for “MEASURE:1”, “REGION: 1GSYD”, “FREQ:Q”, “TIME_PERIOD: 2020-Q2”
+>	The value for this observation is 9493
+>	Observation attributes: “UNIT_MEASURE:NUM”, “UNIT_MULT:0”, “OBS_STATUS:r”, “OBS_COMMENT:null”
 
-Observation 3: 
-	“0:1:0:0” corresponds to the four indices for “MEASURE:1”, “REGION: 1GSYD”, “FREQ:Q”, “TIME_PERIOD: 2020-Q1”
-	The value for this observation is 10119
-	Observation attributes: “UNIT_MEASURE:NUM”, “UNIT_MULT:0”, “OBS_STATUS:r”, “OBS_COMMENT:null”
-
-Observation 4: 
-	“0:1:0:1” corresponds to the four indices for “MEASURE:1”, “REGION: 1GSYD”, “FREQ:Q”, “TIME_PERIOD: 2020-Q2”
-	The value for this observation is 9493
-	Observation attributes: “UNIT_MEASURE:NUM”, “UNIT_MULT:0”, “OBS_STATUS:r”, “OBS_COMMENT:null”
-```
 
 Here's the structure section for that data response:
 ```json
@@ -948,13 +949,13 @@ More information on the SDMX-CSV standard is available on the SDMX Technical Wor
 
 ### Format
 
-#### **Rows:**
+#### Rows:
 
 -	In an SDMX-CSV file, the first row is always the header. The header defines what each of the columns in the data file contains.  
 -	Every subsequent row in the file contains information related to one specific observation.  That is, in SDMX-CSV, each row contains just one data point and the metadata to define that data point.
 
 
-#### **Columns:**
+#### Columns:
 
 The comma separator `,` is used to separate columns. The first column defines the dataflow. Then there is one column for each dimension defined in the data structure definition (DSD). One column for data observations. And one column for each attribute defined in the DSD regardless of whether the attribute is used.
 
@@ -1005,7 +1006,7 @@ ABS:ANA_AGG(1.1.0),M1: Chain volume measures,GPM_PCA: GDP per capita,20: Seasona
 
 The ABS DataAPIs provide machine-to-machine access to ABS data via an SDMX RESTful web service. There official [SDMX wiki](https://github.com/sdmx-twg/sdmx-rest/wiki) explains the standard in detail. SDMX is complex and can be difficult to learn, this tutorial aims to take you through the basics you need to know to use the ABS Data API.  We’ll touch on a number of SDMX concepts but the focus is on constructing a data request.
 
-**Which Data?**
+#### Which Data?
 
 For this example, lets say we want to find out on average how much mid-strength beer each Australian drank in 2008. We know the ABS publishes a collection called `Apparent Consumption of Alcohol`, so that's where we'll start.
 
@@ -1038,11 +1039,11 @@ What has this got to do with getting the data? It's important to know how the da
 
 Data queries to the API look like this: `https://api.data.abs.gov.au/data/{flowRef}/{dataKey}?{queryParameters}`. We're going to need to provide a `flowRef` so the API knows what dataflow to get data from, and a `dataKey` to filter the data we get back. We'll leave the extra parameters to the next section.
 
-#### **FlowRef**
+#### FlowRef
 
 There's a few ways we can define the `flowRef`, but we'll be using the simplest one. From the first request we made above we know `Dataflow id=“ALC”` therefore our flowRef is `ALC`
 
-#### **dataKey**
+#### dataKey
 
 The dataKey section of the URL lets us tell the ABS API that we only want a subset of the available data. We do that by providing the values we want from each `dimension`, separated by the `.` character. You can think of the dimensions as the columns and rows of the table defined by the DSD. So, this is why we need to look at the DSD our dataflow is using. Firstly, we need to know what order the dimensions appear in the DSD, because that's the order we need to put them in the `dataKey`. Secondly, we need to know what values are available, and which ones correspond to the information I want to retrieve.
 
@@ -1154,7 +1155,7 @@ We could call the API to get each of the codelists in turn using URLs like [http
                            <Ref id="CL_FREQ" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist" />
 ```
 
-#### **Concept**
+#### Concept
 
 We've worked out how to get the codelists that define the values each dimension can take, however, it’s not clear what the highlighted dimension is. To find this we need to look at the `concept` it refers to. The concept gives the dimension its meaning and its name. As codes are stored in codelists, concepts are stored in... conceptschemes (conceptlists would be too obvious). So, we want the DSD to get the dimensions and their order, the referenced concepts (via their conceptschemes) to work out what they are, and the referenced codelists (to work out what values we need).
 
