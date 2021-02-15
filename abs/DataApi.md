@@ -91,7 +91,7 @@ If you are using the linked Swagger user interface to test the API, click ‘Aut
 # Using the API
 
 ABS Data API (Beta) offers two modes of operation:
--	Data retrieval, where users know the data they want to retrieve (eg. Unemployment rate, monthly trend estimate)
+-	Data retrieval, where users know the data they want to retrieve (eg. Unemployment rate, monthly trend estimate).
 -	Data discovery, where, using a metadata-driven approach, users need to discover the data exposed by the web service.
 
 ## GET Data
@@ -192,7 +192,7 @@ The type of metadata you want to retrieve. Available structures:
 
 #### agencyId
 
-The ID of the agency maintaining the structures. All structures in this API are currently maintained by the Australian Bureau of Statistics with Agency ID **ABS**.
+The ID of the agency maintaining the structures. All structures in this API are currently maintained by the Australian Bureau of Statistics with Agency ID `ABS`.
 
 #### structureId
 
@@ -261,7 +261,7 @@ The most important concepts to understand are observations, dimensions, attribut
 -	Observations are the actual data points or numbers being measured.
 -	Dimensions provide the structure of the dataset. Each observation is uniquely identified by the combination of one member from each dimension. 
 -	Attributes don’t help to identify observations, but add useful additional information to them (like the unit of measure or the number of decimals). 
--	Annotations are similar to attributes in that they provide additional information. They can be referenced by any other SDMX object (including dimensions, attributes and observations) 
+-	Annotations are similar to attributes in that they provide additional information. They can be referenced by any other SDMX object (including dimensions, attributes and observations).
 
 Observations within a dataset can be grouped in different ways to assist in reading the data.  A grouping of observations is known as a series.  The most common way to group data is by the Time dimension (aka a time series). For example, the unemployment rate for Australia is measured each month and these measures can be grouped together into a time series. Similarly, you can group a collection of observations made at the same point in time, in a "cross-section". For example the unemployment rate for each state and territory for a single month (this would be a series grouped on the Region dimension). You can also return ungrouped data as a flat list of observations.  
 
@@ -272,19 +272,19 @@ Grouping by Time is the default in the ABS Data API.
 #### message
 
 Message is the top level object and it contains the data as well as the structural metadata needed to interpret that data.
--	meta - Contains information about the message
--	data - The main part of the message containing observations and structural information 
+-	meta - Contains information about the message.
+-	data - The main part of the message containing observations and structural information.
 
 
 #### meta
 
 Provides meta-information about the message, such as when it was prepared.
 -	id - a unique identifier for this response, the ID will change with every request even if you are calling the same data. 
--	test - true/false - indicates whether the message is for test purposes or not
--	schema - URL to the schema to validate the message
--	prepared - timestamp for when the message was prepared. Time zone is the sender’s location, for the ABS Data API this is Australian Eastern Standard Time
--	content-languages - languages used in the massage
--	sender - information about the sender including an ID and name
+-	test - true/false - indicates whether the message is for test purposes or not.
+-	schema - URL to the schema to validate the message.
+-	prepared - timestamp for when the message was prepared. Time zone is the sender’s location, for the ABS Data API this is Australian Eastern Standard Time.
+-	content-languages - languages used in the massage.
+-	sender - information about the sender including an ID and name.
 
 ```json
 {
@@ -317,10 +317,10 @@ The main part of the message containing observations and structural information
 #### structure
 
 Provides the structural metadata necessary to interpret the data. The structure section gives you the dimensions, attributes and annotations used in the message. It also describes to which level in the hierarchy these are attached.
--	name - the name of the dataset you are viewing 
+-	name - the name of the dataset you are viewing.
 -	dimensions - describes the dimensions used in the message as well as the levels in the hierarchy (dataSet, series or observations) to which these dimensions are attached. 
 -	attributes - describes the attributes used in the message as well as the levels in the hierarchy (dataSet, series or observations) to which these dimensions are attached.
--	annotations - an array of annotation objects that may be referred to by any other SDMX objects or components
+-	annotations - an array of annotation objects that may be referred to by any other SDMX objects or components.
 
 
 #### dimensions, attributes
@@ -346,12 +346,12 @@ The dimensions and attributes presented in the message are also called component
 #### component value (dimension member/attribute value)
 
 An individual value for a given component. That is, dimension members for the given dimension or values for the given attribute.
--	id - identifier for this dimension member or attribute value - unique within this dimension or attribute
--	name - human-readable name for this dimension member or attribute value
--	description - if used it will provided additional information about the dimension member or attribute value
+-	id - identifier for this dimension member or attribute value - unique within this dimension or attribute.
+-	name - human-readable name for this dimension member or attribute value.
+-	description - if used it will provided additional information about the dimension member or attribute value.
 -	order - an integer signifying the original order of this value within its codelist.  You can use order to reconstruct the component value hierarchy. E.g order allows you to display dimension members in the correct order when visualising data.  Note that the order of observations and component values in their array is not significant.
 -	parent - the ID of the parent for this component value (if this value is part of a hierarchical codelist). The parent value will only be present in the message if it also has data present.
--	annotations - A collection of indices of the corresponding annotations for this component value. Indices refer to a position in the array of annotations in the structure field.
+-	annotations - a collection of indices of the corresponding annotations for this component value. Indices refer to a position in the array of annotations in the structure field.
 
 
 #### annotations
@@ -361,9 +361,9 @@ The annotations section contains an array of annotations that can be referenced 
 Annotations provide additional information about the objects that reference them.
 
 When referencing an annotation, an SDMX object will specify a number corresponding to a position in the annotations array.  `0` is the first annotation in the array, `1` is the second and so on.
--	type - Defines the use for this annotation. 
--	text - Human-readable text of the annotation.
--	title - Non-localised title for the annotation.  In the ABS Data API, this field is generally used by LAYOUT annotations to define IDs for dimensions and dimension members that can be used to construct a default table view of the data.
+-	type - defines the use for this annotation. 
+-	text - human-readable text of the annotation.
+-	title - non-localised title for the annotation.  In the ABS Data API, this field is generally used by LAYOUT annotations to define IDs for dimensions and dimension members that can be used to construct a default table view of the data.
 
 
 #### dataSets
@@ -381,12 +381,12 @@ If the dataSet is a flat list of observations, observations will be found direct
 If the dataSet represents a time series or cross section, then observations will be found under the series objects.  If this is the case, we have 3 levels in the data part of the message: the dataSet level, the series level and the observation level with only one dimension at observation level.
 
 dataSet properties are:
--	action - Describes the intention of the data transmission from the sender's side. This will generally be `Information`.
--	links - A collection of links to additional information regarding the dataSet.
--	annotations - A collection of indices of the corresponding annotations for the dataSet. Indices refer to a position in the array of annotations in the structure field.
--	attributes - A collection of indices of the corresponding values of all attributes presented at the dataSet level. Each value is an index in the values array of the respective component object within the structure.attributes.dataSet array. ABS Data API does not typically defined attributes at dataset level.  If this is present, it indicates the attribute applies to all observations.
--	series - A collection of series objects, used when the observations contained in the dataSet are presented in logical groups (time series or cross-sections). E.g. when calling the API with the query parameter "dimensionAtObservation=TIME_PERIOD" (default) or with the "dimensionAtObservation" parameter set to the ID of any other dimension. The series element is not present if data has been requested as a flat view of observations.
--	observations - A collection of observations used in cases when a dataSet is presented as a flat view of observations, e.g. when calling the API with the query parameter "dimensionAtObservation=AllDimensions".
+-	action - describes the intention of the data transmission from the sender's side. This will generally be `Information`.
+-	links - a collection of links to additional information regarding the dataSet.
+-	annotations - a collection of indices of the corresponding annotations for the dataSet. Indices refer to a position in the array of annotations in the structure field.
+-	attributes - a collection of indices of the corresponding values of all attributes presented at the dataSet level. Each value is an index in the values array of the respective component object within the structure.attributes.dataSet array. ABS Data API does not typically defined attributes at dataset level.  If this is present, it indicates the attribute applies to all observations.
+-	series - a collection of series objects, used when the observations contained in the dataSet are presented in logical groups (time series or cross-sections). E.g. when calling the API with the query parameter "dimensionAtObservation=TIME_PERIOD" (default) or with the "dimensionAtObservation" parameter set to the ID of any other dimension. The series element is not present if data has been requested as a flat view of observations.
+-	observations - a collection of observations used in cases when a dataSet is presented as a flat view of observations, e.g. when calling the API with the query parameter "dimensionAtObservation=AllDimensions".
 
 examples:
 
@@ -427,9 +427,9 @@ A collection of series objects, used when the observations contained in the data
 A series is uniquely identified through the content of the name in the name/value pair otherwise known as the dimension key. This is the indices for the corresponding values of all dimensions presented at series level separated by a colon "":". See [dimension key](#dimension-key) for more information.
 
 The value in the name/value pair is an object containing:
--	annotations - A collection of indices of the corresponding annotations for the series. Indices refer to a position in the array of annotations in the structure field.
--	attributes - Collection of indices of the corresponding values of all attributes presented at the series level. Each value is an index in the values array of the respective component object within the structure.attributes.series array. This is used for attributes that have the same value for all observations in a series. When an attribute has no value for a specific series, then null is used instead of the index.
--	observations - Collection of observations. Presented under the series object when observations are grouped as a time series or cross-section. E.g. when calling the API with the query parameter `dimensionAtObservation=TIME_PERIOD` (default) or with `dimensionAtObservation` set to the ID of any other dimension then the dimensionAtObservation dimension.
+-	annotations - a collection of indices of the corresponding annotations for the series. Indices refer to a position in the array of annotations in the structure field.
+-	attributes - collection of indices of the corresponding values of all attributes presented at the series level. Each value is an index in the values array of the respective component object within the structure.attributes.series array. This is used for attributes that have the same value for all observations in a series. When an attribute has no value for a specific series, then null is used instead of the index.
+-	observations - collection of observations. Presented under the series object when observations are grouped as a time series or cross-section. E.g. when calling the API with the query parameter `dimensionAtObservation=TIME_PERIOD` (default) or with `dimensionAtObservation` set to the ID of any other dimension then the dimensionAtObservation dimension.
 
 
 #### dimension key
@@ -961,22 +961,22 @@ More information on the SDMX-CSV standard is available on the SDMX Technical Wor
 The comma separator `,` is used to separate columns. The first column defines the dataflow. Then there is one column for each dimension defined in the data structure definition (DSD). One column for data observations. And one column for each attribute defined in the DSD regardless of whether the attribute is used.
 
 Column headers (first row):
--	The first column is the dataflow column and the header is always the term `DATAFLOW`
--	For a dimension column, it is the dimension's ID or both ID and label 
--	`OBS_VALUE` is the column for data observations
--	For an attribute column, it is the attribute's ID or both ID and label
+-	The first column is the dataflow column and the header is always the term `DATAFLOW`.
+-	For a dimension column, it is the dimension's ID or both ID and label .
+-	`OBS_VALUE` is the column for data observations.
+-	For an attribute column, it is the attribute's ID or both ID and label.
 
 Column content (all rows after header):
--	The first column always defines the dataflow. The dataflow is given in the format `agencyId:dataflowId(version)` e.g. `ABS:CPI(1.0.0)`
+-	The first column always defines the dataflow. The dataflow is given in the format `agencyId:dataflowId(version)` e.g. `ABS:CPI(1.0.0)`.
 -	All the dimensions defined in the DSD follow, one dimension per column. Dimensions are always in the order defined by the dimensions position number in the DSD. More information on dimension ordering is available in [worked examples](#worked-examples).
 -	The final dimension column is always Time.
--	The next column is always data observations, defined by the `OBS_VALUE` header
--	The final columns are attributes such as Unit of Measure
+-	The next column is always data observations, defined by the `OBS_VALUE` header.
+-	The final columns are attributes such as Unit of Measure.
 
 Codes and Labels
 There are two options when returning data in CSV format; codes only or codes and labels. More information on how to request each is available in the [Response Format](#response-format) section. 
--	Codes - Each column will contain only the ID Code for its contents e.g. “TOT”
--	Codes and Labels - Each column will contain the ID Code and then the Label for it’s contents, separated by a colon : e.g. `TOT:Total`
+-	Codes - each column will contain only the ID Code for its contents e.g. “TOT”.
+-	Codes and Labels - each column will contain the ID Code and then the Label for it’s contents, separated by a colon : e.g. `TOT:Total`.
 
 Example: 
 Codes only: https://dotstat-intra.infra.abs.gov.au/DisseminateNSIService/Rest/data/ABS,ANA_AGG,/M1.GPM_PCA+GPM.20.AUS.Q?startPeriod=2019-Q4&endPeriod=2020-Q1&format=csv 
