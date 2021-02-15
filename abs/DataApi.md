@@ -482,12 +482,13 @@ In SDMX-JSON, using `dimensionAtObservation=TIME_PERIOD` (default), the observat
 
 ```txt
 series 1: 
-    0:0:0 corresponds to the first value for all three dimensions “MEASURE:1”, “REGION: 1RNSW”, “FREQ:Q”
+    0:0:0 corresponds to the first value for all three dimensions: 
+      “MEASURE:1”, “REGION: 1RNSW”, “FREQ:Q”
     The attributes for this series are “UNIT_MEASURE:NUM”, “UNIT_MULT:0"
     There are no annotations for the series
     This series has two observations:
       Observation 1:
-          “0” corresponds to the first value of the dimension at observation-level dimension (Time) “TIME_PERIOD: 2020-Q1”
+          “0” corresponds to the first value of the dimension at observation-level “TIME_PERIOD: 2020-Q1”
           The value for this observation is 10210
           There are two attributes for this observation
           the first value for the first observation-level attribute “OBS_STATUS:r”
@@ -729,31 +730,31 @@ In SDMX-JSON, the observations are presented in a similar flattened way, but dim
         }
 ```
 
+```txt
+Observation 1: 
+	“0:0:0:0” corresponds to the four indices for “MEASURE:1”, “REGION: 1RNSW”, “FREQ:Q”, “TIME_PERIOD: 2020-Q1”
+	The value for this observation is 10210
+	The following four values are the attributes. Attributes for this observation are:
+		“UNIT_MEASURE:NUM”
+		“UNIT_MULT:0”
+		“OBS_STATUS:r”
+		“OBS_COMMENT:null”
 
->Observation 1: 
->	“0:0:0:0” corresponds to the four indices for “MEASURE:1”, “REGION: 1RNSW”, “FREQ:Q”, “TIME_PERIOD: 2020-Q1”
->	The value for this observation is 10210
->	The following four values are the attributes. Attributes for this observation are:
->		“UNIT_MEASURE:NUM”
->		“UNIT_MULT:0”
->		“OBS_STATUS:r”
->		“OBS_COMMENT:null”
->
->Observation 2: 
->	“0:0:0:1” corresponds to the four indices for “MEASURE:1”, “REGION: 1RNSW”, “FREQ:Q”, “TIME_PERIOD: 2020-Q2”
->	The value for this observation is 9555
->	Observation attributes: “UNIT_MEASURE:NUM”, “UNIT_MULT:0”, “OBS_STATUS:r”, “OBS_COMMENT:null”
->
->Observation 3: 
->	“0:1:0:0” corresponds to the four indices for “MEASURE:1”, “REGION: 1GSYD”, “FREQ:Q”, “TIME_PERIOD: 2020-Q1”
->	The value for this observation is 10119
->	Observation attributes: “UNIT_MEASURE:NUM”, “UNIT_MULT:0”, “OBS_STATUS:r”, “OBS_COMMENT:null”
->
->Observation 4: 
->	“0:1:0:1” corresponds to the four indices for “MEASURE:1”, “REGION: 1GSYD”, “FREQ:Q”, “TIME_PERIOD: 2020-Q2”
->	The value for this observation is 9493
->	Observation attributes: “UNIT_MEASURE:NUM”, “UNIT_MULT:0”, “OBS_STATUS:r”, “OBS_COMMENT:null”
+Observation 2: 
+	“0:0:0:1” corresponds to the four indices for “MEASURE:1”, “REGION: 1RNSW”, “FREQ:Q”, “TIME_PERIOD: 2020-Q2”
+	The value for this observation is 9555
+	Observation attributes: “UNIT_MEASURE:NUM”, “UNIT_MULT:0”, “OBS_STATUS:r”, “OBS_COMMENT:null”
 
+Observation 3: 
+	“0:1:0:0” corresponds to the four indices for “MEASURE:1”, “REGION: 1GSYD”, “FREQ:Q”, “TIME_PERIOD: 2020-Q1”
+	The value for this observation is 10119
+	Observation attributes: “UNIT_MEASURE:NUM”, “UNIT_MULT:0”, “OBS_STATUS:r”, “OBS_COMMENT:null”
+
+Observation 4: 
+	“0:1:0:1” corresponds to the four indices for “MEASURE:1”, “REGION: 1GSYD”, “FREQ:Q”, “TIME_PERIOD: 2020-Q2”
+	The value for this observation is 9493
+	Observation attributes: “UNIT_MEASURE:NUM”, “UNIT_MULT:0”, “OBS_STATUS:r”, “OBS_COMMENT:null”
+```
 
 Here's the structure section for that data response:
 ```json
