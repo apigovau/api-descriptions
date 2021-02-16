@@ -1005,7 +1005,7 @@ ABS:ANA_AGG(1.1.0),M1: Chain volume measures,GPM_PCA: GDP per capita,20: Seasona
 
 ### Introduction
 
-The ABS DataAPIs provide machine-to-machine access to ABS data via an SDMX RESTful web service. There official [SDMX wiki](https://github.com/sdmx-twg/sdmx-rest/wiki) explains the standard in detail. SDMX is complex and can be difficult to learn, this tutorial aims to take you through the basics you need to know to use the ABS Data API.  We’ll touch on a number of SDMX concepts but the focus is on constructing a data request.
+The ABS DataAPIs provide machine-to-machine access to ABS data via an SDMX RESTful web service. The official [SDMX wiki](https://github.com/sdmx-twg/sdmx-rest/wiki) explains the standard in detail. SDMX is complex and can be difficult to learn, this tutorial aims to take you through the basics you need to know to use the ABS Data API.  We’ll touch on a number of SDMX concepts but the focus is on constructing a data request.
 
 #### Which Data?
 
