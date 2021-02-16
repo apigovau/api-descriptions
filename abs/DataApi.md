@@ -1099,68 +1099,398 @@ This gives us the Data Structure with dimensions. The order of dimensions is giv
 
 But, we don't just need to know the order of the dimensions, but what values they take. That's defined by the codelist each dimension uses. Now, we could do the same sort of thing we did with getting to the DSD from the dataflow. Each dimension will refer to a codelist like we can see above for the codelist `CL_ALC_TYP`.
 
-We could call the API to get each of the codelists in turn using URLs like [https://api.data.abs.gov.au/codelist/ABS/CL_ALC_TYP/1.0.0](https://api.data.abs.gov.au/codelist/ABS/CL_ALC_TYP/1.0.0) (we included the version number 1.0.0 here). But that means we have to make a call for every dimension. Let’s save time and use our first query parameter when getting structure information: `references`. This parameter lets us retrieve not just the specified structure from the API, but some of the structures it references as well. We're going to specify the value `codelist`, telling the API that we want to retrieve any codelists referred to by our DSD: [https://api.data.abs.gov.au/datastructure/ABS/ALC?references=codelist](https://api.data.abs.gov.au/datastructure/ABS/ALC?references=codelist):
+We could call the API to get each of the codelists in turn using URLs like [https://api.data.abs.gov.au/codelist/ABS/CL_ALC_TYP/1.0.0](https://api.data.abs.gov.au/codelist/ABS/CL_ALC_TYP/1.0.0) (we included the version number 1.0.0 here). But that means we have to make a call for every dimension. Let’s save time and use our first query parameter when getting structure information: `references`. This parameter lets us retrieve not just the specified structure from the API, but some of the structures it references as well. We're going to specify the value `codelist`, telling the API that we want to retrieve any codelists referred to by our DSD: [https://api.data.abs.gov.au/datastructure/ABS/ALC?references=codelist](https://api.data.abs.gov.au/datastructure/ABS/ALC?references=codelist): (Some codelists removed for brevity.)
+
 
 ```xml
-<structure:DataStructures>
-         <structure:DataStructure id="ALC" agencyID="ABS" version="1.0.0" isFinal="true">
-            <common:Name xml:lang="en">Apparent Consumption of Alcohol, Australia</common:Name>
-            <structure:DataStructureComponents>
-               <structure:DimensionList id="DimensionDescriptor">
-                  <structure:Dimension id="TYP" position="1">
-                     <structure:ConceptIdentity>
-                        <Ref id="TYP" maintainableParentID="CS_ALC" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept" />
-                     </structure:ConceptIdentity>
-                     <structure:LocalRepresentation>
-                        <structure:Enumeration>
-                           <Ref id="CL_ALC_TYP" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist" />
-                        </structure:Enumeration>
-                     </structure:LocalRepresentation>
-                  </structure:Dimension>
-                  <structure:Dimension id="MEA" position="2">
-                     <structure:ConceptIdentity>
-                        <Ref id="MEASURE" maintainableParentID="CS_COMMON" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept" />
-                     </structure:ConceptIdentity>
-                     <structure:LocalRepresentation>
-                        <structure:Enumeration>
-                           <Ref id="CL_ALC_MEASURE" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist" />
-                        </structure:Enumeration>
-                     </structure:LocalRepresentation>
-                  </structure:Dimension>
-                  <structure:Dimension id="BEVT" position="3">
-                     <structure:ConceptIdentity>
-                        <Ref id="BEVT" maintainableParentID="CS_ALC" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept" />
-                     </structure:ConceptIdentity>
-                     <structure:LocalRepresentation>
-                        <structure:Enumeration>
-                           <Ref id="CL_ALC_BEVT" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist" />
-                        </structure:Enumeration>
-                     </structure:LocalRepresentation>
-                  </structure:Dimension>
-                  <structure:Dimension id="SUB" position="4">
-                     <structure:ConceptIdentity>
-                        <Ref id="SUB" maintainableParentID="CS_ALC" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept" />
-                     </structure:ConceptIdentity>
-                     <structure:LocalRepresentation>
-                        <structure:Enumeration>
-                           <Ref id="CL_ALC_SUB" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist" />
-                        </structure:Enumeration>
-                     </structure:LocalRepresentation>
-                  </structure:Dimension>
-                  <structure:Dimension id="FREQUENCY" position="5">
-                     <structure:ConceptIdentity>
-                        <Ref id="FREQ" maintainableParentID="CS_COMMON" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept" />
-                     </structure:ConceptIdentity>
-                     <structure:LocalRepresentation>
-                        <structure:Enumeration>
-                           <Ref id="CL_FREQ" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist" />
+<message:Structures>
+   <structure:Codelists>
+      <structure:Codelist id="CL_ALC_BEVT" agencyID="ABS" version="1.0.0" isFinal="true">
+         <common:Name xml:lang="en">Beverage Type</common:Name>
+         <structure:Code id="1">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">1</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Beer</common:Name>
+         </structure:Code>
+         <structure:Code id="2">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">2</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Wine</common:Name>
+         </structure:Code>
+         <structure:Code id="3">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">3</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Spirits and RTDs</common:Name>
+         </structure:Code>
+         <structure:Code id="4">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">4</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Total all beverages</common:Name>
+         </structure:Code>
+         <structure:Code id="5">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">5</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Cider</common:Name>
+         </structure:Code>
+      </structure:Codelist>
+      <structure:Codelist id="CL_ALC_MEASURE" agencyID="ABS" version="1.0.0" isFinal="true">
+         <common:Name xml:lang="en">Measure</common:Name>
+         <structure:Code id="1">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">1</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Total apparent consumption ('000 litres)</common:Name>
+         </structure:Code>
+         <structure:Code id="2">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">2</common:AnnotationText>
+               </common:Annotation>
+               <common:Annotation>
+                  <common:AnnotationType>FURTHER_INFORMATION</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">Litres per person aged 15 years and over</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Per capita apparent consumption (litres)</common:Name>
+         </structure:Code>
+      </structure:Codelist>
+      <structure:Codelist id="CL_ALC_SUB" agencyID="ABS" version="1.0.0" isFinal="true">
+         <common:Name xml:lang="en">Beverage Subtype/Strength</common:Name>
+         <structure:Code id="1">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">1</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Low alcohol beer</common:Name>
+         </structure:Code>
+         <structure:Code id="2">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">2</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Other alcohol beer</common:Name>
+         </structure:Code>
+         <structure:Code id="3">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">3</common:AnnotationText>
+               </common:Annotation>
+               <common:Annotation>
+                  <common:AnnotationType>FURTHER_INFORMATION</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">Alcohol volume of low strength beer is greater than 1.15% and less than or equal to 3.0%</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Low strength beer</common:Name>
+         </structure:Code>
+         <structure:Code id="4">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">4</common:AnnotationText>
+               </common:Annotation>
+               <common:Annotation>
+                  <common:AnnotationType>FURTHER_INFORMATION</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">Alcohol volume of mid strength beer is greater than 3.0% and less than or equal to 3.5%</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Mid strength beer</common:Name>
+         </structure:Code>
+         <structure:Code id="5">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">5</common:AnnotationText>
+               </common:Annotation>
+               <common:Annotation>
+                  <common:AnnotationType>FURTHER_INFORMATION</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">Alcohol volume of full strength beer is greater than 3.5%</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Full strength beer</common:Name>
+         </structure:Code>
+         <structure:Code id="6">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">6</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Total beer</common:Name>
+         </structure:Code>
+         <structure:Code id="7">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">7</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">White table wine</common:Name>
+         </structure:Code>
+         <structure:Code id="8">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">8</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Red table wine</common:Name>
+         </structure:Code>
+         <structure:Code id="9">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">9</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Other wines</common:Name>
+         </structure:Code>
+         <structure:Code id="10">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">10</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Total wine</common:Name>
+         </structure:Code>
+         <structure:Code id="11">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">11</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Spirits</common:Name>
+         </structure:Code>
+         <structure:Code id="12">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">12</common:AnnotationText>
+               </common:Annotation>
+               <common:Annotation>
+                  <common:AnnotationType>FURTHER_INFORMATION</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">Ready to Drink (Pre-mixed) Beverages</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">RTDs</common:Name>
+         </structure:Code>
+         <structure:Code id="13">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">13</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Total spirits and RTDs</common:Name>
+         </structure:Code>
+         <structure:Code id="15">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">14</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Cider</common:Name>
+         </structure:Code>
+         <structure:Code id="14">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">15</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Total all beverages</common:Name>
+         </structure:Code>
+      </structure:Codelist>
+      <structure:Codelist id="CL_ALC_TYP" agencyID="ABS" version="1.0.0" isFinal="true">
+         <common:Name xml:lang="en">Type of Volume</common:Name>
+         <structure:Code id="1">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">1</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Volume of pure alcohol</common:Name>
+         </structure:Code>
+         <structure:Code id="2">
+            <common:Annotations>
+               <common:Annotation>
+                  <common:AnnotationType>ORDER</common:AnnotationType>
+                  <common:AnnotationText xml:lang="en">2</common:AnnotationText>
+               </common:Annotation>
+            </common:Annotations>
+            <common:Name xml:lang="en">Volume of beverage</common:Name>
+         </structure:Code>
+      </structure:Codelist>
+   </structure:Codelists>
+   <structure:DataStructures>
+      <structure:DataStructure id="ALC" agencyID="ABS" version="1.0.0" isFinal="true">
+         <common:Name xml:lang="en">Apparent Consumption of Alcohol, Australia</common:Name>
+         <structure:DataStructureComponents>
+            <structure:DimensionList id="DimensionDescriptor">
+               <structure:Dimension id="TYP" position="1">
+                  <structure:ConceptIdentity>
+                     <Ref id="TYP" maintainableParentID="CS_ALC" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept"/>
+                  </structure:ConceptIdentity>
+                  <structure:LocalRepresentation>
+                     <structure:Enumeration>
+                        <Ref id="CL_ALC_TYP" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist"/>
+                     </structure:Enumeration>
+                  </structure:LocalRepresentation>
+               </structure:Dimension>
+               <structure:Dimension id="MEA" position="2">
+                  <structure:ConceptIdentity>
+                     <Ref id="MEASURE" maintainableParentID="CS_COMMON" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept"/>
+                  </structure:ConceptIdentity>
+                  <structure:LocalRepresentation>
+                     <structure:Enumeration>
+                        <Ref id="CL_ALC_MEASURE" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist"/>
+                     </structure:Enumeration>
+                  </structure:LocalRepresentation>
+               </structure:Dimension>
+               <structure:Dimension id="BEVT" position="3">
+                  <structure:ConceptIdentity>
+                     <Ref id="BEVT" maintainableParentID="CS_ALC" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept"/>
+                  </structure:ConceptIdentity>
+                  <structure:LocalRepresentation>
+                     <structure:Enumeration>
+                        <Ref id="CL_ALC_BEVT" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist"/>
+                     </structure:Enumeration>
+                  </structure:LocalRepresentation>
+               </structure:Dimension>
+               <structure:Dimension id="SUB" position="4">
+                  <structure:ConceptIdentity>
+                     <Ref id="SUB" maintainableParentID="CS_ALC" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept"/>
+                  </structure:ConceptIdentity>
+                  <structure:LocalRepresentation>
+                     <structure:Enumeration>
+                        <Ref id="CL_ALC_SUB" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist"/>
+                     </structure:Enumeration>
+                  </structure:LocalRepresentation>
+               </structure:Dimension>
+               <structure:Dimension id="FREQUENCY" position="5">
+                  <structure:ConceptIdentity>
+                     <Ref id="FREQ" maintainableParentID="CS_COMMON" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept"/>
+                  </structure:ConceptIdentity>
+                  <structure:LocalRepresentation>
+                     <structure:Enumeration>
+                        <Ref id="CL_FREQ" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist"/>
+                     </structure:Enumeration>
+                  </structure:LocalRepresentation>
+               </structure:Dimension>
+               <structure:TimeDimension id="TIME_PERIOD" position="6">
+                  <structure:ConceptIdentity>
+                     <Ref id="TIME_PERIOD" maintainableParentID="CS_COMMON" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept"/>
+                  </structure:ConceptIdentity>
+                  <structure:LocalRepresentation>
+                     <structure:TextFormat textType="ObservationalTimePeriod"/>
+                  </structure:LocalRepresentation>
+               </structure:TimeDimension>
+            </structure:DimensionList>
+            <structure:AttributeList id="AttributeDescriptor">
+               <structure:Attribute id="UNIT_MEASURE" assignmentStatus="Conditional">
+                  <structure:ConceptIdentity>
+                     <Ref id="UNIT_MEASURE" maintainableParentID="CS_ATTRIBUTE" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept"/>
+                  </structure:ConceptIdentity>
+                  <structure:LocalRepresentation>
+                     <structure:Enumeration>
+                        <Ref id="CL_UNIT_MEASURE" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist"/>
+                     </structure:Enumeration>
+                  </structure:LocalRepresentation>
+                  <structure:AttributeRelationship>
+                     <structure:None/>
+                  </structure:AttributeRelationship>
+               </structure:Attribute>
+               <structure:Attribute id="UNIT_MULT" assignmentStatus="Conditional">
+                  <structure:ConceptIdentity>
+                     <Ref id="UNIT_MULT" maintainableParentID="CS_ATTRIBUTE" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept"/>
+                  </structure:ConceptIdentity>
+                  <structure:LocalRepresentation>
+                     <structure:Enumeration>
+                        <Ref id="CL_UNIT_MULT" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist"/>
+                     </structure:Enumeration>
+                  </structure:LocalRepresentation>
+                  <structure:AttributeRelationship>
+                     <structure:Dimension>
+                        <Ref id="MEA"/>
+                     </structure:Dimension>
+                  </structure:AttributeRelationship>
+               </structure:Attribute>
+               <structure:Attribute id="OBS_STATUS" assignmentStatus="Conditional">
+                  <structure:ConceptIdentity>
+                     <Ref id="OBS_STATUS" maintainableParentID="CS_ATTRIBUTE" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept"/>
+                  </structure:ConceptIdentity>
+                  <structure:LocalRepresentation>
+                     <structure:Enumeration>
+                        <Ref id="CL_OBS_STATUS" version="1.0.0" agencyID="ABS" package="codelist" class="Codelist"/>
+                     </structure:Enumeration>
+                  </structure:LocalRepresentation>
+                  <structure:AttributeRelationship>
+                     <structure:PrimaryMeasure>
+                        <Ref id="OBS_VALUE"/>
+                     </structure:PrimaryMeasure>
+                  </structure:AttributeRelationship>
+               </structure:Attribute>
+               <structure:Attribute id="OBS_COMMENT" assignmentStatus="Conditional">
+                  <structure:ConceptIdentity>
+                     <Ref id="OBS_COMMENT" maintainableParentID="CS_ATTRIBUTE" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept"/>
+                  </structure:ConceptIdentity>
+                  <structure:AttributeRelationship>
+                     <structure:PrimaryMeasure>
+                        <Ref id="OBS_VALUE"/>
+                     </structure:PrimaryMeasure>
+                  </structure:AttributeRelationship>
+               </structure:Attribute>
+            </structure:AttributeList>
+            <structure:MeasureList id="MeasureDescriptor">
+               <structure:PrimaryMeasure id="OBS_VALUE">
+                  <structure:ConceptIdentity>
+                     <Ref id="OBS_VALUE" maintainableParentID="CS_COMMON" maintainableParentVersion="1.0.0" agencyID="ABS" package="conceptscheme" class="Concept"/>
+                  </structure:ConceptIdentity>
+               </structure:PrimaryMeasure>
+            </structure:MeasureList>
+         </structure:DataStructureComponents>
+      </structure:DataStructure>
+   </structure:DataStructures>
+</message:Structures>
 ```
 
 #### Concept
 
-We've worked out how to get the codelists that define the values each dimension can take, however, it’s not clear what the highlighted dimension is. To find this we need to look at the `concept` it refers to. The concept gives the dimension its meaning and its name. As codes are stored in codelists, concepts are stored in... conceptschemes (conceptlists would be too obvious). So, we want the DSD to get the dimensions and their order, the referenced concepts (via their conceptschemes) to work out what they are, and the referenced codelists (to work out what values we need).
+We've worked out how to get the codelists that define the values each dimension can take.  However, it may not always be clear from these values what the dimensions actually are. To find this we need to look at the `concept` it refers to. The concept gives the dimension its meaning and its name. As codes are stored in codelists, concepts are stored in... conceptschemes (conceptlists would be too obvious). So, we want the DSD to get the dimensions and their order, the referenced concepts (via their conceptschemes) to work out what they are, and the referenced codelists (to work out what values we need).
 
-We're going back to the `references` query parameter. Instead of `codelist`, we’ll use the value `children` to tell the API we want all directly-referenced structures (which will include both the codelists, and the conceptschemes). Finally, we have all the information we need. Our API call is [https://api.data.abs.gov.au/datastructure/ABS/ALC?references=children](https://api.data.abs.gov.au/datastructure/ABS/ALC?references=children) (Some codelists and conceptschemes we're not using removed for brevity):
+We're going back to the `references` query parameter again. We could use `conceptscheme`, but instead we’ll use the value `children` to tell the API we want all directly-referenced structures (which will include both the codelists, and the conceptschemes). Finally, we have all the information we need. Our API call is [https://api.data.abs.gov.au/datastructure/ABS/ALC?references=children](https://api.data.abs.gov.au/datastructure/ABS/ALC?references=children) (Some codelists and conceptschemes we're not using removed for brevity):
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
