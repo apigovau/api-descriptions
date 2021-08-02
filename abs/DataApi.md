@@ -2146,18 +2146,37 @@ Leaving the series key blank will default to all.
 
 # Troubleshooting
 
-### Request returned too much data
+### Request returned too much data or took too long
 
-The ABS data API has a maximum size allowed for all data responses of 10MB with compression applied. This translates to around 90MB of data once it is uncompressed. Requests that exceed this limit will return a 500 error.
+ABS Data APIs have an API Gateway with the following limitations:
+- Maximum response time is **30 seconds**.  Exceeding this results in a 504 error and the message "Endpoint request timed out".
+- Maximum response size is **10MB**.  Exceeding this can result in a 504 or 500 error. 
 
-To call the API with compression enabled, ensure your headers include “Accept-Encoding: gzip,deflate”
+**Solutions**
 
-If you are exceeding the maximum size even with compression, then you will need to break your data request into several, smaller requests. The simplest way to do this is using the startPeriod and endPeriod query parameters to subset data on time range. Or use dataKey to subset data on dimension members (e.g. request all data for each region separately).  For information on this see: GET Data, Path Parameters, dataKey.
+Make sure you are calling the API with compression enabled, ensure your headers include “Accept-Encoding: gzip, deflate, br”.  Compression reduces API response size significantly.  However, vary large data requests may still exceed the API gateway limit even with compression.
+
+Wait for a minute or two and then repeat your request.  Requests that take longer than 30 seconds to serve are still cached by our system.  A subsequent, identical request may return a response. 
+
+If you are still recieving an error after trying the above solutions, then you will need to break your data request into several smaller requests. The simplest way to do this is using the startPeriod and endPeriod query parameters to subset data on time range. Or use dataKey to subset data on dimension members (e.g. request all data for each region separately).  For information on this see: GET Data, Path Parameters, dataKey.
 
 ### Request URL too long
 
-The maximum allowed length of the ‘dataKey’ section of the URL is 5,000 characters. Requests that exceed this limit will return a 400 error. 
+The maximum allowed length of the ‘dataKey’ section of the URL is **5,000 characters**. Requests that exceed this limit will return a 400 error. 
 
-To work around the maximum allowed URL length, we recommend using wildcards to request all members of a given dimension rather than specifying the code for each dimension member individually in the URL. For information on this see: GET Data, Path Parameters, dataKey.
+**Solution**
 
+To work around the maximum allowed URL length, we recommend using wildcards to request all members of a given dimension rather than specifying the code for each dimension member individually in the URL. Simply remove all codes for a given dimension to request all members for that dimension.  For more information on this see: GET Data, Path Parameters, dataKey.
+
+### Structures are not available
+
+A request that used to return data or structures now returns a 404 error and a message that requested structures could not be found. 
+
+**Solution**
+
+The most likely cause for this error is an incorrect version number.  All structures in the ABS Data API have a version number e.g. "1.0.0".  If a structure has been updated to a new version and the old version removed, any requests to the old version will result in a 404 error and a message that the requested structures could not be found.  Old versions of data structures are removed to prevent access to out of date data.
+
+Data structures and Dataflows may be updated to new versions occasionally.  We recommend not including version numbers in your data or data structure API requests to ensure you always return the latest version. 
+
+Removing the version number from your requests will default to requesting the latest available version. E.g: https://api.data.abs.gov.au/datastructure/ABS/JV/ or https://api.data.abs.gov.au/data/ABS,JV,/all
 
