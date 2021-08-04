@@ -245,10 +245,6 @@ SDMX is an initiative that aims to foster common standards and guidelines for th
 
 Data is in the ABS Data API is available in SDMX-ML (XML), SDMX-JSON and SDMX-CSV.
 
-## SDMX-ML (XML)
-
-Coming soon.
-
 
 ## SDMX-JSON
 
