@@ -2146,7 +2146,7 @@ Leaving the series key blank will default to all.
 [ABS Data API Swagger file](https://api.gov.au/github?path=abs~DataAPI.openapi.yaml) (right click and save as). 
 This swagger file can be imported into open source API testing tools such as SoapUI or Postman.
 
-ABS Data API Web Application Description Language (WSDL) file: [https://api.data.abs.gov.au/application.wadl](https://api.data.abs.gov.au/application.wadl)
+ABS Data API Web Application Description Language (WADL) file: [https://api.data.abs.gov.au/application.wadl](https://api.data.abs.gov.au/application.wadl)
 
 
 ## SDMX API plugins
