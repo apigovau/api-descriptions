@@ -2146,18 +2146,18 @@ Leaving the series key blank will default to all.
 [ABS Data API Swagger file](https://api.gov.au/github?path=abs~DataAPI.openapi.yaml) (right click and save as). 
 This swagger file can be imported into open source API testing tools such as SoapUI or Postman.
 
-ABS Data API Web Application Description Language (WSDL) file: https://api.data.abs.gov.au/application.wadl
+ABS Data API Web Application Description Language (WSDL) file: [https://api.data.abs.gov.au/application.wadl](https://api.data.abs.gov.au/application.wadl)
 
 
 ## SDMX API plugins
 
 ### R
 Read RESTful SDMX API into R:
-- GitHub Resources: https://github.com/mdequeljoe/readsdmx
-- R SDMX Tutorial: https://cran.r-project.org/web/packages/rsdmx/vignettes/quickstart.html 
+- GitHub Resources: [https://github.com/mdequeljoe/readsdmx](https://github.com/mdequeljoe/readsdmx)
+- R SDMX Tutorial: [https://cran.r-project.org/web/packages/rsdmx/vignettes/quickstart.html](https://cran.r-project.org/web/packages/rsdmx/vignettes/quickstart.html)
 
 ### Python
-SDMX for Python data ecosystem: https://pandasdmx.readthedocs.io/en/v1.0/
+SDMX for Python data ecosystem: [https://pandasdmx.readthedocs.io/en/v1.0](https://pandasdmx.readthedocs.io/en/v1.0/)
 
 
 # Troubleshooting
