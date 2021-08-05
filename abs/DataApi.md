@@ -2148,6 +2148,14 @@ This swagger file can be imported into open source API testing tools such as Soa
 
 ABS Data API Web Application Description Language (WADL) file: [https://api.data.abs.gov.au/application.wadl](https://api.data.abs.gov.au/application.wadl)
 
+## Example files
+
+### Available Dataflows
+[ABS Data API list of available dataflows](https://github.com/apigovau/api-descriptions/raw/master/abs/files/ABS%20Data%20API%20(Beta)%20-%20All%20Dataflows%2004.08.2021.xlsx). 
+Excel file containing a list of available dataflows and example data API calls. 
+
+This list was current as of 06/08/2021.  We recommend calling https://api.data.abs.gov.au/dataflow/all?detail=allstubs for the most up to date list.
+
 
 ## SDMX API plugins
 
