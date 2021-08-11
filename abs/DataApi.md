@@ -155,7 +155,7 @@ Using the detail parameter, it is possible to specify the desired amount of info
 #### dimensionAtObservation
 
 Using the dimensionAtObservation parameter, you can define the way the data should be organised in the returned message. Possible options are: 
--	**TIME_PERIOD**: This will return a timeseries view of the data. This is the default value.
+-	**TIME_PERIOD**: This will return a time series view of the data. This is the default value.
 -	**AllDimensions**: This will return a flat view of the data, with no groupings.
 -	**The ID of any other dimension**: This will return a cross-sectional view of the data.
 
@@ -163,7 +163,7 @@ Using the dimensionAtObservation parameter, you can define the way the data shou
 
 Response format can be specified as XML, JSON or CSV using the "accept" header.  XML is the default.
 - XML (default): application/xml
-- Structure specific XML (good for timeseries): application/vnd.sdmx.structurespecificdata+xml
+- Structure specific XML (good for time series): application/vnd.sdmx.structurespecificdata+xml
 - JSON: application/vnd.sdmx.data+json
 - CSV: text/csv
 - CSV: application/vnd.sdmx.data+csv
