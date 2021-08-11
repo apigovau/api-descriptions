@@ -54,11 +54,13 @@ You can specify the response in the API URL using the "format" query parameter. 
 
 You can also use the "accept" header to specify the response format as a header when you make an API call. 
 E.g: "accept: application/xml"
-- XML: "application/xml"
-- Structure specific XML: "application/vnd.sdmx.structurespecificdata+xml"
-- JSON: "accept: application/vnd.sdmx.data+json"
-- CSV: "accept: application/vnd.sdmx.data+csv"
-- CSV with labels for codelists: "accept: application/vnd.sdmx.data+csv;labels=both"
+- XML: application/xml
+- Structure specific XML: application/vnd.sdmx.structurespecificdata+xml
+- JSON: application/vnd.sdmx.data+json
+- CSV: text/csv
+- CSV: application/vnd.sdmx.data+csv
+- CSV with labels for codelists: application/vnd.sdmx.data+csv;labels=both
+- CSV file with labels for codelists: application/vnd.sdmx.data+csv;file=true;labels=both
 
 
 
@@ -160,11 +162,13 @@ Using the dimensionAtObservation parameter, you can define the way the data shou
 ### Format
 
 Response format can be specified as XML, JSON or CSV using the "accept" header.  XML is the default.
-- accept: application/xml
-- application/vnd.sdmx.structurespecificdata+xml
-- accept: application/json
-- accept: text/csv
-- accept: application/vnd.sdmx.data+csv;labels=both
+- XML (default): application/xml
+- Structure specific XML (good for timeseries): application/vnd.sdmx.structurespecificdata+xml
+- JSON: application/vnd.sdmx.data+json
+- CSV: text/csv
+- CSV: application/vnd.sdmx.data+csv
+- CSV with labels for codelists: application/vnd.sdmx.data+csv;labels=both
+- CSV file with labels for codelists: application/vnd.sdmx.data+csv;file=true;labels=both
 
 
 ## GET Metadata
