@@ -2155,9 +2155,11 @@ ABS Data API Web Application Description Language (WADL) file: [https://api.data
 ## Example files
 
 ### Available Dataflows
-[ABS Data API list of available dataflows](
-https://github.com/apigovau/api-descriptions/raw/master/abs/files/ABS%20Data%20API%20-%20All%20Dataflows%2020.08.2021.xlsx). 
-Excel file containing a list of available dataflows and example data API calls. This list was current as of 20/08/2021.  We recommend calling https://api.data.abs.gov.au/dataflow/all?detail=allstubs for the most up to date list.
+**ABS Data API list of available dataflows** Files containing a list of available dataflows and example data API calls. This list was current as of 20/08/2021.  We recommend calling https://api.data.abs.gov.au/dataflow/all?detail=allstubs for the most up to date list.
+- [Excel](
+https://github.com/apigovau/api-descriptions/raw/master/abs/files/ABS%20Data%20API%20-%20All%20Dataflows%2020.08.2021.xlsx) 
+- [CSV](
+https://github.com/apigovau/api-descriptions/raw/master/abs/files/ABS%20Data%20API%20-%20All%20Dataflows%2020.08.2021.csv)
 
 
 ## SDMX API plugins
