@@ -2172,6 +2172,16 @@ Read RESTful SDMX API into R:
 ### Python
 SDMX for Python data ecosystem: [https://pandasdmx.readthedocs.io/en/v1.0](https://pandasdmx.readthedocs.io/en/v1.0/)
 
+### Power BI
+Microsoft Power BI includes the SIS-CC SDMX connector. This connector will allow you to pull data automatically from the ABS Data API into Power BI for further analysis. 
+To connect to SDMX Web Service data:
+1.	In Power BI, Select **Get Data** from the Home ribbon in Power BI Desktop. Select **All** from the categories on the left, and then select **SIS-CC SDMX**. Then select **Connect**.
+2.	Enter your API call and select the display format (codes, labels, or codes and labels). Then click OK.
+3.	Select **Load** to import the data into Power BI or **Transform Data** to edit the query in Power Query Editor where you can refine the query before loading into Power BI.
+
+More information: [https://docs.microsoft.com/en-us/power-query/connectors/sisccsdmx](https://docs.microsoft.com/en-us/power-query/connectors/sisccsdmx)
+
+
 
 # Troubleshooting
 
