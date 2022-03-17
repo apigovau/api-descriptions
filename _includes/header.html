@@ -18,6 +18,33 @@
 
   <link href="{{ '/assets/css/designsystem.css' | relative_url}}" rel="stylesheet">
   <link href="{{ '/assets/css/custom.css?v=2' | relative_url}}" rel="stylesheet">
+  <link href="{{ '/assets/css/common.css?v=2' | relative_url}}" rel="stylesheet">
+
+  <style>
+    .Journey {
+      display: inline-block;
+      height: 1400px;
+      position: relative;
+      user-select: none;
+      max-width:100%;
+      max-height: 150vw;
+    }
+
+    .Journey-canvas {
+      display: block;
+      height: 100%;
+      visibility: hidden;
+    }
+
+    .Journey-svg {
+      height: 100%;
+      left: 0;
+      position: absolute;
+
+      top: 0;
+      width: 100%;
+    }
+  </style>
 
 </head>
 
@@ -34,7 +61,7 @@
     <div class="container main_header">
       <h1 class="au-header-heading">
           <img alt="Australian Government logo" class="hero_logo au-responsive-media-img" src="{{ '/assets/img/header-logo-agov.png' | relative_url}}">
-          <a href="{{ '/' | relative_url}}">api.gov.au</a>
+          <a href="https://{{ site.CNAME}}">api.gov.au</a>
           <span class="badge">BETA</span>
       </h1>
     </div>
@@ -50,12 +77,10 @@
                 <div class="au-main-nav__menu-inner">
                   <div class="au-main-nav__focus-trap-top"></div>
                   <ul class="au-link-list">
-                    <li class="{% if page.layout == 'about' %}active{% endif %}"><a href="{{ '/about' | relative_url}}">About Us</a></li>
-                    <li><a href="{{ '/apis' | relative_url}}">API Catalogue</a></li>
-                   <!-- <li><a href="{{ '/definitions' | relative_url}}">Data Definitions</a></li> -->
-                    <li class="{% if page.layout == 'page' %}active{% elsif page.layout == 'index' %}active{% endif %}"><a href="{{ '/' | relative_url}}">Standards</a></li>
-                    <li><a href="https://{{ site.playbook}}">Playbook</a></li>
-                    <li class="{% if page.layout == 'community' %}active{% endif %}"><a href="{{ '/community' | relative_url}}">Community</a></li>
+                    <li ><a href="https://{{ site.CNAME}}/about">About Us</a></li>
+                    <li ><a href="https://{{ site.CNAME}}">Standards</a></li>
+                    <li class="active"><a href="https://{{ site.playbook}}">Playbook</a></li>
+                    <li ><a href="https://{{ site.CNAME}}/community">Community</a></li>
                     <li class="githubLink"><a href="https://github.com/apigovau/api-gov-au" target="_blank">Github</a>
                     </li>
                   </ul>
@@ -67,8 +92,6 @@
         </div>
       </div>
     </nav>
-
-
   </header>
   <main class="container">
     
