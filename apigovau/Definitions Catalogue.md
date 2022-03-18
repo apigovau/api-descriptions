@@ -149,7 +149,7 @@ Result pages look like this:
 ```
 
 
-## The web version
+<!-- ## The web version
 
 
 There is a [web version of the catalogue](https://api.gov.au/definitions) that mirrors the functionality of this API.
@@ -161,7 +161,7 @@ For example:
 - [http://api.gov.au/definitions/definition/other/de55](http://api.gov.au/definitions/definition/other/de55) <-- the web version
 - [http://api.gov.au/definitions/api/definition/other/de55](http://api.gov.au/definitions/api/definition/other/de55) <-- the api version
 
-So to get an easy head start on what you can do wit the API, head over to the web version and take a look.
+So to get an easy head start on what you can do wit the API, head over to the web version and take a look. -->
 
 
 ## Rate Limiting
