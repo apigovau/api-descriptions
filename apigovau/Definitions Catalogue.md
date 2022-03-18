@@ -364,7 +364,7 @@ The details of a definition can be found at this URL:
 
 The `domain` URL parameter specifies a domain the definition is in.
 
-More information about domains, and the values the parameter takes is [here](Domains).
+More information about domains, and the values the parameter takes is [here](#domains).
 
 The `id` URL parameter specifies the unique id, within a domain, for the definition.
 
