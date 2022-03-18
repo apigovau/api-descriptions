@@ -269,7 +269,7 @@ http://api.gov.au/definitions/api/search?query=motor+vehicle&domain=fs&page=1&si
 
 ## Synonyms
 
-We will include any results that have [synonyms](http://api.gov.au/definitions/synonyms) from your search query.
+We will include any results that have synonyms from your search query.
 
 We want to make the synonym list better, so contact us if you have updates.
 
@@ -279,17 +279,17 @@ The base URL for the browse service is:
 
 >http://api.gov.au/definitions/api/browse
 
-In addition to the [paging](Using+the+API#Paging) parameters, search uses the following:
+In addition to the [paging](#paging) parameters, search uses the following:
 
 The `domain` query parameter specifies a domain to browse within.
 
 If you don't provide a value for `domain`, the definitons from all domains will be browsed.
 
-More information about domains, and the values the parameter takes is [here](Domains).
+More information about domains, and the values the parameter takes is [here](#domains).
 
 ## Examples
 
-Here is an example result from the browse service, including the [HATEOS](Getting+Started#HATEOS) wrapper:
+Here is an example result from the browse service, including the [HATEOS](#hateos) wrapper:
 
 >http://api.gov.au/definitions/api/browse?domain=fi&page=1&size=1
 
