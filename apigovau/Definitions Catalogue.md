@@ -178,15 +178,15 @@ The search service is available at this URL
 
 >https://api.gov.au/definitions/api/search
 
-In addition to the [paging](Using+the+API#Paging) parameters, search uses the following:
+In addition to the [paging](#Paging) parameters, search uses the following:
 
 The `query` query parameter specifies the query to search on.
 
 The `domain` query parameter specifies a domain to restrict the search to. If you don't provide a value for `domain`, the definitons from all domains will be searched.
 
-More information about domains, and the values the parameter takes is [here](Domains).
+More information about domains, and the values the parameter takes is [here](#Domains).
 
-The response from the search, including the [HATEOS](Getting+Started#HATEOS) wrapper, service looks like this:
+The response from the search, including the HATEOS wrapper, service looks like this:
 
 > http://api.gov.au/definitions/api/search?query=de10
 
