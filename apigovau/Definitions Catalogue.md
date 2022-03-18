@@ -54,16 +54,16 @@ Responses are in JSON
 ## OpenAPI specification
 
 The OpenAPI / Swagger documentation for the API is [here](https://swagger.io/tools/swagger-ui/)
-<!--
-Here's an automatically generated class diagram of the service.
+
+<!-- Here's an automatically generated class diagram of the service.
 
 [![Generated class diagram from swagger](https://api.gov.au/graph/swagger.svg?url=https://api.gov.au/definitions/swagger.json)](https://api.gov.au/graph/swagger.svg?url=https://api.gov.au/definitions/swagger.json)
 
 Click for bigger version
 
 
-We try to keep it up to date, but the documentation you're reading is you're best bet and understanding the API.
--->
+We try to keep it up to date, but the documentation you're reading is you're best bet and understanding the API. -->
+
 
 ## Authentication
 
