@@ -1,7 +1,10 @@
-swagger: '2.0'
+openapi: 3.0.3
 info:
-  version: 0.1.0
+  version: '1.0.0'
   title: ABS Indicator API (Beta)
+  termsOfService: 'https://www.abs.gov.au/about/data-services/application-programming-interfaces-apis/indicator-api/terms-use' 
+  contact:
+    email: api.data@abs.gov.au
   description: |
     <div>
       <h2>About the Beta</h2>
@@ -13,100 +16,156 @@ info:
     <div>
       <h2>Key Information</h2>
       <p>The ABS Indicator REST API allows you to request headline economic statistics from the ABS including Australia's key economic indicators.</p>
-      <p>All datasets are small, containing only the most in-demand data, so responses are returned as fast as possible.If you wish to request full economic datasets you can do so using the ABS Data API (Beta).</p>
+      <p>All datasets are small, containing only the most in-demand data, so responses are returned as fast as possible. If you wish to request full economic datasets you can do so using the ABS Data API (Beta).</p>
       <p>The ABS Indicator API uses the Statistical Data and Metadata Exchange (SDMX) standard.  Data is available in XML, JSON and CSV.</p>
     </div>
- 
-  contact:
-    email: api.data@abs.gov.au
-host: indicator.data.abs.gov.au
-schemes:
- - https
-securityDefinitions:
-   APIKeyHeader:
-     type: apiKey
-     in: header
-     name: x-api-key
-security:
-  - APIKeyHeader: []
+    <div>
+      <h2>Request Access</h2>
+      <p>An API Key is required to access the ABS Indicator API. </p>
+      <p>To request access, please carefully read the <a href="https://www.abs.gov.au/about/data-services/application-programming-interfaces-apis/indicator-api/terms-use" target="_blank">ABS Indicator API Terms of Use</a>. Then complete an <a href="https://www.abs.gov.au/about/data-services/application-programming-interfaces-apis/indicator-api#request-access" target="_blank">ABS Indicator API Request Form</a> indicating you accept the Terms of Use and email it to <a href="mailto:api.data@abs.gov.au">api.data@abs.gov.au</a>.</p>
+      </div>
+externalDocs:
+  description: ABS Indicator API User Guide
+  url: 'https://www.abs.gov.au/about/data-services/application-programming-interfaces-apis/indicator-api'
+tags:
+  - name: Get Data
+    description: Get statistical data
+  - name: Get Metadata
+    description: Get statistical metadata
+servers:
+  - url: 'https://indicator.api.abs.gov.au'
 paths:
-  '/data/{dataflowIdentifier}':
-    get:
+  '/v1/data/{dataflowIdentifier}/{format}': 
+    get: 
       tags:
         - Get Data
-      summary: Get data from a dataflow in XML, JSON or CSV.
-      operationId: GetData
-      consumes: []
-      produces:
-        - application/json
-        - application/xml
-        - application/vnd.sdmx.structurespecificdata+xml
-        - text/csv
-        - application/vnd.sdmx.data+csv;labels=both
+      summary: Request data for specifed dataflow
+      operationId: getUserByName
       parameters:
         - name: dataflowIdentifier
           in: path
-          description: |
-            The dataflow identifier (eg. CPI). A list of all available dataflows and their IDs can be returned using the *GET /{dataflows}* operation.           
+          description: Identifier for dataflow to request data from (e.g. CPI_H). A list of all available dataflows and their IDs can be returned using the *GET /v1/{dataflows}* operation.
           required: true
-          type: string
+          schema:
+            type: string
+        - name: format
+          in: path
+          description: Format to return data in (json, csv, xml).
+          required: true
+          schema:
+            $ref: '#/components/schemas/dataFormat'
+      security:
+        - x-api-key: []
       responses:
         '200':
           description: Success
-          schema:
-            type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/file'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/file'
+        '400':
+          description: Invalid request or format.
         '403':
-          description: Forbidden. Authorization information is missing or invalid.
+          description: Forbidden.
         '404':
-          description: Not Found. Could not find the dataflow requested
-        '500':
-          description: Unexpected error.
-  '/dataflows':
+          description: Not found. Dataflow identifier may be incorrect or not available.
+        '429':
+          description: Too many requests. You have exceeded the rate limit allowed for your API key. Please reduce your request rate.
+  '/v1/metadata/{dataflowIdentifier}/{format}':
     get:
       tags:
         - Get Metadata
-      summary: Get all available dataflows.
-      description: Return a list of all dataflows available and information about them including name and ID. 
-      operationId: GetDataflows
-      consumes: []
-      produces:
-        - application/vnd.sdmx.structure+json
-        - application/xml
-      responses:
-       '200':
-         description: Success
-         schema:
-           type: string
-       '403':
-          description: Forbidden. Authorization information is missing or invalid.
-       '500':
-          description: Unexpected error.
-  '/metadata/{dataflowIdentifier}':
-    get:
-      tags:
-        - Get Metadata
-      summary: 'Get structural metadate for a specified dataflow'
-      operationId: GetMetadata
-      consumes: []
-      produces:
-        - application/vnd.sdmx.structure+json
-        - application/xml
+      summary: Request metadata for specifed dataflow
       parameters:
         - name: dataflowIdentifier
           in: path
-          description: |
-            The dataflow identifier (eg. CPI). A list of all available dataflows and their IDs can be returned using the *GET /{dataflows}* operation.           
+          description: Identifier for dataflow to request metadata from (e.g. CPI_H). A list of all available dataflows and their IDs can be returned using the *GET /v1/{dataflows}* operation.
           required: true
-          type: string
+          schema:
+            type: string
+        - name: format
+          in: path
+          description: Format to return metadata in (json, xml).
+          required: true
+          schema:
+            $ref: '#/components/schemas/metadataFormat'
+      security:
+        - x-api-key: []
       responses:
         '200':
           description: Success
-          schema:
-            type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/file'
+        '400':
+          description: Invalid request or format.
         '403':
-          description: Forbidden. Authorization information is missing or invalid.
+          description: Forbidden.
         '404':
-          description: Not Found. Could not find the dataflow requested
-        '500':
-          description: Unexpected error.
-definitions: {}
+          description: Not found. Dataflow identifier may be incorrect or not available.
+        '429':
+          description: Too many requests. You have exceeded the rate limit allowed for your API key. Please reduce your request rate.
+  '/v1/dataflows/{format}':
+    get:
+      tags:
+        - Get Metadata
+      summary: Request all dataflows available
+      parameters:
+        - name: format
+          in: path
+          description: Format to return metadata in (json, xml).
+          required: true
+          schema:
+            $ref: '#/components/schemas/metadataFormat'
+      security:
+        - x-api-key: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/file'
+        '400':
+          description: Invalid request or format.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found. Dataflow identifier may be incorrect or not available.
+        '429':
+          description: Too many requests. You have exceeded the rate limit allowed for your API key. Please reduce your request rate.
+components:
+  schemas:
+    dataFormat:
+      type: string
+      enum:
+        - json
+        - csv
+        - xml
+    metadataFormat:
+      type: string
+      enum:
+        - json
+        - xml
+    file:
+      title: File
+      type: string
+      format: binary
+  securitySchemes:
+    x-api-key:
+      type: apiKey 
+      in: header 
+      name: x-api-key 
