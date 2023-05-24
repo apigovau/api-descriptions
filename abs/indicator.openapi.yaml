@@ -44,10 +44,10 @@ paths:
       parameters:
         - name: dataflowIdentifier
           in: path
-          description: Identifier for dataflow to request data from (e.g. CPI_H). A list of all available dataflows and their IDs can be returned using the *GET /v1/{dataflows}* operation.
+          description: Identifier for dataflow to request data from.
           required: true
           schema:
-            type: string
+            $ref: '#/components/schemas/dataflowId'
         - name: format
           in: path
           description: Format to return data in (json, csv, xml).
@@ -85,42 +85,10 @@ paths:
       parameters:
         - name: dataflowIdentifier
           in: path
-          description: Identifier for dataflow to request metadata from (e.g. CPI_H). A list of all available dataflows and their IDs can be returned using the *GET /v1/{dataflows}* operation.
+          description: Identifier for dataflow to request metadata from.
           required: true
           schema:
-            type: string
-        - name: format
-          in: path
-          description: Format to return metadata in (json, xml).
-          required: true
-          schema:
-            $ref: '#/components/schemas/metadataFormat'
-      security:
-        - x-api-key: []
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/file'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/file'
-        '400':
-          description: Invalid request or format.
-        '403':
-          description: Forbidden.
-        '404':
-          description: Not found. Dataflow identifier may be incorrect or not available.
-        '429':
-          description: Too many requests. You have exceeded the rate limit allowed for your API key. Please reduce your request rate.
-  '/v1/dataflows/{format}':
-    get:
-      tags:
-        - Get Metadata
-      summary: Request all dataflows available
-      parameters:
+            $ref: '#/components/schemas/dataflowId'
         - name: format
           in: path
           description: Format to return metadata in (json, xml).
@@ -149,6 +117,31 @@ paths:
           description: Too many requests. You have exceeded the rate limit allowed for your API key. Please reduce your request rate.
 components:
   schemas:
+    dataflowId:
+      type: string
+      enum:
+        - AWE_H
+        - BA_GCCSA_H
+        - BOP_H
+        - BUILDING_ACTIVITY_H
+        - CAPEX_H
+        - CAPEX_EST_H
+        - CPI_H
+        - CPI_M_H
+        - CWD_H
+        - GDPE_H
+        - HSI_M_H
+        - ITGS_H
+        - ITPI_EXP_H
+        - ITPI_IMP_H
+        - JV_H
+        - LEND_H
+        - LF_H
+        - MBTI_H
+        - PPI_FD_H
+        - QBIS_H
+        - RT_H
+        - WPI_H
     dataFormat:
       type: string
       enum:
