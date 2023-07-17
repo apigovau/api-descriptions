@@ -8,10 +8,10 @@ info:
   description: |
     <div>
       <h2>About the Beta</h2>
-      <p>This beta release allows you to preview ABS Indicator API before it is released in its final form and gives you the opportunity to provide the ABS with feedback as we work to enhance the service.</p>
-      <p>We will continue to load new datasets and update existing datasets as soon as possible after embargo on the data is lifted. However, <b>data in this beta release may not necessarily be the most up to date.</b> For the most up to date information visit the <a href="https://www.abs.gov.au/">ABS website</a>.</p>
-      <p>Availability of the ABS Indicator API (Beta) is not guaranteed. The service may be subject to change.</p>
-      <p>You can contact the ABS APIs team at <a href="mailto:api.data@abs.gov.au">api.data@abs.gov.au</a>. Please let us know any feedback or issues you have. You can request to join our register of interest to be notified of any changes in the API.  The <a href="https://www.abs.gov.au/websitedbs/D3310114.nsf/Home/Privacy?opendocument#from-banner=GB" target="_blank">ABS privacy policy</a> outlines how the ABS handles any personal information that you provide to us.</p>
+      <p>This beta release allows you to preview ABS Indicator API before it is released in its final form and gives you the opportunity to provide the ABS with feedback as we work to enhance the service.  ABS Indicator API (Beta) should not be relied upon as a production system until the ABS formally advises that the service is Live and ready for production use, expected to be later in 2023.</p>
+      <p>Headline economic statistics are currently published in ABS Indicator API (Beta) at 11:31am AEST on release day.  Starting on August 1, 2023, we will commence releasing statistics in this service as soon as embargo is lifted at 11:30am AEST.</p>
+      <p>Availability of the ABS Indicator API (Beta) is not guaranteed. For the most up to date information visit the <a href="https://www.abs.gov.au/">ABS website</a>.</p>
+      <p>If you have feedback or questions, please contact the ABS APIs team at <a href="mailto:api.data@abs.gov.au">api.data@abs.gov.au</a>. You can request to join our register of interest to be notified of any changes in the API. The <a href="https://www.abs.gov.au/websitedbs/D3310114.nsf/Home/Privacy?opendocument#from-banner=GB" target="_blank">ABS privacy policy</a> outlines how the ABS handles any personal information that you provide to us.</p>
     </div>
     <div>
       <h2>Key Information</h2>
