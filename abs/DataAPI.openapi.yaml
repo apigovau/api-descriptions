@@ -50,7 +50,7 @@ paths:
         - name: dataflowIdentifier
           in: path
           description: |
-            The dataflow identifier in {agencyId},{dataflowId},{version} format (eg. "ABS,CPI,1.0.0"). A list of all available dataflows can be returned using the *GET /{structureType}/{agencyId}* operation.
+            The dataflow identifier in {agencyId},{dataflowId},{version} format (eg. "ABS,CPI,1.1.0"). A list of all available dataflows can be returned using the *GET /{structureType}/{agencyId}* operation.
               
             Version and agencyId are optional.  If agencyId is not specified it will default to “all”. If version is not specified it will default to “latest.”
           required: true
@@ -58,14 +58,12 @@ paths:
         - name: dataKey
           in: path
           description: |
-            The key to filter data on, in dot-delimited format. Use "all" if you don't want to filter.
+            The key to filter data on, in dot-delimited format. Use "all" if you want to request all data (this may result in a large request).
               
             The combination of dimensions allows statistical data to be uniquely identified. This combination is called a data key and is used to filter data in a query. For example, a dataset for property prices could be uniquely identified by *measure* (eg. Mean property price - code M1), *region* (eg. Australia – code AUS) and *frequency* (eg. quarterly - code Q). The key is one or more value for each dimension, separated by a dot (dimensions must be in the order they are defined in the data structure). The series key for the example above is: “M1.AUS.Q”
                 
             Wildcarding is supported by omitting all codes for the dimension to be wildcarded. Eg. to get data for all regions: “M1..Q”. The OR operator is supported using the + character. Eg. “M1+M2.AUS.Q”. You can combine wildcarding and the OR operator. Eg. “M1+M2..Q”. “all” will always return al available data.
-              
-            The maximum allowed length of this parameter is currently 260 characters. Requests that exceed this limit will return a 400 error. We intend to increase this limit soon.
-            
+                      
             The dataKey parameter is case sensitive.
           required: true
           type: string
