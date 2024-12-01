@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 0.1.0
+  version: 0.2.0
   title: ABS Data API (Beta)
   description: |
     <div>
@@ -17,21 +17,14 @@ info:
     </div>
   contact:
     email: api.data@abs.gov.au
-host: api.data.abs.gov.au
+host: data.api.abs.gov.au
 externalDocs:
   description: SDMX RESTful web services specification on GitHub 
   url: https://github.com/sdmx-twg/sdmx-rest/wiki
 schemes:
  - https
-securityDefinitions:
-   APIKeyHeader:
-     type: apiKey
-     in: header
-     name: x-api-key
-security:
-  - APIKeyHeader: []
 paths:
-  '/data/{dataflowIdentifier}/{dataKey}':
+  '/rest/data/{dataflowIdentifier}/{dataKey}':
     get:
       tags:
         - Get Data
@@ -50,19 +43,29 @@ paths:
         - name: dataflowIdentifier
           in: path
           description: |
-            The dataflow identifier in {agencyId},{dataflowId},{version} format (eg. "ABS,CPI,1.0.0"). A list of all available dataflows can be returned using the *GET /{structureType}/{agencyId}* operation.
-              
-            Version and agencyId are optional.  If agencyId is not specified it will default to “all”. If version is not specified it will default to “latest.”
+            The dataflow identifier in {agencyId},{dataflowId},{version} format (eg. "ABS,CPI,1.1.0"). 
+            A list of all available dataflows can be returned using the *GET /rest/{structureType}/{agencyId}* operation.
+            agencyId and version are optional. If agencyId is not specified it will default to “all”. If version is not specified it will default to “latest”.
           required: true
           type: string
         - name: dataKey
           in: path
           description: |
-            The key to filter data on, in dot-delimited format. Use "all" if you don't want to filter.
-              
-            The combination of dimensions allows statistical data to be uniquely identified. This combination is called a data key and is used to filter data in a query. For example, a dataset for property prices could be uniquely identified by *measure* (eg. Mean property price - code M1), *region* (eg. Australia – code AUS) and *frequency* (eg. quarterly - code Q). The key is one or more value for each dimension, separated by a dot (dimensions must be in the order they are defined in the data structure). The series key for the example above is: “M1.AUS.Q”
-                
-            Wildcarding is supported by omitting all codes for the dimension to be wildcarded. Eg. to get data for all regions: “M1..Q”. The OR operator is supported using the + character. Eg. “M1+M2.AUS.Q”. You can combine wildcarding and the OR operator. Eg. “M1+M2..Q”. “all” will always return al available data.
+            The key to query data returned.
+            Use "all" if you would like to return all data for the dataset.
+            To filter data returned provide a data key, containing one or more coded values for each dimension, separated by a dot (dimensions must be in the order they are defined in the data structure). 
+            For example “1.115486.10.50.Q”  filters for a single Consumer Price Index series
+            
+            * *Measure*: 1 - Index Number
+            * *Index*: 115486 - Health
+            * *Adjustment Type*: 10 - Original
+            * *Region*: 50 - Weighted average of eight capital cities
+            * *Frequency*: Q - Quarterly
+            
+            
+            Wildcarding is supported by omitting values for the dimension. Eg. data for all regions: “1.115486.10..Q”.
+            The OR operator is supported using the + character. Eg. data for 2 series “1.131188+131189.10.50.Q”. 
+            You can combine wildcarding and the OR operator. Eg. “1.131188+131189.10..Q".
               
             The maximum allowed length of this parameter is currently 260 characters. Requests that exceed this limit will return a 400 error. We intend to increase this limit soon.
             
@@ -89,10 +92,28 @@ paths:
             *	year-month: yyyy-01 - yyyy-12
           required: false
           type: string
+        - name: format
+          in: query
+          description: |
+            The format of data to return. Refer to the accept header if omitted. 
+            
+            *	**csvwithlabels**: csv format with columns for dimension codes and labels.
+            *	**csvfile**: csv format with columns for dimension codes.
+            *	**jsondata**: sdmx json format equivalent to application/vnd.sdmx.data+json
+            *	**genericdata**: sdmx xml format equivalent to application/vnd.sdmx.genericdata+xml
+            *	**structurespecificdata**: sdmx xml format equivalent to application/vnd.sdmx.structurespecificdata+xml
+          required: false
+          type: string
+          enum:
+            - csvfilewithlabels
+            - csvfile
+            - jsondata
+            - genericdata
+            - structurespecificdata
         - name: detail
           in: query
           description: |
-            What detail of data to return.
+            The detail of data to return.
             
             *	**full**: The data - series and observations - and the attributes will be returned. This is the default.
             *	**dataonly**: The attributes will be excluded from the returned message.
@@ -109,6 +130,7 @@ paths:
           in: query
           description: |
             Define the way data should be organized in the returned message. Possible options are:
+            
             * **TIME_PERIOD**: This will return a timeseries view of the data. This is the default value.
             * **AllDimensions**: This will return a flat view of the data, with no groupings.
             * **The ID of any other dimension**: This will return a cross-sectional view of the data.
@@ -123,7 +145,7 @@ paths:
           description: No records found
           schema:
             type: string
-  '/{structureType}/{agencyId}':
+  '/rest/{structureType}/{agencyId}':
     get:
       tags:
         - Get Metadata
@@ -181,7 +203,7 @@ paths:
           description: Success
           schema:
             type: string
-  '/{structureType}/{agencyId}/{structureId}':
+  '/rest/{structureType}/{agencyId}/{structureId}':
     get:
       tags:
         - Get Metadata
@@ -276,7 +298,7 @@ paths:
           description: Success
           schema:
             type: string
-  '/{structureType}/{agencyId}/{structureId}/{structureVersion}':
+  '/rest/{structureType}/{agencyId}/{structureId}/{structureVersion}':
     get:
       tags:
         - Get Metadata
