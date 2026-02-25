@@ -127,7 +127,7 @@ components:
         - CAPEX_H
         - CAPEX_EST_H
         - CPI_H
-        - CPI_M_H
+        - CPI_Q_H
         - CWD_H
         - GDPE_H
         - HSI_M_H
@@ -162,3 +162,4 @@ components:
       type: apiKey 
       in: header 
       name: x-api-key 
+
